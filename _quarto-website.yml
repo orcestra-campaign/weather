@@ -1,0 +1,8 @@
+project:
+  output-dir: public
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true

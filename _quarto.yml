@@ -1,0 +1,14 @@
+project:
+  type: website
+  output-dir: public
+
+website:
+  title: "Weather"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+  sidebar:
+    search: true
+    contents: briefings/*.qmd

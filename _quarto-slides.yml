@@ -1,0 +1,6 @@
+project:
+  output-dir: public/slides
+
+format:
+  revealjs: default
+

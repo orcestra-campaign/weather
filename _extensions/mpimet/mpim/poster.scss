@@ -1,0 +1,278 @@
+/*-- scss:defaults --*/
+
+$theme: "poster";
+
+//
+// Color system
+//
+
+$white:    #fff;
+$black:    #000;
+$green:   #006c66;
+$darkgreen: #005555;
+$darkgrey: #777777;
+$grey: #a7a7a8;
+$lightgrey: #eeeeee;
+$lightgreen: #c6d325;
+$darkblue: #29485d;
+$lightblue: #00b1ea;
+$orange: #ef7c00;
+
+$primary:       $green;
+$secondary:     $grey;
+$success:       $green;
+$info:          $lightgreen;
+$warning:       $orange;
+$danger:        $orange;
+$light:         $lightgrey;
+$dark:          $darkgrey;
+
+$min-contrast-ratio:   2.75;
+
+$A0_long: 1189mm;
+$A1_long: 841mm;
+$A2_long: 594mm;
+$A3_long: 420mm;
+$A4_long: 297mm;
+$A5_long: 210mm;
+$A6_long: 148mm;
+$A7_long: 105mm;
+$A8_long: 74mm;
+
+$pagewidth: $A0_long;
+$pageheight: $A1_long;
+
+// Body
+
+$body-color:    $white;
+
+// Fonts
+
+$headings-color:         $green;
+
+
+/*-- scss:rules --*/
+
+
+// Variables
+
+// Typography
+
+.text-secondary {
+  color: $grey !important;
+}
+
+.bg-primary,
+.bg-success,
+.bg-info,
+.bg-warning,
+.bg-danger,
+.bg-dark {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $white;
+  }
+}
+
+// Indicators
+
+.badge {
+  &.bg-secondary,
+  &.bg-light {
+    color: $dark;
+  }
+}
+
+
+
+@page {
+    margin: 0;
+    size: $pagewidth $pageheight;
+ }
+body {
+    margin: 0;
+    color: $black;
+    font-family: "Roboto";
+}
+div.page-layout-custom { // a page
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+  width: $pagewidth;
+  height: $pageheight;
+  padding: 20mm 35mm 16mm 35mm;
+
+  border-width: 25mm 0 16mm 0;
+  border-color: $green;
+  border-style: solid;
+
+  display: grid;
+  gap: 20mm;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-auto-rows: min-content;
+}
+
+header#MPIM-header {
+    grid-column: 1 / 7;
+    display: flex;
+    justify-content: space-between;
+    .text {
+        width: 507.2mm;
+        border-bottom-color: $black;
+        border-bottom-style: solid;
+        border-bottom-width: 2pt;
+    }
+
+    .logo {
+        width: 237mm;
+        height: auto;
+    }
+
+    h1 {
+        font-size: 72pt;
+    }
+
+    .authors, .affiliations, .departments {
+        :nth-last-child(n + 3)::after {
+            content: ", ";
+        }
+        :nth-last-child(2)::after {
+            content: " and ";
+        }
+    }
+    .author {
+        color: $grey;
+        font-size: 27pt;
+    }
+    .affiliation-number {
+        font-variant-position: super;
+    }
+
+    .affiliation {
+        color: $grey;
+        font-size: 18pt;
+    }
+    .department {
+        color: $black;
+        font-size: 24pt;
+        font-weight: bold;
+    }
+    .mpim-sab {
+        margin: 12.5mm 0;
+        display: flex;
+        gap: 20mm;
+        color: $black;
+        font-size: 24pt;
+        font-weight: bold;
+        > div {
+            flex-basis: 0;
+            flex-grow: 1;
+        }
+    }
+}
+
+.col1 { grid-column: span 1 }
+.col2 { grid-column: span 2 }
+.col3 { grid-column: span 3 }
+.col4 { grid-column: span 4 }
+.col5 { grid-column: span 5 }
+.col6 { grid-column: span 6 }
+
+.row1 { grid-row: span 1 }
+.row2 { grid-row: span 2 }
+.row3 { grid-row: span 3 }
+.row4 { grid-row: span 4 }
+.row5 { grid-row: span 5 }
+.row6 { grid-row: span 6 }
+
+section.level1 {
+    h1 {
+        font-size: 42pt;
+    }
+    font-size: 26pt;
+    line-height: 39pt;
+    li {
+        margin-left: 3mm;
+    }
+}
+section.level2 {
+    h2 {
+        font-size: 40pt;
+    }
+    font-size: 24pt;
+    line-height: 37pt;
+    li {
+        margin-left: 3mm;
+    }
+}
+
+section {
+    h1, h2 {
+        margin: 5mm 0 3mm 0;
+        padding: 0;
+        border: none;
+        text-transform: uppercase;
+    }
+}
+
+section.note {
+    background-color: color-mix(in srgb, $green 20%, $white);
+    padding: 10mm;
+}
+
+section.highlight {
+    background-color: $darkblue;
+    padding: 10mm;
+    color: $white;
+    h1, h2 {
+      color: $white;
+    }
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.img-fluid {
+    width: 100%;
+}
+
+.img-dark {
+    background-color: #151515;
+}
+
+figcaption {
+    margin-top: 7mm;
+    font-size: 18pt;
+    line-height: 24pt;
+    color: $black !important;
+}
+
+.references {
+    font-size: 14pt;
+    line-height: 19pt;
+}
+
+/** For screen preview **/
+@media screen {
+  body { background: #e0e0e0 }
+  div.page-layout-custom {
+    background: white;
+    box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+    margin: 5mm;
+  }
+}
+
+#quarto-content {
+    display: block;
+    margin: 0;
+    padding: 0;
+}

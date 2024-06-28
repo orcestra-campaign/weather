@@ -1,0 +1,46 @@
+<header id="MPIM-header">
+    <div class="text">
+        $if(title)$<h1 class="title">$title$</h1>$endif$
+        $if(subtitle)$
+        <p class="subtitle">$subtitle$</p>
+        $endif$
+        $if(by-author)$
+        <div class="authors">
+            $for(by-author)$
+            <span class="author">$by-author.name.literal$$if(multiple-affiliations)$<span class="affiliation-number">$for(by-author.affiliations)$$it.number$$sep$,$endfor$$if(by-author.email)$,*$endif$</span>$endif$</span>
+            $endfor$
+        </div>
+        $endif$
+        $if(by-affiliation)$
+        <div class="affiliations">
+            $for(by-affiliation)$
+            <span class="affiliation">$if(multiple-affiliations)$<span class="affiliation-number">$it.number$</span>$endif$$it.name$</span>
+            $endfor$
+        </div>
+        $endif$
+        $if(has-departments)$
+        <div class="departments">
+            $for(by-affiliation)$
+            $if(it.department)$
+            <span class="department">$if(multiple-affiliations)$<span class="affiliation-number">$it.number$</span>$endif$$it.department$</span>
+            $endif$
+            $endfor$
+        </div>
+        $endif$
+        $if(mpim-sab)$
+        <div class="mpim-sab">
+            <div class="sab-department">
+                <div>DEPARTMENT</div>
+                <div>$mpim-sab.department$</div>
+            </div>
+            <div class="sab-workinggroup">
+                <div>WORKING GROUP</div>
+                <div>$mpim-sab.workinggroup$</div>
+            </div>
+        </div>
+        $endif$
+
+    </div>
+    <div class="logo">
+    </div>
+</header>

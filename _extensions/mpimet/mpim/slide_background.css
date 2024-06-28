@@ -1,0 +1,17 @@
+.reveal .quarto-title-block .slide-background-content {
+    background-image: url("titles/green.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.reveal .level1 .slide-background-content {
+    background-image: url("slide_separators/dots.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.no-background .slide-background-content {
+    display: none;
+}

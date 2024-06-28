@@ -2,5 +2,7 @@ project:
   output-dir: public/slides
 
 format:
-  revealjs: default
-
+  mpim-revealjs:
+      width: 1245
+      height: 700
+      navigation-mode: linear

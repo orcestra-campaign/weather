@@ -3,4 +3,5 @@
 /.quarto/
 
 _variables.yml
-briefings/output
+briefings/
+plots/

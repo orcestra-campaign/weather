@@ -1,8 +1,41 @@
 ---
 title: "2024-05-23"
+jupyter: python3
+execute:
+  cache: true
 ---
 
+```{python}
+#| echo: false
+import intake
+import easygems.healpix as egh
+import cmocean
+import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
+
+
+date = "2024-04-01"
+```
+
 # Synoptic situation
+## IFS
+
+```{python}
+#| echo: false
+#| warning: false
+cat = intake.open_catalog("https://tcodata.mpimet.mpg.de/internal.yaml")
+ds = cat.HIFS(refdate=date).to_dask().pipe(egh.attach_coords)
+fig, ax = plt.subplots(figsize=(10, 6), subplot_kw={"projection": ccrs.PlateCarree()})
+ax.set_extent([-65, -5, -10, 25])
+ax.coastlines(lw=0.8)
+egh.healpix_show(
+    ds["tcwv"].sel(time="2024-04-05 12:00"),
+    method="linear",
+    cmap="cmo.dense",
+    vmin=25,
+    vmax=65,
+)
+```
 ## Pressure, ITCZ, tropical waves, wind profiles (National Hurricane Center)
 ![](https://pad.gwdg.de/uploads/12938491-993c-433d-aa5b-0cffec3c1dd8.png)
 

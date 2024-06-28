@@ -5,13 +5,13 @@
 for website view:
 
 ```
-quarto preview --no-navigate --profie website
+quarto preview --no-navigate --profile website
 ```
 
 for slide view:
 
 ```
-quarto preview --no-navigate --profie slides
+quarto preview --no-navigate --profile slides
 ```
 
 ## Build Everything

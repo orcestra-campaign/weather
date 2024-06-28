@@ -1,0 +1,135 @@
+---
+title: "PERCUSION Weather briefing"
+subtitle: "{{< var date.yyyy-mm-dd >}}"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< var plots.external.NHC_sfc_analysis >}})
+
+## Current satellite images
+::: {layout-ncol=2}
+![Visible image]({{< var plots.external.current_satellite_image_vis >}})
+
+![Infrared image]({{< var plots.external.current_satellite_image_IR >}})
+:::
+
+# Forecast for the next 4 days
+## Surface pressure and horizontal wind
+::: {layout-nrow=2}
+![init+000h]({{< var plots.internal.sfc_pres_wind.initplus000h >}})
+
+![init+012h]({{< var plots.internal.sfc_pres_wind.initplus012h >}})
+
+![init+036h]({{< var plots.internal.sfc_pres_wind.initplus036h >}})
+
+![init+060h]({{< var plots.internal.sfc_pres_wind.initplus060h >}})
+
+![init+084h]({{< var plots.internal.sfc_pres_wind.initplus084h >}})
+
+![init+108h]({{< var plots.internal.sfc_pres_wind.initplus108h >}})
+:::
+
+## IWV with ITCZ edges and center
+::: {layout-nrow=2}
+![init+000h]({{< var plots.internal.IWV_ITCZ_edges.initplus000h >}})
+
+![init+012h]({{< var plots.internal.IWV_ITCZ_edges.initplus012h >}})
+
+![init+036h]({{< var plots.internal.IWV_ITCZ_edges.initplus036h >}})
+
+![init+060h]({{< var plots.internal.IWV_ITCZ_edges.initplus060h >}})
+
+![init+084h]({{< var plots.internal.IWV_ITCZ_edges.initplus084h >}})
+
+![init+108h]({{< var plots.internal.IWV_ITCZ_edges.initplus108h >}})
+:::
+
+## Cloud cover
+::: {layout-nrow=2}
+![init+000h]({{< var plots.internal.cloud_cover.initplus000h >}})
+
+![init+012h]({{< var plots.internal.cloud_cover.initplus012h >}})
+
+![init+036h]({{< var plots.internal.cloud_cover.initplus036h >}})
+
+![init+060h]({{< var plots.internal.cloud_cover.initplus060h >}})
+
+![init+084h]({{< var plots.internal.cloud_cover.initplus084h >}})
+
+![init+108h]({{< var plots.internal.cloud_cover.initplus108h >}})
+:::
+
+## Deep convection
+::: {layout-nrow=2}
+![init+000h]({{< var plots.internal.sim_IR_image.initplus000h >}})
+
+![init+012h]({{< var plots.internal.sim_IR_image.initplus012h >}})
+
+![init+036h]({{< var plots.internal.sim_IR_image.initplus036h >}})
+
+![init+060h]({{< var plots.internal.sim_IR_image.initplus060h >}})
+
+![init+084h]({{< var plots.internal.sim_IR_image.initplus084h >}})
+
+![init+108h]({{< var plots.internal.sim_IR_image.initplus108h >}})
+:::
+
+## Saharan dust outbreaks
+::: {layout-nrow=2}
+![init+000h]({{< var plots.internal.dust_tau550.initplus000h >}})
+
+![init+012h]({{< var plots.internal.dust_tau550.initplus012h >}})
+
+![init+036h]({{< var plots.internal.dust_tau550.initplus036h >}})
+
+![init+060h]({{< var plots.internal.dust_tau550.initplus060h >}})
+
+![init+084h]({{< var plots.internal.dust_tau550.initplus084h >}})
+
+![init+108h]({{< var plots.internal.dust_tau550.initplus108h >}})
+:::
+
+# Forecast along track: flight {{< var flight >}}
+* Day of flight: YYYY-MM-DD
+* Planned take-off: XXXXUTC
+
+## Cloud cover
+::: {layout-nrow=2}
+![IFS]({{< var plots.mss_side_view.IFS.cloud_cover >}})
+
+![ICON]({{< var plots.mss_side_view.ICON.cloud_cover >}})
+:::
+
+## Relative humidity
+::: {layout-nrow=2}
+![IFS]({{< var plots.mss_side_view.IFS.relative_humidity >}})
+
+![ICON]({{< var plots.mss_side_view.ICON.relative_humidity >}})
+:::
+
+## Special risks and potentially interesting events
+Adapt manually: Tropical storms, hurricanes, ...
+
+## Weather at {{< var location >}}
+:::: {.columns}
+
+::: {.column width="50%"}
+![]({{< var plots.external.meteogram_location >}}){width=70%}
+:::
+
+::: {.column width="50%"}
+**Today:**
+Some weather, XX°C - XX°C
+
+**Tomorrow:**
+Another weather, XX°C - XX°C
+
+**In two days:**
+Another weather, XX°C - XX°C
+:::
+
+::::
+
+## Summary
+Adapt manually

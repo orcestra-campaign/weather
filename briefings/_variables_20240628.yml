@@ -1,0 +1,54 @@
+date:
+  yyyy-mm-dd: '2024-06-28'
+  yyyymmdd: '20240628'
+flight: PERCUSION_CV_FL00
+location: Barbados
+plots:
+  external:
+    NHC_sfc_analysis: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fexternal%2F20240628/NHC_sfc_analysis.png
+    current_satellite_image_IR: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fexternal%2F20240628/current_satellite_image_IR.png
+    current_satellite_image_vis: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fexternal%2F20240628/current_satellite_image_vis.png
+    meteogram_location: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fexternal%2F20240628/meteogram_location.png
+  internal:
+    IWV_ITCZ_edges:
+      initplus000h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+000h_IWV_ITCZ_edges.png
+      initplus012h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+012h_IWV_ITCZ_edges.png
+      initplus036h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+036h_IWV_ITCZ_edges.png
+      initplus060h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+060h_IWV_ITCZ_edges.png
+      initplus084h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+084h_IWV_ITCZ_edges.png
+      initplus108h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+108h_IWV_ITCZ_edges.png
+    cloud_cover:
+      initplus000h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+000h_cloud_cover.png
+      initplus012h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+012h_cloud_cover.png
+      initplus036h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+036h_cloud_cover.png
+      initplus060h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+060h_cloud_cover.png
+      initplus084h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+084h_cloud_cover.png
+      initplus108h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+108h_cloud_cover.png
+    dust_tau550:
+      initplus000h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+000h_dust_tau550.png
+      initplus012h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+012h_dust_tau550.png
+      initplus036h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+036h_dust_tau550.png
+      initplus060h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+060h_dust_tau550.png
+      initplus084h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+084h_dust_tau550.png
+      initplus108h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+108h_dust_tau550.png
+    sfc_pres_wind:
+      initplus000h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+000h_sfc_pres_wind.png
+      initplus012h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+012h_sfc_pres_wind.png
+      initplus036h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+036h_sfc_pres_wind.png
+      initplus060h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+060h_sfc_pres_wind.png
+      initplus084h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+084h_sfc_pres_wind.png
+      initplus108h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+108h_sfc_pres_wind.png
+    sim_IR_image:
+      initplus000h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+000h_sim_IR_image.png
+      initplus012h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+012h_sim_IR_image.png
+      initplus036h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+036h_sim_IR_image.png
+      initplus060h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+060h_sim_IR_image.png
+      initplus084h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+084h_sim_IR_image.png
+      initplus108h: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Finternal%2FIFS%2F20240628T0000Z/IFS_20240628T0000Z+108h_sim_IR_image.png
+  mss_side_view:
+    ICON:
+      cloud_cover: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fmss%2FPERCUSION_CV_FL00%2FICON%2F20240628T0000Z/PERCUSION_CV_FL00_sideview_ICON_20240628T0000Z_cloud_cover.png
+      relative_humidity: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fmss%2FPERCUSION_CV_FL00%2FICON%2F20240628T0000Z/PERCUSION_CV_FL00_sideview_ICON_20240628T0000Z_relative_humidity.png
+    IFS:
+      cloud_cover: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fmss%2FPERCUSION_CV_FL00%2FIFS%2F20240628T0000Z/PERCUSION_CV_FL00_sideview_IFS_20240628T0000Z_cloud_cover.png
+      relative_humidity: https://owncloud.gwdg.de/index.php/s/Z2XCguzDDYNKpxY?path=%2Fplots%2Fmss%2FPERCUSION_CV_FL00%2FIFS%2F20240628T0000Z/PERCUSION_CV_FL00_sideview_IFS_20240628T0000Z_relative_humidity.png

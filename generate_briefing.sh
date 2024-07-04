@@ -22,7 +22,7 @@ quarto_profile=${5:-slides}
 python3 src/_generate_variables_yaml.py ${briefing_date} ${flight} ${location}
 
 # render the final quarto file
-quarto_file=./briefings/briefing_${briefing_date}.qmd
+quarto_file=./briefings/${briefing_date}/main.qmd
 if [ ${quarto_command} = 'preview' ]; then
     quarto preview ${quarto_file} --no-navigate --profile ${quarto_profile}
 elif [ ${quarto_command} = 'render' ]; then

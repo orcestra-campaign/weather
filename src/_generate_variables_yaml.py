@@ -48,7 +48,7 @@ def create_softlink(file, link):
 # ------------------------------------------------------------------------------
 ## preparations
 date = sys.argv[1]
-flight = sys.argv[2]
+flight_id = sys.argv[2]
 location = sys.argv[3]
 validate_date(date)
 validate_location(location)
@@ -84,17 +84,11 @@ init = find_latest_available_init(date)
 
 # set paths where plots are stored
 #parent_path_plots = '/Users/henningfranke/PERCUSION/plots'
-parent_path_plots = 'plots'
-plotpath_external = f'{parent_path_plots}/external/{date}'
-plotpath_internal = f'{parent_path_plots}/internal/IFS/{init}'
-plotpath_mss = {
-    NWP_model: f'{parent_path_plots}/mss/{flight}/{NWP_model}/{init}/'
-    for NWP_model in NWP_models
-    }
+outpath = f'briefings/{date}/fig'
 
 # create dictionary containing variables to be read by quarto template
 variables_nml = {
-    'flight': flight,
+    'flight_id': flight_id,
     'location': location,
     'date': {
         'yyyy-mm-dd': formatted_date,
@@ -102,23 +96,23 @@ variables_nml = {
         },
     'plots': {
         'external': {
-            product: f'{plotpath_external}/{product}.png'
+            product: f'{outpath}/external/{product}.png'
             for product in external_plots
             },
         'internal': {
             product: {
-                f'initplus{lead_time}': f'{plotpath_internal}/IFS_{init}+{lead_time}_{product}.png'
+                f'initplus{lead_time}': f'{outpath}/internal/IFS_{init}+{lead_time}_{product}.png'
                 for lead_time in leadtimes
                 }
                 for product in internal_plots
                 },
         'mss_side_view': {
             'IFS': {
-                product: f'{plotpath_mss["IFS"]}/{flight}_sideview_IFS_{init}_{product}.png'
+                product: f'{outpath}/mss/MSS_{flight_id}_sideview_IFS_{init}_{product}.png'
                 for product in mss_plots_side_view
                 },
             'ICON': {
-                product: f'{plotpath_mss["ICON"]}/{flight}_sideview_ICON_{init}_{product}.png'
+                product: f'{outpath}/mss/MSS_{flight_id}_sideview_ICON_{init}_{product}.png'
                 for product in mss_plots_side_view
                 },
             },
@@ -127,7 +121,7 @@ variables_nml = {
 
 
 # generate _variables_nml_{date}.yml and create link pointing to it
-outfile_yml = f'briefings/_variables_{date}.yml'
+outfile_yml = f'briefings/{date}/_variables_{date}.yml'
 softlink_yml = '_variables.yml'
 print(os.getcwd())
 with open(outfile_yml, 'w') as outfile:

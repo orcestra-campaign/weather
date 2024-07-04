@@ -3,3 +3,4 @@
 /.quarto/
 
 _variables.yml
+*.DS_Store

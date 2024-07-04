@@ -1,0 +1,7 @@
+header#MPIM-header .logo {
+    width: 237mm;
+    height: 59.3mm;
+    background-image: url("MPI_M_Logo_green_ex.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}

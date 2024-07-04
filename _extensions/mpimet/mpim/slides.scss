@@ -1,0 +1,129 @@
+/*-- scss:defaults --*/
+
+$white:    #fff;
+$black:    #000;
+$green:   #006c66;
+$darkgreen: #005555;
+$darkgrey: #777777;
+$grey: #a7a7a8;
+$lightgrey: #eeeeee;
+$lightgreen: #c6d325;
+$darkblue: #29485d;
+$lightblue: #00b1ea;
+$orange: #ef7c00;
+
+$primary:       $green;
+$secondary:     $grey;
+$success:       $green;
+$info:          $lightgreen;
+$warning:       $orange;
+$danger:        $orange;
+$light:         $lightgrey;
+$dark:          $darkgrey;
+
+$presentation-heading-font: "Roboto";
+$presentation-heading-color: $green;
+
+/*-- scss:rules --*/
+
+.quarto-title-block {
+    color: $white;
+    h1 {
+        color: $white;
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.6em !important;
+}
+
+h2 {
+    text-align: center;
+}
+
+.reveal .center {
+    text-align: center;
+}
+
+.centerbig {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.vextend1 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.larger {
+    font-size: 1.3em;
+}
+
+.smaller {
+    font-size: .8em;
+}
+
+.right {
+    text-align: right;
+}
+
+.attribution {
+  transform: translateX(calc(50% + 2em)) rotate(-90deg);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  font-size: .5em;
+}
+
+div.columns {
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+}
+
+div.column {
+    margin: auto 0;
+    table {
+        margin: auto !important;
+    }
+}
+
+.reveal .slide-logo {
+  max-height: 2.2em !important;
+  top: 0;
+  right: 12px;
+  transition: top 0.8s ease-out;
+}
+
+@media screen and (max-width: 800px) {
+  .reveal .slide-logo {
+    max-height: 1.1em !important;
+  }
+
+  .slide-number, .reveal.has-logo .slide-number {
+    font-size: 0.4em !important;
+  }
+}
+
+.reveal .slides:has(#title-slide.present) ~ .slide-logo {
+ top: -100px;
+ transition: none;
+}
+
+.slide-number, .reveal.has-logo .slide-number {
+  bottom: 12px !important;
+  right: 12px !important;
+  top: unset !important;
+  color: $green;
+  font-size: 0.6em;
+}
+
+.reveal .slide-number > a[href*='title-slide'] {
+  display: none;
+}
+
+.polaroid {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 4px;
+}

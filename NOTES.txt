@@ -1,0 +1,34 @@
+Repository proposed structure
+-----------------------------
+
+
+presentation
+briefings
+    20240901_0800UTC
+        fig
+            internal
+                - [MODEL]_[INIT_TIME]_[LEAD_TIME]_[VARIABLE].png
+            external 
+                - [SOURCE]_[ACCESS_TIME]_[VARIABLE].png            
+            mss
+                - MSS_[FLIGHT_ID]_[MODEL]_[INIT_TIME]_[VARIABLE].png
+        _variables.yml
+        quarto_main.qmd
+    ...
+src
+    wlib
+        wblib
+            external
+            internal
+        setup.py
+    render_figures.py
+
+
+------- render_figures.py
+# Runs wblib figures and saves it on the briefing folder
+
+import wblib
+
+date = "2024-09-01"
+
+wblib.internal.iwv(date, flight_paths)

@@ -1,0 +1,68 @@
+---
+title: "2024-05-23"
+---
+
+# Synoptic situation
+## Pressure, ITCZ, tropical waves, wind profiles (National Hurricane Center)
+![](https://pad.gwdg.de/uploads/12938491-993c-433d-aa5b-0cffec3c1dd8.png)
+
+##
+![](https://pad.gwdg.de/uploads/1b518c6a-ba3e-4874-aa3b-dd7932402de9.png)
+
+
+## Where do we currently have deep convection?
+![](https://pad.gwdg.de/uploads/e7e8eb70-00b7-4dea-8fb1-f19d6c661469.png)
+
+##
+![](https://pad.gwdg.de/uploads/3a7d66a2-2acc-4362-83f4-1487638f98fb.png)
+
+## Special interests (dust,...)
+![](https://pad.gwdg.de/uploads/153ba1ab-514b-4d8b-98ae-1179359e359e.png)
+
+# General forecast
+- Pressure + surface wind maps
+- IWV with ITCZ edges and center (with uncertainties)
+- Some measure of expected deep convection: Precipitation / CAPE /vertical velocity / forecasted satellite images
+- Special interests (dust, cloud fraction, ...)
+
+## ITCZ edges (48mm threshold)
+
+white:   flight day
+yellow:  1 day lead forecast
+orange:  2 days lead forecast
+red:     3 days lead forecast
+
+![](https://pad.gwdg.de/uploads/f84d729d-8dcf-4618-97ca-0b42026658e4.png)
+
+##
+![](https://pad.gwdg.de/uploads/86d1447a-fd56-4183-b342-b75c0e52ae23.png)
+
+
+
+
+# Forecast along track
+
+Basically the same variables as in Part 2 (general forecast)
+
+# Special risks / interesting events
+
+- Tropical storms, hurricanes, dust outbreaks, ...
+
+
+# Weather at our location: Sal/Barbados (?)
+
+## Barbados:
+![](https://pad.gwdg.de/uploads/6f2042c2-6c91-40f3-80db-c5d744076261.png)
+
+## uncertainty & waves
+![](https://pad.gwdg.de/uploads/49a4ecdc-2b5c-4b0d-839f-6465707a2792.png)
+
+:::{.notes}
+The latter is a nice illustration of uncertainty and weather associated with tropical waves.
+:::
+
+# Summary
+
+# Beach weather
+
+![](https://pad.gwdg.de/uploads/5f8d73cc-d302-44dd-8645-4d6a104aaeb3.png)

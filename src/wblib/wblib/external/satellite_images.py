@@ -1,3 +1,4 @@
+from wblib import plotting_config
 from matplotlib import pyplot as plt
 import xarray as xr
 import requests
@@ -8,13 +9,6 @@ import numpy as np
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
-# CAUTION: This function stems from the plotting_config.py file and needs to be removed and referred to, once the plotting_config.py functions are turned into a package.
-def box_boundaries_lonlat():
-    lon_min = -70
-    lon_max = 5
-    lat_min = -10
-    lat_max = 25
-    return lon_min, lon_max, lat_min, lat_max
 
 def get_product_specs(product):
     if product == 'infrared':
@@ -34,7 +28,7 @@ product_str = 'infrared'
 
 def satellite_image(date = date_str, product = product_str):
 
-    lon_min, lon_max, lat_min, lat_max = box_boundaries_lonlat()
+    lon_min, lon_max, lat_min, lat_max = plotting_config.box_boundaries_lonlat()
     product_name, figure_title = get_product_specs(product)
 
     # Get tiff file from website

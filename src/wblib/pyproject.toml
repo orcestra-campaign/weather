@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wblib"
+authors = [
+    {name = "MPI-M"},
+]
+description = "Weather Briefing library for PRECUSION"
+requires-python = ">=3.10"
+license = {text = "BSD-3-Clause"}
+classifiers=[
+    "Private :: Do Not Upload",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3.10"
+]
+dependencies = [
+    "xarray",
+    "netcdf4",
+    "matplotlib",
+    "cartopy"
+]
+dynamic = ["version"]

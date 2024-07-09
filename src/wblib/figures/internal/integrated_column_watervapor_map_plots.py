@@ -12,7 +12,7 @@ import datashader
 from datashader.mpl_ext import dsshow
 import datashader.transfer_functions as tf
 import warnings
-warnings.filterwarnings("ignore")
+# warnings.filterwarnings("ignore")
 
 cat = intake.open_catalog("https://tcodata.mpimet.mpg.de/internal.yaml")
 
@@ -50,17 +50,17 @@ def icwv_maps(cat, flight_date_arr, colors_arr, hours_from_init):
         im2 = egh.healpix_contour(
             ds["tcwv"].sel(time=pd.Timestamp(flight_date_arr[0], flight_date_arr[1]
                                          , flight_date_arr[2]+days_from_init, hours_from_init_updated).strftime("%Y-%m-%dT%H:%M:%S")), ax = ax, 
-            levels = [48], colors = colors_arr[date_n], linewidth = 2
+            levels = [48], colors = colors_arr[date_n]
             )
-    
     im = egh.healpix_show(
         ds["tcwv"].sel(time=pd.Timestamp(flight_date_arr[0], flight_date_arr[1]
-                                         , flight_date_arr[2]+days_from_init, hours_from_init_updated).strftime("%Y-%m-%dT%H:%M:%S")),
+                                         , flight_date_arr[2]+days_from_init, hours_from_init_updated).strftime("%Y-%m-%dT%H:%M:%S")), ax = ax,
         method="linear",
         cmap="bone",
         vmin=0,
-        vmax=65,
+        vmax=65
         )
+    
     fig.colorbar(im,label='IWV / kg m$^{-2}$',shrink=0.9)
     ax.set_extent([-70, 0, -25, 25])
     ax.set_xticks(np.round(np.linspace(-70, 10, 9),0), crs=ccrs.PlateCarree())

@@ -3,14 +3,8 @@
 
 from matplotlib.figure import Figure
 
-from wblib.figures.external.goes import
 
-FIGURE_FUNCTIONS_DICT = {
-        "external": {
-            "":,
-            "":
-        }
-    }
+FIGURE_FUNCTIONS_DICT = dict()
 
 
 def generate_figures(figures: dict) -> list[Figure]:

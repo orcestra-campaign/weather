@@ -19,7 +19,7 @@ quarto_profile=${5:-slides}
 
 # ------------------------------------------------------------------------------
 # create _variables.yml, which contains the paths to all plots
-python3 src/_generate_variables_yaml.py ${briefing_date} ${flight} ${location}
+python3 src/create_variables_yaml_file.py ${briefing_date} ${flight} ${location}
 
 # render the final quarto file
 quarto_file=./briefings/${briefing_date}/main.qmd

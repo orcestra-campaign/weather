@@ -1,32 +1,15 @@
-"""General services of the weather briefing library."""
+"""Get the figures expected by the Quarto report."""
 
 from datetime import datetime
 
-from wblib.services.config import ALLOWED_LOCATIONS
-from wblib.services.config import get_briefing_relative_path
-from wblib.services.config import get_figures_relative_path
-from wblib.services.config import get_expected_external_figures
-from wblib.services.config import get_expected_internal_figures
-from wblib.services.config import get_expected_mss_side_view_figures
+from wblib.services.get_paths import get_figure_path
 
+from wblib.services._define_figures import EXTERNAL_PLOTS
+from wblib.services._define_figures import INTERNAL_PLOTS
+from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
 
-def get_briefing_path(date: str) -> str:
-    """Get the output folder of the weather briefing."""
-    _validate_date(date)
-    output_path = get_briefing_relative_path(date)
-    return output_path
-
-
-def get_briefing_paths(date: str) -> list[str]:
-    _validate_date(date)
-    figures_output_path = get_figures_relative_path(date)
-    briefing_paths = [
-        f"{figures_output_path}",
-        f"{figures_output_path}/internal",
-        f"{figures_output_path}/external",
-        f"{figures_output_path}/mss",
-    ]
-    return briefing_paths
+MSS_PLOTS_SIDE_VIEW = ["relative_humidity", "cloud_cover"]
+ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 
 def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
@@ -34,7 +17,7 @@ def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
     _validate_date(date)
     _validate_location(location)
     init = _find_latest_available_init(date)
-    output_path = get_figures_relative_path(date)
+    output_path = get_figure_path(date)
     date2 = _change_date_format(date)
     variables_nml = {
         "flight_id": flight_id,
@@ -52,6 +35,39 @@ def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
         },
     }
     return variables_nml
+
+
+def get_expected_external_figures(figures_output_path) -> dict:
+    figures = {
+        product: f"{figures_output_path}/external/{product}.png"
+        for product in EXTERNAL_PLOTS.keys()
+    }
+    return figures
+
+
+def get_expected_internal_figures(figures_output_path, init) -> dict:
+    figures = dict()
+    for product in INTERNAL_PLOTS.keys():
+        figures[product] = dict()
+        for lead_time in INTERNAL_PLOTS_LEADTIMES:
+            figures[product][f"initplus{lead_time}"] = (
+                f"{figures_output_path}/internal/IFS_{init}+{lead_time}_{product}.png"
+            )
+    return figures
+
+
+def get_expected_mss_side_view_figures(figures_output_path, init, flight_id) -> dict:
+    figures = {
+        "IFS": {
+            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_IFS_{init}_{product}.png"
+            for product in MSS_PLOTS_SIDE_VIEW
+        },
+        "ICON": {
+            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_ICON_{init}_{product}.png"
+            for product in MSS_PLOTS_SIDE_VIEW
+        },
+    }
+    return figures
 
 
 def _validate_location(location: str) -> None:

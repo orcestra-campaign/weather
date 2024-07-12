@@ -1,6 +1,5 @@
-import os
-import sys
-import yaml
+"""General services of the weather briefing library."""
+
 from datetime import datetime
 
 from wblib.services.config import ALLOWED_LOCATIONS

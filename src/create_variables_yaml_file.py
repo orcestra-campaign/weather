@@ -37,8 +37,7 @@ def _create_softlink(file, link):
     link_path.symlink_to(file_a_path)
 
 if __name__ == "__main__":
-    # main()
-    main("20240101", "PERCUSION_CV_FL00", "Barbados") # for testing
+    main()
 
 
 

@@ -1,4 +1,4 @@
-from wblib import plotting_config
+
 from matplotlib import pyplot as plt
 import xarray as xr
 import requests
@@ -43,7 +43,7 @@ def satellite_image(date = date_str, product = product_str):
     blue = raster.sel(band=3)
     rgb = xr.concat([red, green, blue], dim='band')
 
-    # Compute figure aspect ratio 
+    # Compute figure aspect ratio
     # QUESTION: Should this be a plotting_config.py?
     x_fig = 10
     y_fig = (lat_min - lat_max) / (lon_min - lon_max) * x_fig
@@ -60,7 +60,7 @@ def satellite_image(date = date_str, product = product_str):
     plt.title(figure_title)
     fig.tight_layout()
 
-    # Save plot 
+    # Save plot
     # CAUTION: Path still needs to be adapted for final workflow
     plt.savefig(product + '_example_image.png', dpi=150)
 

@@ -10,18 +10,17 @@ from wblib.services import get_briefing_path
 from wblib.services import get_expected_figures
 
 
-def main(date = None, flight_id = None, location = None) -> None:
+def create_variables_yaml(date = None, flight_id = None, location = None) -> None:
     if not date:
         date = sys.argv[1]
     if not flight_id:
         flight_id = sys.argv[2]
     if not location:
         location = sys.argv[3]
-
-    outpath = pathlib.Path(get_briefing_path(date))
     variables_nml = get_expected_figures(date, location, flight_id)
     variables_file_name = f"_variables_{date}.yml"
-    outfile_yml = outpath / variables_file_name
+    output_path = pathlib.Path(get_briefing_path(date))
+    outfile_yml = output_path / variables_file_name
     softlink_yml = "_variables.yml"
     print(os.getcwd())
     with open(outfile_yml, "w") as outfile:
@@ -37,7 +36,8 @@ def _create_softlink(file, link):
     link_path.symlink_to(file_a_path)
 
 if __name__ == "__main__":
-    main()
+    #create_variables_yaml()
+    create_variables_yaml("20240101", "PERCUSION_CV_FL00", "Barbados") # for testing
 
 
 

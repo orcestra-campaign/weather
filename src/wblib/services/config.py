@@ -22,7 +22,7 @@ INTERNAL_PLOTS = [
 MSS_PLOTS_SIDE_VIEW = ["relative_humidity", "cloud_cover"]
 ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
-_OUTPATH_TEMPLATE = "./briefings/{date}"
+_OUTPATH_TEMPLATE = "briefings/{date}"
 
 
 def get_briefing_relative_path(date) -> str:
@@ -44,8 +44,9 @@ def get_expected_external_figures(figures_output_path) -> dict:
 def get_expected_internal_figures(figures_output_path, init) -> dict:
     figures = dict()
     for product in INTERNAL_PLOTS:
+        figures[product] = dict()
         for lead_time in LEADTIMES:
-            figures[f"initplus{lead_time}"] = (
+            figures[product][f"initplus{lead_time}"] = (
                 f"{figures_output_path}/internal/IFS_{init}+{lead_time}_{product}.png"
             )
     return figures

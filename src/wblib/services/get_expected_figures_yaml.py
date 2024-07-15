@@ -8,6 +8,7 @@ from wblib.services._define_figures import EXTERNAL_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
 
+
 MSS_PLOTS_SIDE_VIEW = ["relative_humidity", "cloud_cover"]
 ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
@@ -50,7 +51,7 @@ def get_expected_internal_figures(figures_output_path, init) -> dict:
     for product in INTERNAL_PLOTS.keys():
         figures[product] = dict()
         for lead_time in INTERNAL_PLOTS_LEADTIMES:
-            figures[product][f"initplus{lead_time}"] = (
+            figures[product][lead_time] = (
                 f"{figures_output_path}/internal/IFS_{init}+{lead_time}_{product}.png"
             )
     return figures

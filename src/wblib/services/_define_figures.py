@@ -1,7 +1,10 @@
 """Define the figures and the functions that generate them."""
 
+from wblib.figures.external.noaa import surface_analysis_atlantic
+
+
 EXTERNAL_PLOTS = {
-    "NHC_sfc_analysis": None,
+    "NHC_sfc_analysis": surface_analysis_atlantic,
     "current_satellite_image_vis": None,
     "current_satellite_image_IR": None,
     "meteogram_location": None,

@@ -1,36 +1,36 @@
 """Download and create plot form the NCH"""
-
 import numpy as np
-from PIL import Image
+from PIL import Image as img
 import requests
-from io import BytesIO
-from IPython.display import display
 
-from wblib._plots import get_fig_size
+from io import BytesIO
+
 
 ANALYSIS_URLS = {
     "two_days_outlook": "https://www.nhc.noaa.gov/xgtwo/two_atl_2d0.png",
     "seven_days_outlook": "https://www.nhc.noaa.gov/xgtwo/two_atl_7d0.png",
-    "surface_analysis_atlantic": "https://ocean.weather.gov/UA/Atl_Tropics.gif" 
+    "surface_analysis_atlantic": "https://ocean.weather.gov/UA/Atl_Tropics.gif"
 }
 
-def two_days_outlook() -> None:
+
+def two_days_outlook() -> img.Image:
     url = ANALYSIS_URLS["two_days_outlook"]
     response = requests.get(url)
-    image = Image.open(BytesIO(response.content))
-    display(image)
+    image = img.open(BytesIO(response.content))
+    return image
 
 
-def seven_days_outlook() -> None:
+
+def seven_days_outlook() -> img.Image:
     url = ANALYSIS_URLS["seven_days_outlook"]
     response = requests.get(url)
-    image = Image.open(BytesIO(response.content))
-    display(image)    
+    image = img.open(BytesIO(response.content))
+    return image
 
 
-def surface_analysis_atlantic() -> None:
+def surface_analysis_atlantic() -> img.Image:
     url = ANALYSIS_URLS["surface_analysis_atlantic"]
     response = requests.get(url)
-    image = Image.open(BytesIO(response.content))  
+    image = img.open(BytesIO(response.content))
     image = image.crop((0, 300, 1720, 1260-300))
-    display(image)    
+    return image

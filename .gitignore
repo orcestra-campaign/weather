@@ -8,3 +8,5 @@ _variables.yml
 __pycache__
 *.pyc
 *.egg-info
+
+.vscode

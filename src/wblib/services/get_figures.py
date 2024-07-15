@@ -9,21 +9,21 @@ from wblib.services._define_figures import INTERNAL_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
 
 
-def generate_external_figures()-> dict[str, img.Image]:
+def generate_external_figures(logger: Callable)-> dict[str, img.Image]:
     figures = dict()
     for product, function in EXTERNAL_PLOTS.items():
         if function is None:
-            _warn_function_is_not_defined(product)
+            _warn_function_is_not_defined(product, logger)
             continue
         figures[product] = function()
     return figures
 
 
-def generate_internal_figures() -> dict[str, img.Image]:
+def generate_internal_figures(logger: Callable) -> dict[str, img.Image]:
     figures = dict()
     for product, function in INTERNAL_PLOTS.items():
         if function is None:
-            _warn_function_is_not_defined(product)
+            _warn_function_is_not_defined(product, logger)
             continue
         figures[product] = dict()
         for lead_time in INTERNAL_PLOTS_LEADTIMES:
@@ -31,7 +31,7 @@ def generate_internal_figures() -> dict[str, img.Image]:
     return figures
 
 
-def _warn_function_is_not_defined(product):
+def _warn_function_is_not_defined(product, logger):
     msg = f"Undefined function for '{product}' product."
-    print(msg)
+    logger(msg, "ERROR")
 

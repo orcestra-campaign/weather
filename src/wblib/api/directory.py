@@ -7,10 +7,10 @@ from typing import Callable
 from wblib.services import get_briefing_path
 from wblib.services import get_briefing_paths
 
+from wblib.api._logger import logger
 
-def make_briefing_folder(date: str, logger: Callable) -> None:
-    if not date:
-        date = sys.argv[1]
+
+def make_briefing_directory(date: str, logger: Callable = logger) -> None:
     logger(f"Creating briefing folders for '{date}'.", "INFO")
     briefing_parent_path = pathlib.Path(get_briefing_path(date))
     briefing_paths = get_briefing_paths(date)
@@ -26,6 +26,5 @@ def make_briefing_folder(date: str, logger: Callable) -> None:
     )
 
 if __name__ == "__main__":
-    from wblib.api._logger import logger
-    make_briefing_folder("20240101", logger)
+    make_briefing_directory("20240101")
 

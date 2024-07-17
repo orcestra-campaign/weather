@@ -10,7 +10,7 @@ from wblib.services import get_briefing_path
 from wblib.services import get_expected_figures
 
 
-def create_variables_yaml(date: str, flight_id: str, location: str,
+def make_briefing_variables(date: str, flight_id: str, location: str,
                           logger: Callable = logger) -> None:
     variables_nml = get_expected_figures(date, location, flight_id)
     variables_file_name = f"_variables_{date}.yml"
@@ -34,4 +34,4 @@ def _create_softlink(file, link) -> None:
 
 if __name__ == "__main__":
     from wblib.api._logger import logger
-    create_variables_yaml("20240101", "FX2", "Barbados", logger)
+    make_briefing_variables("20240101", "FX2", "Barbados", logger)

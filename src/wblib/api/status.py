@@ -8,11 +8,9 @@ import colorama
 import yaml
 
 from wblib.api._utils import _load_variables_yaml
-from wblib.services.get_paths import (
-    get_briefing_path,
-    get_briefing_paths,
-    get_variables_path,
-)
+from wblib.services.get_paths import get_briefing_path
+from wblib.services.get_paths import get_briefing_paths
+from wblib.services.get_paths import get_variables_path
 
 
 class Status(Enum):
@@ -20,7 +18,7 @@ class Status(Enum):
     READY_FOR_QUARTO = auto()
 
 
-def briefing_status(date: str) -> None:
+def check_briefing_status(date: str) -> None:
     status = Status.READY_FOR_QUARTO
     reason = ""
     status, reason = _check_briefing_folder_exists(date, status, reason)
@@ -124,4 +122,4 @@ def _check_internal_images_exists(date, status, reason) -> tuple[Status, str]:
 
 
 if __name__ == "__main__":
-    briefing_status("20240101")  # for testing
+    check_briefing_status("20240101")  # for testing

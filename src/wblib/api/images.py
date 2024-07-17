@@ -9,8 +9,10 @@ from wblib.services.get_figures import generate_external_figures
 from wblib.services.get_figures import generate_internal_figures
 from wblib.services.get_paths import get_variables_path
 
+from wblib.api._logger import logger
 
-def generate_images(date: str, logger: Callable) -> None:
+
+def make_briefing_images(date: str, logger: Callable = logger) -> None:
     logger(f"Generating figures for {date}", "INFO")
     variables_dict = _load_variables_yaml(date, logger)
     # external
@@ -27,9 +29,6 @@ def generate_images(date: str, logger: Callable) -> None:
 
 
 if __name__ == "__main__":
-    from wblib.api._logger import logger
-    generate_images("20240101", logger)  # for testing
+    make_briefing_images("20240101")  # for testing
 
-    from wblib.api._logger import LOGGED_EVENTS
-    print(LOGGED_EVENTS)
 

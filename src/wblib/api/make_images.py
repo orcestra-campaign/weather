@@ -30,6 +30,6 @@ if __name__ == "__main__":
     from wblib.api._logger import logger
     generate_images("20240101", logger)  # for testing
 
-    from wblib.api._logger import RAISED_LEVELS
-    print(RAISED_LEVELS)
+    from wblib.api._logger import LOGGED_EVENTS
+    print(LOGGED_EVENTS)
 

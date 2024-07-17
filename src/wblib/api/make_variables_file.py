@@ -15,7 +15,6 @@ def create_variables_yaml(date: str, flight_id: str, location: str,
     variables_nml = get_expected_figures(date, location, flight_id)
     variables_file_name = f"_variables_{date}.yml"
     output_path = pathlib.Path(get_briefing_path(date))
-    logger(f"Creating variables file in '{output_path}'", "INFO")
     outfile_yml = output_path / variables_file_name
     softlink_yml = "_variables.yml"
     with open(outfile_yml, "w") as outfile:

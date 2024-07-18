@@ -13,7 +13,7 @@ ANALYSIS_URLS = {
 }
 
 
-def two_days_outlook() -> img.Image:
+def nhc_two_days_outlook() -> img.Image:
     url = ANALYSIS_URLS["two_days_outlook"]
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
@@ -21,14 +21,14 @@ def two_days_outlook() -> img.Image:
 
 
 
-def seven_days_outlook() -> img.Image:
+def nhc_seven_days_outlook() -> img.Image:
     url = ANALYSIS_URLS["seven_days_outlook"]
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
     return image
 
 
-def surface_analysis_atlantic() -> img.Image:
+def nhc_surface_analysis_atlantic() -> img.Image:
     url = ANALYSIS_URLS["surface_analysis_atlantic"]
     response = requests.get(url)
     image = img.open(BytesIO(response.content))

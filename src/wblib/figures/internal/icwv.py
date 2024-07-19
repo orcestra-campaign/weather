@@ -1,86 +1,111 @@
+"""Plot ITCZ edges based on the IWV from ECMWF IFS."""
+
 import intake
 import easygems.healpix as egh
-import cmocean
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import numpy as np
-import cartopy.feature as cfeature
-import seaborn as sns
-sns.set_context('talk')
 import pandas as pd
-import datashader
-from datashader.mpl_ext import dsshow
-import datashader.transfer_functions as tf
-import warnings
-# warnings.filterwarnings("ignore")
 
-cat = intake.open_catalog("https://tcodata.mpimet.mpg.de/internal.yaml")
+from matplotlib.figure import Figure
 
-def get_init_dates(flight_day, flight_month, flight_year):
-    """"""
-    days_month = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
+FORECAST_QUERY_REFTIME = "00"
+ICWV_ITCZ_THRESHOLD = 48  # mm
+ICWV_MAX = 65  # mm
+ICWV_MIN = 0  # mm
+ICWV_COLORMAP = "cividis_r"
+ICWV_CATALOG_VARIABLE = "tcwv"
+FIGURE_SIZE = (15, 8)
+REFDATE_COLORBAR = [
+    "#ffc99d",
+    "#ffa472",
+    "#ff9c59",
+    "#ff7e26",
+    "#ff580f",
+] # the ordering of the colors indicate the latest available refdate
+REFDATE_LINEWIDTH = [0.75, 0.75, 0.75, 0.75, 1]
 
-    day_arr = np.array([flight_day-5 + days_month[flight_month-2]*((flight_day-5)<=0), flight_day-4 + days_month[flight_month-2]*((flight_day-4)<=0)
-                        , flight_day-3 + days_month[flight_month-2]*((flight_day-3)<=0), flight_day-2 + days_month[flight_month-2]*((flight_day-1)<=0)
-                        , flight_day-1 + days_month[flight_month-2]*((flight_day-1)<=0)])
-    
-    month_arr = np.array([flight_month - 1*((flight_day-5)<=0), flight_month - 1*((flight_day-4)<=0)
-                        , flight_month - 1*((flight_day-3)<=0), flight_month - 1*((flight_day-1)<=0)
-                        , flight_month - 1*((flight_day-1)<=0)])
-    # date_arr = [str(flight_year) + '-' + str(month_arr[i]) + '-' + str(day_arr[i]) for i in np.arange(len(day_arr))]
 
-    date_arr = [pd.Timestamp(flight_year, month_arr[i], day_arr[i], 0).strftime("%Y-%m-%d") for i in np.arange(len(day_arr))]
+def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
+    lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
+    previous_init_times = _get_dates_of_previous_five_days(current_time)
+    init_times = [current_time] + previous_init_times
+    datarrays = _get_forecast_datarrays_dict(init_times)
+    # plot
+    fig, ax = plt.subplots(
+        figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
+    )
+    _draw_icwv_contours_for_previous_forecast(
+        datarrays, current_time, lead_delta, previous_init_times, ax
+    )
+    im = _draw_icwv_current_forecast(datarrays, current_time, lead_delta, ax)
+    _format_axes(current_time, lead_delta, ax)
+    fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.9)
+    return fig
 
-    return date_arr
 
-def icwv_maps(cat, flight_date_arr, colors_arr, hours_from_init):
-    init_times = get_init_dates(flight_date_arr[2], flight_date_arr[1], flight_date_arr[0])
+def _get_dates_of_previous_five_days(
+    current_time: pd.Timestamp,
+) -> list[pd.Timestamp]:
+    date = current_time.floor("1D")
+    day = pd.Timedelta("1D")
+    dates = [(date - i * day) for i in range(1, 6)]
+    dates.reverse()
+    return dates
 
-    fig, ax = plt.subplots(figsize=(15, 8), subplot_kw={"projection": ccrs.PlateCarree()}, facecolor = 'white')
-    fig.canvas.draw_idle()
-    ax.set_extent([-70, 10, -25, 25]) # need this line here to get the contours and lines on the plot
-        
-    days_from_init = int(hours_from_init/24) 
-    hours_from_init_updated = hours_from_init - days_from_init*24
 
-    
-    for date_n, date in enumerate(init_times):
-        ds = cat.HIFS(refdate=date).to_dask().pipe(egh.attach_coords)
-        im2 = egh.healpix_contour(
-            ds["tcwv"].sel(time=pd.Timestamp(flight_date_arr[0], flight_date_arr[1]
-                                         , flight_date_arr[2]+days_from_init, hours_from_init_updated).strftime("%Y-%m-%dT%H:%M:%S")), ax = ax, 
-            levels = [48], colors = colors_arr[date_n]
-            )
-    im = egh.healpix_show(
-        ds["tcwv"].sel(time=pd.Timestamp(flight_date_arr[0], flight_date_arr[1]
-                                         , flight_date_arr[2]+days_from_init, hours_from_init_updated).strftime("%Y-%m-%dT%H:%M:%S")), ax = ax,
-        method="linear",
-        cmap="bone",
-        vmin=0,
-        vmax=65
+def _get_forecast_datarrays_dict(previous_init_times):
+    catalog = intake.open_catalog(CATALOG_URL)
+    datarrays = dict()
+    for init_time in previous_init_times:
+        catalog_dataset = catalog.HIFS(refdate=init_time.strftime("%Y-%m-%d"))
+        dataset = catalog_dataset.to_dask().pipe(egh.attach_coords)
+        datarrays[init_time] = dataset[ICWV_CATALOG_VARIABLE]
+    return datarrays
+
+
+def _draw_icwv_contours_for_previous_forecast(
+    datarrays, current_time, lead_delta, previous_init_times, ax
+):
+    ax.set_extent(
+        [-70, 10, -25, 25]
+    )  # need this line here to get the contours and lines on the plot
+    for i, init_time in enumerate(previous_init_times):
+        color = REFDATE_COLORBAR[i]
+        linewidth = REFDATE_LINEWIDTH[i]
+        field = datarrays[init_time].sel(time=current_time + lead_delta)
+        egh.healpix_contour(
+            field, ax=ax, levels=[ICWV_ITCZ_THRESHOLD], colors=color,
+            linewidths=linewidth
         )
-    
-    ax.set_title('Forecast on ' + pd.Timestamp(flight_date_arr[0], flight_date_arr[1]
-                                         , flight_date_arr[2]+days_from_init, hours_from_init_updated).strftime("%Y-%m-%dT%H:%M:%S") 
-                                         + '; red line (48 mm) ref time = -1 day')
-    ax.coastlines(lw=1.0, color = 'k')
 
-    fig.colorbar(im,label='IWV / kg m$^{-2}$',shrink=0.9)
-    ax.set_xticks(np.round(np.linspace(-70, 10, 9),0), crs=ccrs.PlateCarree())
-    ax.set_yticks(np.round(np.linspace(-20, 20, 5),0), crs=ccrs.PlateCarree()) 
-    ax.set_ylabel('Latitude/ \N{DEGREE SIGN}N')
-    ax.set_xlabel('Longitude/ \N{DEGREE SIGN}E')
-    date =pd.Timestamp(flight_date_arr[0], flight_date_arr[1]
-                                         , flight_date_arr[2]+days_from_init, hours_from_init_updated).strftime("%Y-%m-%dT%H:%M:%S") 
-    fig.show()
-    fig.savefig('tcwv_'+str(date)+'.png', bbox_inches='tight')
-    # plt.close()
 
-    return None
+def _draw_icwv_current_forecast(datarrays, current_time, lead_delta, ax):
+    field = datarrays[current_time].sel(time=current_time + lead_delta)
+    im = egh.healpix_show(
+        field,
+        ax=ax,
+        method="linear",
+        cmap=ICWV_COLORMAP,
+        vmin=ICWV_MIN,
+        vmax=ICWV_MAX,
+    )
+    return im
 
-# the following are the color schemes I got from this website https://www.color-hex.com/
-# the ordering of the colors (bright orange and red indicate the latest available refdate)
-orange_creamsickle = ['#ffc99d', '#ffa472', '#ff9c59', '#ff7e26', '#ff580f']
-rainbow_dash = ['#0392cf', '#7bc043', '#fdf498', '#f37736', '#ee4035'] 
 
-icwv_maps(cat, [2024, 6, 4], orange_creamsickle, 12) # weather 12 hours from the flight day 2024-06-04 
+def _format_axes(current_time, lead_delta, ax):
+    forecast_on_str = current_time + lead_delta
+    ax.set_title(forecast_on_str)
+    ax.coastlines(lw=1.0, color="k")
+    ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=ccrs.PlateCarree())
+    ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
+    ax.set_ylabel("Latitude \N{DEGREE SIGN}N")
+    ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
+
+
+if __name__ == "__main__":
+    time = pd.Timestamp.now().floor("1D")
+    lead_hours_str = "024H"
+    figure = iwv_itcz_edges(time, lead_hours_str)
+    #figure.savefig("test.png")

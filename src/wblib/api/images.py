@@ -23,9 +23,7 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
         fig_path = variables_dict["plots"]["external"][name]
         _save_image(image, fig_path)
         logger(f"Saved external figure '{name}' in '{fig_path}'.", "INFO")
-
     # internal
-
     internal_figures = generate_internal_figures(current_time, logger)
     for name, image in internal_figures.items():
         fig_path = variables_dict["plots"]["internal"][name]

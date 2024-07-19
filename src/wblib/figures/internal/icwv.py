@@ -23,24 +23,29 @@ REFDATE_COLORBAR = [
     "#ff9c59",
     "#ff7e26",
     "#ff580f",
-] # the ordering of the colors indicate the latest available refdate
+]  # the ordering of the colors indicate the latest available refdate
 REFDATE_LINEWIDTH = [0.75, 0.75, 0.75, 0.75, 1]
 
 
 def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
+    floored_current_time = current_time.floor("1D")
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
-    previous_init_times = _get_dates_of_previous_five_days(current_time)
-    init_times = [current_time] + previous_init_times
+    previous_init_times = _get_dates_of_previous_five_days(
+        floored_current_time
+    )
+    init_times = [floored_current_time] + previous_init_times
     datarrays = _get_forecast_datarrays_dict(init_times)
     # plot
     fig, ax = plt.subplots(
         figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
     )
     _draw_icwv_contours_for_previous_forecast(
-        datarrays, current_time, lead_delta, previous_init_times, ax
+        datarrays, floored_current_time, lead_delta, previous_init_times, ax
     )
-    im = _draw_icwv_current_forecast(datarrays, current_time, lead_delta, ax)
-    _format_axes(current_time, lead_delta, ax)
+    im = _draw_icwv_current_forecast(
+        datarrays, floored_current_time, lead_delta, ax
+    )
+    _format_axes(floored_current_time, lead_delta, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.9)
     return fig
 
@@ -48,9 +53,8 @@ def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
 def _get_dates_of_previous_five_days(
     current_time: pd.Timestamp,
 ) -> list[pd.Timestamp]:
-    date = current_time.floor("1D")
     day = pd.Timedelta("1D")
-    dates = [(date - i * day) for i in range(1, 6)]
+    dates = [(current_time - i * day) for i in range(1, 6)]
     dates.reverse()
     return dates
 
@@ -76,8 +80,11 @@ def _draw_icwv_contours_for_previous_forecast(
         linewidth = REFDATE_LINEWIDTH[i]
         field = datarrays[init_time].sel(time=current_time + lead_delta)
         egh.healpix_contour(
-            field, ax=ax, levels=[ICWV_ITCZ_THRESHOLD], colors=color,
-            linewidths=linewidth
+            field,
+            ax=ax,
+            levels=[ICWV_ITCZ_THRESHOLD],
+            colors=color,
+            linewidths=linewidth,
         )
 
 
@@ -108,4 +115,4 @@ if __name__ == "__main__":
     time = pd.Timestamp.now().floor("1D")
     lead_hours_str = "024H"
     figure = iwv_itcz_edges(time, lead_hours_str)
-    #figure.savefig("test.png")
+    # figure.savefig("test.png")

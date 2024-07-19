@@ -1,6 +1,7 @@
 """Generate satellite images form GOES east"""
 
 from matplotlib import pyplot as plt
+from matplotlib.figure import Figure
 import xarray as xr
 import requests
 from io import BytesIO
@@ -36,12 +37,12 @@ FIGURE_TITLES = {
 FIGURE_BOUNDARIES = (-70, 5, -10, 25)
 
 
-def current_satellite_image_vis(current_time: pd.Timestamp) -> plt.Figure:
+def current_satellite_image_vis(current_time: pd.Timestamp) -> Figure:
     fig = _get_satellite_image(current_time, "visible")
     return fig
 
 
-def current_satellite_image_ir(current_time: pd.Timestamp) -> plt.Figure:
+def current_satellite_image_ir(current_time: pd.Timestamp) -> Figure:
     fig = _get_satellite_image(current_time, "infrared")
     return fig
 
@@ -55,7 +56,7 @@ def _get_satellite_image(
     return fig
 
 
-def _get_figure(plot_type, query_time_str, goes_image) -> plt.Figure:
+def _get_figure(plot_type, query_time_str, goes_image) -> Figure:
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     y_slice = slice(lat_max, lat_min)
     x_slice = slice(lon_min, lon_max)

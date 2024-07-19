@@ -22,10 +22,10 @@ def weather_briefing_api() -> None:
     subparsers = parser.add_subparsers(
         title="Available commands", dest="command"
     )
-    _define_status_subcommand(subparsers)
     _define_start_subcommand(subparsers)
     _define_variable_subcommand(subparsers)
     _define_figures_subcommand(subparsers)
+    _define_status_subcommand(subparsers)
     _run_chosen_subcommand(parser)
 
 

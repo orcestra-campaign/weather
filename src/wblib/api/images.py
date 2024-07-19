@@ -1,7 +1,7 @@
 """Generate and save the report figures."""
 
 from typing import Callable
-from PIL import Image
+from PIL.Image import Image
 from matplotlib.figure import Figure
 import pandas as pd
 
@@ -21,23 +21,26 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
     external_figures = generate_external_figures(current_time, logger)
     for name, image in external_figures.items():
         fig_path = variables_dict["plots"]["external"][name]
-        logger(f"Saved external figure '{name}' in '{fig_path}'.", "INFO")
         _save_image(image, fig_path)
+        logger(f"Saved external figure '{name}' in '{fig_path}'.", "INFO")
 
     # internal
 
     internal_figures = generate_internal_figures(current_time, logger)
     for name, image in internal_figures.items():
         fig_path = variables_dict["plots"]["internal"][name]
-        logger(f"Saved internal figure '{name}' in '{fig_path}'.", "INFO")
         _save_image(image, fig_path)
+        logger(f"Saved internal figure '{name}' in '{fig_path}'.", "INFO")
 
 
 def _save_image(image, fig_path) -> None:
+    if isinstance(image, Figure):
+        image.tight_layout()
+        image.savefig(fig_path)
+        return
     if isinstance(image, Image):
         image.save(fig_path)
-    if isinstance(image, Figure):
-        image.savefig(fig_path)
+        return
     raise ValueError("Unrecognized figure type")
 
 

@@ -5,8 +5,6 @@
 _variables.yml
 *.DS_Store
 
-__pycache__
+*.png
 *.pyc
 *.egg-info
-
-.vscode

@@ -11,6 +11,7 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
 
+
 API_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 TIME_ROUND_FREQUENCY = "10T"
 TIME_LAG = "1H"
@@ -20,18 +21,19 @@ GOES_PRODUCT_NAME = {
     "visible": "Band2_Red_Visible_1km",
 }
 GOES_QUERY_BOUNDARIES = (-70, 5, -25, 25)  # lon_min, lon_max, lat_min, lat_max
-FIGURE_TITLES = {
-    "infrared": "GOES EAST Clean Infrared",
-    "visible": "GOES EAST Red Visible 1km",
-}
-FIGURE_BOUNDARIES = (-70, 5, -10, 25)
-QUERY_URL = (
+GOES_QUERY_URL = (
     "https://wvs.earthdata.nasa.gov/api/v1/snapshot?"
     "REQUEST=GetSnapshot&TIME={query_time_str}&BBOX={lat_min},{lon_min}"
     ",{lat_max},{lon_max}&CRS=EPSG:4326&LAYERS=GOES-East_ABI_"
     "{goes_product_name}&WRAP=x&FORMAT=image/"
     "tiff&WIDTH=2048&HEIGHT=910"
 )
+
+FIGURE_TITLES = {
+    "infrared": "GOES EAST Clean Infrared",
+    "visible": "GOES EAST Red Visible 1km",
+}
+FIGURE_BOUNDARIES = (-70, 5, -10, 25)
 
 
 def current_satellite_image_vis(current_time: pd.Timestamp) -> plt.Figure:
@@ -55,8 +57,10 @@ def _get_satellite_image(
 
 def _get_figure(plot_type, query_time_str, goes_image) -> plt.Figure:
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    goes_image = goes_image.sel(y=slice(lat_max, lat_min),
-                                x=slice(lon_min, lon_max))
+    y_slice = slice(lat_max, lat_min)
+    x_slice = slice(lon_min, lon_max)
+    goes_image = goes_image.sel(y=y_slice, x=x_slice)
+    goes_image = goes_image.transpose("y", "x", "band")
     x_fig = 10
     y_fig = (lat_min - lat_max) / (lon_min - lon_max) * x_fig
     extent = [
@@ -70,28 +74,32 @@ def _get_figure(plot_type, query_time_str, goes_image) -> plt.Figure:
         figsize=(x_fig, y_fig), subplot_kw={"projection": ccrs.PlateCarree()}
     )
     ax.imshow(
-        goes_image.transpose("y", "x", "band").values,
+        goes_image.values,
         extent=extent,
         origin="upper",
     )
+    _format_axes(plot_type, query_time_str, ax)
+    return fig
+
+
+def _format_axes(plot_type, query_time_str, ax) -> None:
+    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     ax.coastlines()
-    xticks = np.round(np.linspace(lon_min, lon_max, 11), 0)
+    xticks = np.round(np.linspace(lon_min, lon_max, 6), 0)
     yticks = np.round(np.linspace(lat_min, lat_max, 8), 0)
     ax.set_xticks(xticks, crs=ccrs.PlateCarree())
     ax.set_yticks(yticks, crs=ccrs.PlateCarree())
     ax.set_xlabel("Longitude")
     ax.set_ylabel("Latitude")
     ax.set_title(FIGURE_TITLES[plot_type])
-    ax.annotate(query_time_str, (-11.5, -8.5), backgroundcolor="white")
-    fig.tight_layout()
-    return fig
+    ax.annotate(query_time_str, (-11.75, -8.5), backgroundcolor="white")
 
 
 def _get_goes_image_datarray(plot_type, query_time_str):
     # get raster image
     lon_min, lon_max, lat_min, lat_max = GOES_QUERY_BOUNDARIES
     goes_product_name = GOES_PRODUCT_NAME[plot_type]
-    url = QUERY_URL.format(
+    url = GOES_QUERY_URL.format(
         query_time_str=query_time_str,
         lat_min=lat_min,
         lon_min=lon_min,
@@ -118,5 +126,6 @@ def _get_query_date_string(current_time):
     return query_time_str
 
 
-current_time = pd.Timestamp.now("UTC")
-fig = _get_satellite_image(current_time, "infrared")
+if __name__ == "__main__":
+    current_time = pd.Timestamp.now("UTC")
+    fig = _get_satellite_image(current_time, "infrared")

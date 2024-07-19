@@ -33,8 +33,8 @@ def generate_internal_figures(current_time: pd.Timestamp,
             _warn_function_is_not_defined(product, logger)
             continue
         figures[product] = dict()
-        for lead_time in INTERNAL_PLOTS_LEADTIMES:
-            figures[product][lead_time] = function(current_time, lead_time)
+        for lead_hours in INTERNAL_PLOTS_LEADTIMES:
+            figures[product][lead_hours] = function(current_time, lead_hours)
     return figures
 
 

@@ -1,7 +1,7 @@
 date:
   yyyy-mm-dd: '2024-01-01'
   yyyymmdd: '20240101'
-flight_id: PERCUSION_CV_FL00
+flight_id: FX2
 location: Barbados
 plots:
   external:
@@ -11,44 +11,44 @@ plots:
     meteogram_location: briefings/20240101/fig/external/meteogram_location.png
   internal:
     IWV_ITCZ_edges:
-      initplus000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_IWV_ITCZ_edges.png
-      initplus012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_IWV_ITCZ_edges.png
-      initplus036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_IWV_ITCZ_edges.png
-      initplus060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_IWV_ITCZ_edges.png
-      initplus084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_IWV_ITCZ_edges.png
-      initplus108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_IWV_ITCZ_edges.png
+      000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_IWV_ITCZ_edges.png
+      012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_IWV_ITCZ_edges.png
+      036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_IWV_ITCZ_edges.png
+      060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_IWV_ITCZ_edges.png
+      084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_IWV_ITCZ_edges.png
+      108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_IWV_ITCZ_edges.png
     cloud_cover:
-      initplus000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_cloud_cover.png
-      initplus012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_cloud_cover.png
-      initplus036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_cloud_cover.png
-      initplus060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_cloud_cover.png
-      initplus084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_cloud_cover.png
-      initplus108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_cloud_cover.png
+      000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_cloud_cover.png
+      012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_cloud_cover.png
+      036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_cloud_cover.png
+      060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_cloud_cover.png
+      084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_cloud_cover.png
+      108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_cloud_cover.png
     dust_tau550:
-      initplus000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_dust_tau550.png
-      initplus012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_dust_tau550.png
-      initplus036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_dust_tau550.png
-      initplus060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_dust_tau550.png
-      initplus084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_dust_tau550.png
-      initplus108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_dust_tau550.png
+      000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_dust_tau550.png
+      012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_dust_tau550.png
+      036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_dust_tau550.png
+      060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_dust_tau550.png
+      084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_dust_tau550.png
+      108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_dust_tau550.png
     sfc_pres_wind:
-      initplus000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_sfc_pres_wind.png
-      initplus012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_sfc_pres_wind.png
-      initplus036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_sfc_pres_wind.png
-      initplus060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_sfc_pres_wind.png
-      initplus084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_sfc_pres_wind.png
-      initplus108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_sfc_pres_wind.png
+      000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_sfc_pres_wind.png
+      012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_sfc_pres_wind.png
+      036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_sfc_pres_wind.png
+      060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_sfc_pres_wind.png
+      084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_sfc_pres_wind.png
+      108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_sfc_pres_wind.png
     sim_IR_image:
-      initplus000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_sim_IR_image.png
-      initplus012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_sim_IR_image.png
-      initplus036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_sim_IR_image.png
-      initplus060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_sim_IR_image.png
-      initplus084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_sim_IR_image.png
-      initplus108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_sim_IR_image.png
+      000h: briefings/20240101/fig/internal/IFS_20240101T0000Z+000h_sim_IR_image.png
+      012h: briefings/20240101/fig/internal/IFS_20240101T0000Z+012h_sim_IR_image.png
+      036h: briefings/20240101/fig/internal/IFS_20240101T0000Z+036h_sim_IR_image.png
+      060h: briefings/20240101/fig/internal/IFS_20240101T0000Z+060h_sim_IR_image.png
+      084h: briefings/20240101/fig/internal/IFS_20240101T0000Z+084h_sim_IR_image.png
+      108h: briefings/20240101/fig/internal/IFS_20240101T0000Z+108h_sim_IR_image.png
   mss_side_view:
     ICON:
-      cloud_cover: briefings/20240101/fig/mss/MSS_PERCUSION_CV_FL00_sideview_ICON_20240101T0000Z_cloud_cover.png
-      relative_humidity: briefings/20240101/fig/mss/MSS_PERCUSION_CV_FL00_sideview_ICON_20240101T0000Z_relative_humidity.png
+      cloud_cover: briefings/20240101/fig/mss/MSS_FX2_sideview_ICON_20240101T0000Z_cloud_cover.png
+      relative_humidity: briefings/20240101/fig/mss/MSS_FX2_sideview_ICON_20240101T0000Z_relative_humidity.png
     IFS:
-      cloud_cover: briefings/20240101/fig/mss/MSS_PERCUSION_CV_FL00_sideview_IFS_20240101T0000Z_cloud_cover.png
-      relative_humidity: briefings/20240101/fig/mss/MSS_PERCUSION_CV_FL00_sideview_IFS_20240101T0000Z_relative_humidity.png
+      cloud_cover: briefings/20240101/fig/mss/MSS_FX2_sideview_IFS_20240101T0000Z_cloud_cover.png
+      relative_humidity: briefings/20240101/fig/mss/MSS_FX2_sideview_IFS_20240101T0000Z_relative_humidity.png

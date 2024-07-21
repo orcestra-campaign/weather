@@ -1,3 +1,5 @@
 from wblib.services.get_paths import get_briefing_path
 from wblib.services.get_paths import get_briefing_paths
+from wblib.services.get_paths import get_briefing_template_path
 from wblib.services.get_expected_figures_yaml import get_expected_figures
+

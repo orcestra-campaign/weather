@@ -11,4 +11,4 @@ website:
       - about.qmd
   sidebar:
     search: true
-    contents: briefings/*.qmd
+    contents: briefings/*/*.qmd

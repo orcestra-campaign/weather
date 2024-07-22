@@ -1,11 +1,11 @@
 name: wbenv
 
 channels:
+  - anaconda
   - conda-forge
   - defaults
 
 dependencies:
-  - python >=3.11
   - requests
   - xarray
   - pandas
@@ -13,6 +13,8 @@ dependencies:
   - cartopy
   - intake
   - colorama
+  - aiohttp
+  - ipython
 
 pip:
   - easygems

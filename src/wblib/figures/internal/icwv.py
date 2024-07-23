@@ -29,21 +29,21 @@ REFDATE_LINEWIDTH = [0.75, 0.75, 0.75, 0.75, 1]
 
 
 def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
-    current_time = current_time.floor("1D")
+    new_current_time = current_time.floor("1D")
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
-    init_times = _get_dates_of_previous_five_days(current_time)
+    init_times = _get_dates_of_previous_five_days(new_current_time)
     datarrays = _get_forecast_datarrays_dict(init_times)
     # plot
     fig, ax = plt.subplots(
         figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
     )
     _draw_icwv_contours_for_previous_forecast_at_lead_time(
-        datarrays, current_time, lead_delta, init_times, ax
+        datarrays, new_current_time, lead_delta, init_times, ax
     )
     im = _draw_icwv_current_forecast_at_lead_time(
-        datarrays, current_time, init_times, lead_delta, ax
+        datarrays, new_current_time, init_times, lead_delta, ax
     )
-    _format_axes(current_time, lead_delta, ax)
+    _format_axes(new_current_time, lead_delta, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.9)
     return fig
 
@@ -92,7 +92,6 @@ def _draw_icwv_current_forecast_at_lead_time(
     datarrays, current_time, init_times, lead_delta, ax
 ):
     time = current_time + lead_delta
-    print(time)
     field = datarrays[init_times[-1]].sel(time=time)
     im = egh.healpix_show(
         field,
@@ -119,7 +118,7 @@ def _format_axes(current_time, lead_delta, ax):
 
 
 if __name__ == "__main__":
-    time = pd.Timestamp(2024, 7, 23)
+    time = pd.Timestamp(2024, 7, 22)
     lead_hours_str = "012H"
     figure = iwv_itcz_edges(time, lead_hours_str)
     figure.savefig("test.png")

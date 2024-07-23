@@ -2,9 +2,12 @@
 
 /.quarto/
 
-_variables.yml
 *.DS_Store
 
 *.png
 *.pyc
 *.egg-info
+
+# quarto build artefacts
+.jupyter_cache
+*.ipynb

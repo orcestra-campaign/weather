@@ -1,0 +1,21 @@
+name: wblib
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - aiohttp
+  - cartopy
+  - cmocean
+  - intake<2
+  - intake-xarray
+  - jupyter
+  - jupyter-cache
+  - matplotlib
+  - numpy
+  - nbformat
+  - requests
+  - xarray
+  - zarr
+  - pip
+  - pip:
+    - easygems

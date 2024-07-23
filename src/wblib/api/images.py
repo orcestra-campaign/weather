@@ -5,7 +5,7 @@ from PIL.Image import Image
 from matplotlib.figure import Figure
 import pandas as pd
 
-from wblib.api._utils import _load_variables_yaml
+from wblib.api._utils import TIME_ZONE_STR, _load_variables_yaml
 from wblib.services.get_figures import generate_external_figures
 from wblib.services.get_figures import generate_internal_figures
 
@@ -13,7 +13,7 @@ from wblib.api._logger import logger
 
 
 def make_briefing_images(date: str, logger: Callable = logger) -> None:
-    current_time = pd.Timestamp.now()
+    current_time = pd.Timestamp.now(TIME_ZONE_STR)
     logger(f"Generating figures for {date} at {current_time}", "INFO")
     variables_dict = _load_variables_yaml(date, logger)
     # external

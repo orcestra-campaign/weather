@@ -14,9 +14,10 @@ FORECAST_QUERY_REFTIME = "00"
 ICWV_ITCZ_THRESHOLD = 48  # mm
 ICWV_MAX = 65  # mm
 ICWV_MIN = 0  # mm
-ICWV_COLORMAP = "cividis_r"
+ICWV_COLORMAP = "bone_r"
 ICWV_CATALOG_VARIABLE = "tcwv"
-FIGURE_SIZE = (15, 8)
+FIGURE_SIZE = (15, 5)
+FIGURE_BOUNDARIES = (-70, 10, -10, 30)
 REFDATE_COLORBAR = [
     "#ffc99d",
     "#ffa472",
@@ -28,24 +29,21 @@ REFDATE_LINEWIDTH = [0.75, 0.75, 0.75, 0.75, 1]
 
 
 def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
-    floored_current_time = current_time.floor("1D")
+    current_time = current_time.floor("1D")
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
-    previous_init_times = _get_dates_of_previous_five_days(
-        floored_current_time
-    )
-    init_times = [floored_current_time] + previous_init_times
+    init_times = _get_dates_of_previous_five_days(current_time)
     datarrays = _get_forecast_datarrays_dict(init_times)
     # plot
     fig, ax = plt.subplots(
         figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
     )
-    _draw_icwv_contours_for_previous_forecast(
-        datarrays, floored_current_time, lead_delta, previous_init_times, ax
+    _draw_icwv_contours_for_previous_forecast_at_lead_time(
+        datarrays, current_time, lead_delta, init_times, ax
     )
-    im = _draw_icwv_current_forecast(
-        datarrays, floored_current_time, lead_delta, ax
+    im = _draw_icwv_current_forecast_at_lead_time(
+        datarrays, current_time, init_times, lead_delta, ax
     )
-    _format_axes(floored_current_time, lead_delta, ax)
+    _format_axes(current_time, lead_delta, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.9)
     return fig
 
@@ -59,17 +57,19 @@ def _get_dates_of_previous_five_days(
     return dates
 
 
-def _get_forecast_datarrays_dict(previous_init_times):
+def _get_forecast_datarrays_dict(init_times):
     catalog = intake.open_catalog(CATALOG_URL)
     datarrays = dict()
-    for init_time in previous_init_times:
-        catalog_dataset = catalog.HIFS(refdate=init_time.strftime("%Y-%m-%d"))
-        dataset = catalog_dataset.to_dask().pipe(egh.attach_coords)
+    for init_time in init_times:
+        refdate = init_time.strftime("%Y-%m-%d")
+        dataset = (
+            catalog.HIFS(refdate=refdate).to_dask().pipe(egh.attach_coords)
+        )
         datarrays[init_time] = dataset[ICWV_CATALOG_VARIABLE]
     return datarrays
 
 
-def _draw_icwv_contours_for_previous_forecast(
+def _draw_icwv_contours_for_previous_forecast_at_lead_time(
     datarrays, current_time, lead_delta, previous_init_times, ax
 ):
     ax.set_extent(
@@ -88,8 +88,12 @@ def _draw_icwv_contours_for_previous_forecast(
         )
 
 
-def _draw_icwv_current_forecast(datarrays, current_time, lead_delta, ax):
-    field = datarrays[current_time].sel(time=current_time + lead_delta)
+def _draw_icwv_current_forecast_at_lead_time(
+    datarrays, current_time, init_times, lead_delta, ax
+):
+    time = current_time + lead_delta
+    print(time)
+    field = datarrays[init_times[-1]].sel(time=time)
     im = egh.healpix_show(
         field,
         ax=ax,
@@ -102,6 +106,7 @@ def _draw_icwv_current_forecast(datarrays, current_time, lead_delta, ax):
 
 
 def _format_axes(current_time, lead_delta, ax):
+    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     forecast_on_str = current_time + lead_delta
     ax.set_title(forecast_on_str)
     ax.coastlines(lw=1.0, color="k")
@@ -109,10 +114,12 @@ def _format_axes(current_time, lead_delta, ax):
     ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
     ax.set_ylabel("Latitude \N{DEGREE SIGN}N")
     ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
+    ax.set_xlim([lon_min, lon_max])
+    ax.set_ylim([lat_min, lat_max])
 
 
 if __name__ == "__main__":
-    time = pd.Timestamp.now().floor("1D")
-    lead_hours_str = "024H"
+    time = pd.Timestamp(2024, 7, 23)
+    lead_hours_str = "012H"
     figure = iwv_itcz_edges(time, lead_hours_str)
-    # figure.savefig("test.png")
+    figure.savefig("test.png")

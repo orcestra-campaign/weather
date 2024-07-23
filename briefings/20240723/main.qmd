@@ -16,17 +16,17 @@ subtitle: "{{< var date.yyyy-mm-dd >}}"
 
 ## IWV with ITCZ edges and center
 ::: {layout-nrow=2}
-![init+000h]({{< var plots.internal.IWV_ITCZ_edges.initplus000h >}})
+![init+000h]({{< var plots.internal.IWV_ITCZ_edges.000h >}})
 
-![init+012h]({{< var plots.internal.IWV_ITCZ_edges.initplus012h >}})
+![init+012h]({{< var plots.internal.IWV_ITCZ_edges.012h >}})
 
-![init+036h]({{< var plots.internal.IWV_ITCZ_edges.initplus036h >}})
+![init+036h]({{< var plots.internal.IWV_ITCZ_edges.036h >}})
 
-![init+060h]({{< var plots.internal.IWV_ITCZ_edges.initplus060h >}})
+![init+060h]({{< var plots.internal.IWV_ITCZ_edges.060h >}})
 
-![init+084h]({{< var plots.internal.IWV_ITCZ_edges.initplus084h >}})
+![init+084h]({{< var plots.internal.IWV_ITCZ_edges.084h >}})
 
-![init+108h]({{< var plots.internal.IWV_ITCZ_edges.initplus108h >}})
+![init+108h]({{< var plots.internal.IWV_ITCZ_edges.108h >}})
 :::
 
 ## Summary

@@ -5,13 +5,13 @@ subtitle: "{{< var date.yyyy-mm-dd >}}"
 
 # Current synoptic situation
 ## NHC surface analysis
-![]({{< var plots.external.NHC_sfc_analysis >}})
+![]({{< var plots.external.nhc_surface_analysis_atlantic >}})
 
 ## Current satellite images
 ::: {layout-ncol=2}
 ![Visible image]({{< var plots.external.current_satellite_image_vis >}})
 
-![Infrared image]({{< var plots.external.current_satellite_image_IR >}})
+![Infrared image]({{< var plots.external.current_satellite_image_ir >}})
 :::
 
 ## IWV with ITCZ edges and center

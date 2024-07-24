@@ -6,6 +6,7 @@ dependencies:
   - aiohttp
   - cartopy
   - cmocean
+  - colorama
   - intake<2
   - intake-xarray
   - jupyter
@@ -13,9 +14,13 @@ dependencies:
   - matplotlib
   - numpy
   - nbformat
+  - pyyaml
+  - rasterio
   - requests
+  - seaborn
   - xarray
   - zarr
   - pip
   - pip:
     - easygems
+    - rioxarray

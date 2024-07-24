@@ -24,3 +24,4 @@ dependencies:
   - pip:
     - easygems
     - rioxarray
+    - -e src/

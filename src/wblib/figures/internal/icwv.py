@@ -9,14 +9,17 @@ import pandas as pd
 
 from matplotlib.figure import Figure
 
+import seaborn as sns
+sns.set_context('talk')
+
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 FORECAST_PUBLISH_LAG = "12h"
 ICWV_ITCZ_THRESHOLD = 48  # mm
 ICWV_MAX = 65  # mm
 ICWV_MIN = 0  # mm
-ICWV_COLORMAP = "bone_r"
+ICWV_COLORMAP = "bone"
 ICWV_CATALOG_VARIABLE = "tcwv"
-FIGURE_SIZE = (15, 5)
+FIGURE_SIZE = (15, 8)
 FIGURE_BOUNDARIES = (-70, 10, -10, 30)
 REFDATE_COLORBAR = [
     "#ffc99d",
@@ -25,7 +28,7 @@ REFDATE_COLORBAR = [
     "#ff7e26",
     "#ff580f",
 ]  # the ordering of the colors indicate the latest available refdate
-REFDATE_LINEWIDTH = [0.75, 0.75, 0.75, 0.75, 1]
+REFDATE_LINEWIDTH = [1, 1, 1, 1, 1]
 
 
 def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
@@ -76,12 +79,13 @@ def _get_forecast_datarrays_dict(init_times):
 
 
 def _draw_icwv_contours_for_previous_forecast_at_lead_time(
-    datarrays, current_time, lead_delta, previous_init_times, ax
+    datarrays, current_time, lead_delta, init_times, ax
 ):
+    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     ax.set_extent(
-        [-70, 10, -25, 25]
+        [lon_min, lon_max, lat_min, lat_max]
     )  # need this line here to get the contours and lines on the plot
-    for i, init_time in enumerate(previous_init_times):
+    for i, init_time in enumerate(init_times):
         color = REFDATE_COLORBAR[i]
         linewidth = REFDATE_LINEWIDTH[i]
         valid_time = current_time.floor("1D") + lead_delta
@@ -127,7 +131,7 @@ def _format_axes(current_time, lead_delta, ax):
 
 
 if __name__ == "__main__":
-    time = pd.Timestamp.now("UTC")
+    time = pd.Timestamp(2024, 7, 22)
     lead_hours_str = "012H"
     figure = iwv_itcz_edges(time, lead_hours_str)
     figure.savefig("test.png")

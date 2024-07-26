@@ -7,13 +7,13 @@ import cartopy.crs as ccrs
 import numpy as np
 import pandas as pd
 
+import matplotlib
 from matplotlib.figure import Figure
 
 import seaborn as sns
-sns.set_context('talk')
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
-FORECAST_PUBLISH_LAG = "12h"
+FORECAST_PUBLISH_LAG = "6h"
 ICWV_ITCZ_THRESHOLD = 48  # mm
 ICWV_MAX = 65  # mm
 ICWV_MIN = 0  # mm
@@ -33,10 +33,11 @@ REFDATE_LINEWIDTH = [1, 1, 1, 1, 1]
 
 def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
-    latest_time = _get_latest_forecast_time(current_time)
-    init_times = _get_dates_of_previous_five_days(latest_time)
+    forcast_latest_time = _get_latest_forecast_time(current_time)
+    init_times = _get_dates_of_previous_five_days(forcast_latest_time)
     datarrays = _get_forecast_datarrays_dict(init_times)
     # plot
+    sns.set_context('talk')
     fig, ax = plt.subplots(
         figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
     )
@@ -48,6 +49,7 @@ def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
     )
     _format_axes(current_time, lead_delta, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.9)
+    matplotlib.rc_file_defaults()
     return fig
 
 
@@ -131,7 +133,7 @@ def _format_axes(current_time, lead_delta, ax):
 
 
 if __name__ == "__main__":
-    time = pd.Timestamp(2024, 7, 22)
-    lead_hours_str = "012H"
+    time = pd.Timestamp.now("UTC").tz_localize(None)
+    lead_hours_str = "108H"
     figure = iwv_itcz_edges(time, lead_hours_str)
-    figure.savefig("test.png")
+    figure.savefig("test2.png")

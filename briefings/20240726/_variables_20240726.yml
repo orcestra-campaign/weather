@@ -1,0 +1,26 @@
+date:
+  yyyy-mm-dd: '2024-07-26'
+  yyyymmdd: '20240726'
+flight_id: FLX01
+location: Sal
+plots:
+  external:
+    current_satellite_image_ir: briefings/20240726/fig/external/current_satellite_image_ir.png
+    current_satellite_image_vis: briefings/20240726/fig/external/current_satellite_image_vis.png
+    nhc_seven_days_outlook: briefings/20240726/fig/external/nhc_seven_days_outlook.png
+    nhc_surface_analysis_atlantic: briefings/20240726/fig/external/nhc_surface_analysis_atlantic.png
+  internal:
+    iwv_itcz_edges:
+      000h: briefings/20240726/fig/internal/IFS_20240726T0000Z+000h_iwv_itcz_edges.png
+      012h: briefings/20240726/fig/internal/IFS_20240726T0000Z+012h_iwv_itcz_edges.png
+      036h: briefings/20240726/fig/internal/IFS_20240726T0000Z+036h_iwv_itcz_edges.png
+      060h: briefings/20240726/fig/internal/IFS_20240726T0000Z+060h_iwv_itcz_edges.png
+      084h: briefings/20240726/fig/internal/IFS_20240726T0000Z+084h_iwv_itcz_edges.png
+      108h: briefings/20240726/fig/internal/IFS_20240726T0000Z+108h_iwv_itcz_edges.png
+  mss_side_view:
+    ICON:
+      cloud_cover: briefings/20240726/fig/mss/MSS_FLX01_sideview_ICON_20240726T0000Z_cloud_cover.png
+      relative_humidity: briefings/20240726/fig/mss/MSS_FLX01_sideview_ICON_20240726T0000Z_relative_humidity.png
+    IFS:
+      cloud_cover: briefings/20240726/fig/mss/MSS_FLX01_sideview_IFS_20240726T0000Z_cloud_cover.png
+      relative_humidity: briefings/20240726/fig/mss/MSS_FLX01_sideview_IFS_20240726T0000Z_relative_humidity.png

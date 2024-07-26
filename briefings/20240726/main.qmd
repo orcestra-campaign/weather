@@ -1,0 +1,42 @@
+---
+title: "PERCUSION Weather briefing"
+subtitle: "{{< var date.yyyy-mm-dd >}}"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< var plots.external.nhc_surface_analysis_atlantic >}})
+
+## NHC tropical weather outlook
+![]({{< var plots.external.nhc_seven_days_outlook >}})
+
+### Latest satellite images
+## GOES WEST Latest Infrared Image
+![Infrared image]({{< var plots.external.current_satellite_image_ir >}})
+
+## GOES WEST Latest Visible Image
+![Visible image]({{< var plots.external.current_satellite_image_vis >}})
+
+
+# IFS ECMWF Integrated Water Vapor Forecast
+## IFS ECMWF Integrated Water Vapor Forecast
+![init+000h]({{< var plots.internal.iwv_itcz_edges.000h >}})
+
+## IFS ECMWF Integrated Water Vapor Forecast
+![init+012h]({{< var plots.internal.iwv_itcz_edges.012h >}})
+
+## IFS ECMWF Integrated Water Vapor Forecast
+![init+036h]({{< var plots.internal.iwv_itcz_edges.036h >}})
+
+## IFS ECMWF Integrated Water Vapor Forecast
+![init+060h]({{< var plots.internal.iwv_itcz_edges.060h >}})
+
+## IFS ECMWF Integrated Water Vapor Forecast
+![init+084h]({{< var plots.internal.iwv_itcz_edges.084h >}})
+
+## IFS ECMWF Integrated Water Vapor Forecast
+![init+108h]({{< var plots.internal.iwv_itcz_edges.108h >}})
+
+
+## Summary
+Summary of weather briefing.

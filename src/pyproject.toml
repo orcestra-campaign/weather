@@ -7,6 +7,20 @@ name = "wblib"
 authors = [
     {name = "MPI-M"},
 ]
+dependencies = [
+    "cartopy",
+    "colorama",
+    "easygems",
+    "intake<2",
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "requests",
+    "rioxarray",
+    "seaborn",
+    "xarray",
+    "pyyaml",
+]
 description = "Weather Briefing library for PRECUSION"
 requires-python = ">=3.10"
 license = {text = "BSD-3-Clause"}

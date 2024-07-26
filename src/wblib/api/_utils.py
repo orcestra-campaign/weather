@@ -7,6 +7,7 @@ import yaml
 
 from wblib.services.get_paths import get_variables_path
 
+TIME_ZONE_STR = "UTC"
 
 def _load_variables_yaml(date: str, logger: Callable) -> dict:
     variables_path = get_variables_path(date)

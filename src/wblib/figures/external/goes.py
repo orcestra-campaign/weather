@@ -130,3 +130,4 @@ def _get_query_date_string(current_time):
 if __name__ == "__main__":
     current_time = pd.Timestamp.now("UTC")
     fig = _get_satellite_image(current_time, "infrared")
+    fig.savefig("test.png")

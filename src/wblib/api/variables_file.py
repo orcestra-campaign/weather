@@ -11,7 +11,7 @@ from wblib.services import get_expected_figures
 
 
 def make_briefing_variables(date: str, flight_id: str, location: str,
-                          logger: Callable = logger) -> None:
+                            logger: Callable = logger) -> None:
     variables_nml = get_expected_figures(date, location, flight_id)
     variables_file_name = f"_variables_{date}.yml"
     output_path = pathlib.Path(get_briefing_path(date))

@@ -6,3 +6,4 @@ format:
       width: 1245
       height: 700
       navigation-mode: linear
+      transition: none

@@ -10,7 +10,7 @@ subtitle: "{{< var date.yyyy-mm-dd >}}"
 ## NHC tropical weather outlook
 ![]({{< var plots.external.nhc_seven_days_outlook >}})
 
-### Latest satellite images
+# Latest satellite images
 ## GOES WEST Latest Infrared Image
 ![]({{< var plots.external.current_satellite_image_ir >}})
 

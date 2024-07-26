@@ -1,9 +1,6 @@
 ---
 title: "PERCUSION Weather briefing"
 subtitle: "{{< var date.yyyy-mm-dd >}}"
-format:
-  revealjs:
-    transition: none
 ---
 
 # Current synoptic situation

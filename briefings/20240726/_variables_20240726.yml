@@ -1,7 +1,7 @@
 date:
   yyyy-mm-dd: '2024-07-26'
   yyyymmdd: '20240726'
-flight_id: FLX01
+flight_id: FLX1
 location: Sal
 plots:
   external:
@@ -19,8 +19,8 @@ plots:
       108h: briefings/20240726/fig/internal/IFS_20240726T0000Z+108h_iwv_itcz_edges.png
   mss_side_view:
     ICON:
-      cloud_cover: briefings/20240726/fig/mss/MSS_FLX01_sideview_ICON_20240726T0000Z_cloud_cover.png
-      relative_humidity: briefings/20240726/fig/mss/MSS_FLX01_sideview_ICON_20240726T0000Z_relative_humidity.png
+      cloud_cover: briefings/20240726/fig/mss/MSS_FLX1_sideview_ICON_20240726T0000Z_cloud_cover.png
+      relative_humidity: briefings/20240726/fig/mss/MSS_FLX1_sideview_ICON_20240726T0000Z_relative_humidity.png
     IFS:
-      cloud_cover: briefings/20240726/fig/mss/MSS_FLX01_sideview_IFS_20240726T0000Z_cloud_cover.png
-      relative_humidity: briefings/20240726/fig/mss/MSS_FLX01_sideview_IFS_20240726T0000Z_relative_humidity.png
+      cloud_cover: briefings/20240726/fig/mss/MSS_FLX1_sideview_IFS_20240726T0000Z_cloud_cover.png
+      relative_humidity: briefings/20240726/fig/mss/MSS_FLX1_sideview_IFS_20240726T0000Z_relative_humidity.png

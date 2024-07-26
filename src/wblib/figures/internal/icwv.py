@@ -28,7 +28,7 @@ REFDATE_COLORBAR = [
     "#ff7e26",
     "#ff580f",
 ]  # the ordering of the colors indicate the latest available refdate
-REFDATE_LINEWIDTH = [1, 1, 1, 1, 1]
+REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 
 def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
@@ -48,7 +48,7 @@ def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
         datarrays, current_time, init_times, lead_delta, ax
     )
     _format_axes(current_time, lead_delta, ax)
-    fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.9)
+    fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
     matplotlib.rc_file_defaults()
     return fig
 

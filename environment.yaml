@@ -9,6 +9,7 @@ dependencies:
   - colorama
   - intake<2
   - intake-xarray
+  - ipykernel
   - jupyter
   - jupyter-cache
   - matplotlib

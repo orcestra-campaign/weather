@@ -13,23 +13,26 @@ from wblib.api._logger import logger
 
 
 def make_briefing_images(date: str, logger: Callable = logger) -> None:
-    current_time = pd.Timestamp.now(TIME_ZONE_STR)
-    logger(f"Generating figures for {date} at {current_time}", "INFO")
+    logger("Generating briefing figures", "INFO")
     variables_dict = _load_variables_yaml(date, logger)
     # external
-    external_figures = generate_external_figures(current_time, logger)
+    external_time = pd.Timestamp.now(TIME_ZONE_STR)
+    logger(f"External figure time set to {external_time}", "INFO")
+    external_figures = generate_external_figures(external_time, logger)
     for name, image in external_figures.items():
         fig_path = variables_dict["plots"]["external"][name]
         _save_image(image, fig_path)
         logger(f"Saved external figure '{name}' in '{fig_path}'.", "INFO")
     # internal
-    internal_figures = generate_internal_figures(current_time, logger)
+    internal_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
+    logger(f"Internal figure time set to {internal_time}", "INFO")
+    internal_figures = generate_internal_figures(internal_time, logger)
     for name, images in internal_figures.items():
         fig_paths = variables_dict["plots"]["internal"][name]
         for lead_time, fig_path in fig_paths.items():
             image = images[lead_time]
             _save_image(image, fig_path)
-            logger(f"Saved internal figure '{name}' for '{current_time}' "
+            logger(f"Saved internal figure '{name}' for '{internal_time}' "
                    f"and '{lead_time}' in '{fig_path}'.", "INFO")
 
 
@@ -45,6 +48,6 @@ def _save_image(image, fig_path) -> None:
 
 
 if __name__ == "__main__":
-    make_briefing_images("20240101")  # for testing
+    make_briefing_images("20240731")  # for testing
 
 

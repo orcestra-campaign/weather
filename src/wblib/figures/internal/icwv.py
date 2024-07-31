@@ -63,7 +63,7 @@ def _get_dates_of_previous_five_days(
     current_time: pd.Timestamp,
 ) -> list[pd.Timestamp]:
     day = pd.Timedelta("1D")
-    dates = [(current_time.floor("1D") - i * day) for i in range(1, 6)]
+    dates = [(current_time.floor("1D") - i * day) for i in range(0, 5)]
     dates.reverse()
     return dates
 

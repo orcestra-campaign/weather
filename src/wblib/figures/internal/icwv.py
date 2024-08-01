@@ -11,7 +11,7 @@ import matplotlib
 from matplotlib.figure import Figure
 import seaborn as sns
 
-from wblib.figures.internal._general_plotting_functions import _plot_sattrack
+from wblib.figures.internal._general_plotting_functions import plot_sattrack
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 FORECAST_PUBLISH_LAG = "6h"
@@ -50,7 +50,7 @@ def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
     )
     valid_time = current_time.floor("1D") + lead_delta
     valid_time = valid_time.tz_localize(None)
-    _plot_sattrack(valid_time, ax)
+    plot_sattrack(valid_time, ax)
     _format_axes(current_time, lead_delta, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
     matplotlib.rc_file_defaults()

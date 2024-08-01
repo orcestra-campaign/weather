@@ -15,18 +15,14 @@ ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
-    _validate_date(date)
+    date = _parse_date(date)
     _validate_location(location)
     init = _find_latest_available_init(date)
     output_path = get_figure_path(date)
-    date2 = _change_date_format(date)
     variables_nml = {
         "flight_id": flight_id,
         "location": location,
-        "date": {
-            "yyyymmdd": date,
-            "yyyy-mm-dd": date2
-        },
+        "date": date,
         "plots": {
             "external": get_expected_external_figures(output_path),
             "internal": get_expected_internal_figures(output_path, init),
@@ -78,10 +74,10 @@ def _validate_location(location: str) -> None:
         raise ValueError(msg)
 
 
-def _validate_date(date_str: str) -> None:
+def _parse_date(date_str: str) -> None:
     """Validate the date of the weather briefing provided by the user."""
     try:
-        datetime.strptime(date_str, "%Y%m%d")
+        return datetime.strptime(date_str, "%Y%m%d")
     except ValueError:
         raise ValueError("Incorrect data format, should be YYYYMMDD")
 
@@ -91,6 +87,6 @@ def _change_date_format(date_str: str) -> str:
     return new_date_str
 
 
-def _find_latest_available_init(date_str: str) -> str:
-    expected_latest_init = date_str + "T0000Z"
+def _find_latest_available_init(date: datetime) -> str:
+    expected_latest_init = f"{date:%Y-%m-%d}T0000Z"
     return expected_latest_init

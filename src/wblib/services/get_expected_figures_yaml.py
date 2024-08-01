@@ -76,16 +76,11 @@ def _validate_location(location: str) -> None:
 def _parse_date(date_str: str) -> None:
     """Validate the date of the weather briefing provided by the user."""
     try:
-        return datetime.strptime(date_str, "%Y%m%d")
-    except ValueError:
-        raise ValueError("Incorrect data format, should be YYYYMMDD")
+        datetime.strptime(date_str, "%Y%m%d")
+    except ValueError as exc:
+        raise ValueError("Incorrect data format, should be YYYYMMDD") from exc
 
 
 def _change_date_format(date_str: str) -> str:
     new_date_str = date_str[:4] + '-' + date_str[4:6] + '-' + date_str[6:8]
     return new_date_str
-
-
-def _find_latest_available_init(date: datetime) -> str:
-    expected_latest_init = f"{date:%Y-%m-%d}T0000Z"
-    return expected_latest_init

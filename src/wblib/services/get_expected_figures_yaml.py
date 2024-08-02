@@ -15,7 +15,7 @@ ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
-    date = _parse_date(date)
+    _validate_date(date)
     _validate_location(location)
     output_path = get_figure_path()
     variables_nml = {
@@ -73,9 +73,9 @@ def _validate_location(location: str) -> None:
         raise ValueError(msg)
 
 
-def _parse_date(date_str: str) -> datetime:
+def _validate_date(date_str: str) -> None:
     """Validate the date of the weather briefing provided by the user."""
     try:
-        return datetime.strptime(date_str, "%Y%m%d")
+        datetime.strptime(date_str, "%Y%m%d")
     except ValueError as exc:
         raise ValueError("Incorrect data format, should be YYYYMMDD") from exc

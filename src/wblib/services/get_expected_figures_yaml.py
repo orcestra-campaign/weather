@@ -73,10 +73,10 @@ def _validate_location(location: str) -> None:
         raise ValueError(msg)
 
 
-def _parse_date(date_str: str) -> None:
+def _parse_date(date_str: str) -> datetime:
     """Validate the date of the weather briefing provided by the user."""
     try:
-        datetime.strptime(date_str, "%Y%m%d")
+        return datetime.strptime(date_str, "%Y%m%d")
     except ValueError as exc:
         raise ValueError("Incorrect data format, should be YYYYMMDD") from exc
 

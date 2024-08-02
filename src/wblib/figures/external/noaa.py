@@ -7,18 +7,9 @@ from io import BytesIO
 
 
 ANALYSIS_URLS = {
-    "two_days_outlook": "https://www.nhc.noaa.gov/xgtwo/two_atl_2d0.png",
     "seven_days_outlook": "https://www.nhc.noaa.gov/xgtwo/two_atl_7d0.png",
     "surface_analysis_atlantic": "https://ocean.weather.gov/UA/Atl_Tropics.gif"
 }
-
-
-def nhc_two_days_outlook(*args) -> img.Image:
-    url = ANALYSIS_URLS["two_days_outlook"]
-    response = requests.get(url)
-    image = img.open(BytesIO(response.content))
-    return image
-
 
 
 def nhc_seven_days_outlook(*args) -> img.Image:

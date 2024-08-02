@@ -14,7 +14,7 @@ def plot_sattrack(valid_time, ax, satellite:str = "EARTHCARE"):
     for sattrack in splitted_sattracks:
         ax.plot(sattrack.lon, sattrack.lat, ls='-', color='blue', lw=1.5,
                 transform = ccrs.PlateCarree())
-    
+
 
 def _split_sattracks(sattracks: xr.Dataset) -> list:
     splitted_sattracks = []

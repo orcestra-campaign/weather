@@ -11,7 +11,7 @@ import matplotlib
 from matplotlib.figure import Figure
 import seaborn as sns
 
-from wblib.figures.internal._general_plotting_functions import plot_sattrack
+from wblib.figures.internal.sattrack import plot_sattrack
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 FORECAST_PUBLISH_LAG = "6h"

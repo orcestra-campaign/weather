@@ -6,3 +6,6 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+
+filters:
+  - path_meta.lua

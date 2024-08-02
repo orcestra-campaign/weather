@@ -12,9 +12,10 @@ from matplotlib.figure import Figure
 
 import seaborn as sns
 
+from wblib.figures.hifs import get_latest_forecast_issue_time
+from wblib.figures.hifs import get_dates_of_five_previous_initializations
+
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
-FORECAST_PUBLISH_LAG = "8h"
-FORECAST_PUBLISH_FREQ = "12h"
 ICWV_ITCZ_THRESHOLD = 48  # mm
 ICWV_MAX = 65  # mm
 ICWV_MIN = 0  # mm
@@ -34,8 +35,8 @@ REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 def iwv_itcz_edges(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
-    issued_time = _get_latest_forecast_time(briefing_time)
-    issued_times = _get_dates_of_five_previous_initializations(issued_time)
+    issued_time = get_latest_forecast_issue_time(briefing_time)
+    issued_times = get_dates_of_five_previous_initializations(issued_time)
     datarrays = _get_forecast_datarrays_dict(issued_times)
     # plot
     sns.set_context('talk')
@@ -52,26 +53,6 @@ def iwv_itcz_edges(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
     matplotlib.rc_file_defaults()
     return fig
-
-
-def _get_latest_forecast_time(briefing_time: pd.Timestamp):
-    current_time = pd.Timestamp.now("UTC")
-    publish_lag = pd.Timedelta(FORECAST_PUBLISH_LAG)
-    publish_freq = pd.Timedelta(FORECAST_PUBLISH_FREQ)
-    if current_time >= briefing_time + publish_lag:
-        issued_time = briefing_time
-    if current_time < briefing_time + publish_lag:
-        issued_time = current_time.floor(FORECAST_PUBLISH_FREQ) - publish_freq
-    return issued_time
-
-
-def _get_dates_of_five_previous_initializations(
-    issue_time: pd.Timestamp,
-) -> list[pd.Timestamp]:
-    day = pd.Timedelta("1D")
-    dates = [(issue_time.floor("1D") - i * day) for i in range(0, 5)]
-    dates.reverse()
-    return dates
 
 
 def _get_forecast_datarrays_dict(issued_times):

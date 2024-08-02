@@ -79,8 +79,3 @@ def _parse_date(date_str: str) -> datetime:
         return datetime.strptime(date_str, "%Y%m%d")
     except ValueError as exc:
         raise ValueError("Incorrect data format, should be YYYYMMDD") from exc
-
-
-def _change_date_format(date_str: str) -> str:
-    new_date_str = date_str[:4] + '-' + date_str[4:6] + '-' + date_str[6:8]
-    return new_date_str

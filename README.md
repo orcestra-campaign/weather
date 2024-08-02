@@ -39,23 +39,15 @@ this will check that all figures are complete and indicate possible missing ones
 
 ## Generating the weather briefing presentation
 
+After creating the briefing structure and all necessary figures, you can use quarto to build the presentations and website
+```
+quarto render --profile website
+quarto render --profile slides
+```
+
 ### Preview Server
 
-for slide view:
-
+You can also run quarto in preview mode, which will open a browser and navigate to the most recently modified file:
 ```
-./render_quarto.sh [BRIEFING_DATE] preview slides
-```
-
-for website view:
-
-```
-./render_quarto.sh [BRIEFING_DATE] preview website
-```
-
-### Build Everything
-
-```
-./render_quarto.sh [BRIEFING_DATE] render slides
-./render_quarto.sh [BRIEFING_DATE] render website
+quarto preview --profile slides
 ```

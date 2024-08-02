@@ -55,13 +55,3 @@ def generate_internal_figures(current_time: pd.Timestamp,
 def _warn_function_is_not_defined(product, logger):
     msg = f"Undefined function for '{product}' product."
     logger(msg, "ERROR")
-
-
-def catch_ignore_warn(function, logger):
-    def wrap(*args, **kwargs):
-        try:
-            figure = function(*args, **kwargs)
-            logger(f"Ran figure function '{function.__name__}'", "INFO")
-            return figure
-        except:
-            logger(f"Ran figure function '{function.__name__}'", "INFO")

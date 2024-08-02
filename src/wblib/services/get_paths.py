@@ -15,13 +15,12 @@ def get_briefing_path(date) -> str:
 
 
 def get_figure_path(date) -> str:
-    briefing_path = get_briefing_path(date)
-    figures_output_path = f"{briefing_path}/fig"
+    figures_output_path = "fig"
     return figures_output_path
 
 
 def get_briefing_paths(date: str) -> list[str]:
-    figures_output_path = get_figure_path(date)
+    figures_output_path = get_briefing_path(date) + "/" + get_figure_path(date)
     briefing_paths = [
         f"{figures_output_path}",
         f"{figures_output_path}/internal",
@@ -32,7 +31,7 @@ def get_briefing_paths(date: str) -> list[str]:
 
 
 def get_variables_path(date: str) -> str:
-    variables_path = get_briefing_path(date) + f"/_variables_{date}.yml"
+    variables_path = get_briefing_path(date) + "/_metadata.yml"
     return variables_path
 
 

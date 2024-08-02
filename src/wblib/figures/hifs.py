@@ -17,10 +17,12 @@ def get_latest_forecast_issue_time(briefing_time: pd.Timestamp):
     return issued_time
 
 
-def get_dates_of_five_previous_initializations(
+def get_dates_of_N_previous_initializations(
     issue_time: pd.Timestamp,
+    N_previous_forecasts: int=5,
 ) -> list[pd.Timestamp]:
     day = pd.Timedelta("1D")
-    dates = [(issue_time.floor("1D") - i * day) for i in range(0, 5)]
+    dates = [(issue_time.floor("1D") - i * day) for i in
+             range(0, N_previous_forecasts)]
     dates.reverse()
     return dates

@@ -48,7 +48,7 @@ def iwv_itcz_edges(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     im = _draw_icwv_current_forecast(
         datarrays, briefing_time, lead_delta, issued_times, ax
     )
-    _format_axes(briefing_time, lead_delta, ax)
+    _format_axes(briefing_time, issued_time, lead_delta, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
     matplotlib.rc_file_defaults()
     return fig
@@ -125,10 +125,15 @@ def _draw_icwv_current_forecast(
     return im
 
 
-def _format_axes(issue_time, lead_delta, ax):
+def _format_axes(briefing_time, issued_time, lead_delta, ax):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    forecast_on_str = issue_time.floor("1D") + lead_delta
-    ax.set_title(forecast_on_str)
+    valid_time = briefing_time + lead_delta
+    title_str = (
+        f"Forecast issue time: {issued_time.strftime('%Y-%m-%d %H:%M')} \n"
+        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
+        f"Horizon: {int(lead_delta.total_seconds() / 3600):03d}H"
+                 )
+    ax.set_title(title_str)
     ax.coastlines(lw=1.0, color="k")
     ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=ccrs.PlateCarree())
     ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
@@ -139,9 +144,8 @@ def _format_axes(issue_time, lead_delta, ax):
 
 
 if __name__ == "__main__":
-    briefing_time = pd.Timestamp(2024, 8, 1).tz_localize("UTC")
-    lead_hours_str = "108H"
+    time = pd.Timestamp(2024, 8, 1).tz_localize("UTC")
     for lead_hours_str in  ["003h", "012h", "036h", "060h", "084h", "108h"]:
         print(lead_hours_str)
-        figure = iwv_itcz_edges(briefing_time, lead_hours_str)
+        figure = iwv_itcz_edges(time, lead_hours_str)
         figure.savefig(f"test_{lead_hours_str}.png")

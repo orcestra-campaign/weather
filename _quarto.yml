@@ -12,3 +12,4 @@ website:
   sidebar:
     search: true
     contents: briefings/*/*.qmd
+  margin-header: "{{< meta slide_link >}}"

@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: public
+  render:
+    - "*.qmd"
+    - "!src/"
 
 website:
   title: "Weather"

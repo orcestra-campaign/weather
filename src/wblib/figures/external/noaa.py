@@ -8,7 +8,8 @@ from io import BytesIO
 
 ANALYSIS_URLS = {
     "seven_days_outlook": "https://www.nhc.noaa.gov/xgtwo/two_atl_7d0.png",
-    "surface_analysis_atlantic": "https://ocean.weather.gov/UA/Atl_Tropics.gif"
+    "surface_analysis_atlantic": "https://ocean.weather.gov/UA/Atl_Tropics.gif",
+    "hovmoller": "https://www.nhc.noaa.gov/tafb_latest/methov1latest.gif",
 }
 
 
@@ -24,4 +25,11 @@ def nhc_surface_analysis_atlantic(*args) -> img.Image:
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
     image = image.crop((0, 300, 1720, 1260-300))
+    return image
+
+
+def nhc_hovmoller(*args) -> img.Image:
+    url = ANALYSIS_URLS["hovmoller"]
+    response = requests.get(url)
+    image = img.open(BytesIO(response.content))
     return image

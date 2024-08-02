@@ -1,5 +1,8 @@
 project:
   output-dir: public/slides
+  render:
+    - "!index.qmd"
+    - "!about.qmd"
 
 format:
   mpim-revealjs:

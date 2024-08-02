@@ -20,25 +20,14 @@ def make_briefing_variables(
     variables_nml = get_expected_figures(
         date, location, flight_id, sattracks_date
     )
-    variables_file_name = f"_variables_{date}.yml"
+    variables_file_name = f"_metadata.yml"
     output_path = pathlib.Path(get_briefing_path(date))
     outfile_yml = output_path / variables_file_name
-    softlink_yml = "_variables.yml"
     with open(outfile_yml, "w") as outfile:
         yaml.dump(
             variables_nml, outfile, default_flow_style=False, sort_keys=False
         )
     logger(f"Variables file created in '{output_path}'", "INFO")
-    _create_softlink(outfile_yml, softlink_yml)
-    logger(f"Variables file linked to '{softlink_yml}'", "INFO")
-
-
-def _create_softlink(file, link) -> None:
-    file_a_path = pathlib.Path(file)
-    link_path = pathlib.Path(link)
-    if link_path.exists() or link_path.is_symlink():
-        link_path.unlink()
-    link_path.symlink_to(file_a_path)
 
 
 if __name__ == "__main__":

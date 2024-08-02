@@ -8,6 +8,7 @@ import pandas as pd
 from wblib.api._utils import TIME_ZONE_STR, _load_variables_yaml
 from wblib.services.get_figures import generate_external_figures
 from wblib.services.get_figures import generate_internal_figures
+from wblib.services.get_paths import get_briefing_path
 
 from wblib.api._logger import logger
 
@@ -19,7 +20,7 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
     # external
     external_figures = generate_external_figures(current_time, logger)
     for name, image in external_figures.items():
-        fig_path = variables_dict["plots"]["external"][name]
+        fig_path = get_briefing_path(date) + "/" + variables_dict["plots"]["external"][name]
         _save_image(image, fig_path)
         logger(f"Saved external figure '{name}' in '{fig_path}'.", "INFO")
     # internal
@@ -28,6 +29,7 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
         fig_paths = variables_dict["plots"]["internal"][name]
         for lead_time, fig_path in fig_paths.items():
             image = images[lead_time]
+            fig_path = get_briefing_path(date) + "/" + fig_path
             _save_image(image, fig_path)
             logger(f"Saved internal figure '{name}' for '{current_time}' "
                    f"and '{lead_time}' in '{fig_path}'.", "INFO")

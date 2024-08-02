@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: public
+  render:
+    - "*.qmd"
+    - "!src/"
 
 website:
   title: "Weather"
@@ -12,3 +15,4 @@ website:
   sidebar:
     search: true
     contents: briefings/*/*.qmd
+  margin-header: "{{< meta slide_link >}}"

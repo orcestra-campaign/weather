@@ -27,7 +27,12 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
     # internal
     internal_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
     logger(f"Internal figure time set to {internal_time}", "INFO")
-    internal_figures = generate_internal_figures(internal_time, logger)
+    sattrack_time = pd.Timestamp(variables_dict["sattracks_date"],
+                                 tz=TIME_ZONE_STR)
+    logger(f"Satellite forecasted tracks issued on {sattrack_time}", "INFO")
+    internal_figures = generate_internal_figures(internal_time,
+                                                 sattrack_time,
+                                                 logger)
     for name, images in internal_figures.items():
         fig_paths = variables_dict["plots"]["internal"][name]
         for lead_time, fig_path in fig_paths.items():

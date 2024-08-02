@@ -5,14 +5,14 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
-import orcestra
+from orcestra.sat import SattrackLoader
 
 
-def plot_sattrack(valid_time: pd.Timestamp,
+def plot_sattrack(sattrack_time: pd.Timestamp,
                   ax: Axes,
                   satellite: str = "EARTHCARE"):
-    valid_day = str(valid_time.date())
-    sattracks = orcestra.sat.SattrackLoader(satellite, "2024-07-22"
+    valid_day = str(sattrack_time.date())
+    sattracks = SattrackLoader(satellite, "2024-07-22"
                                             ).get_track_for_day(valid_day)
     splitted_sattracks = _split_sattracks(sattracks)
     for sattrack in splitted_sattracks:

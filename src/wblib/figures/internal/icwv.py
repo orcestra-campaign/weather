@@ -33,7 +33,9 @@ REFDATE_COLORBAR = [
 REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 
-def iwv_itcz_edges(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
+def iwv_itcz_edges(briefing_time: pd.Timestamp,
+                   lead_hours: str,
+                   sattrack_time: pd.Timestamp) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
     issued_times = get_dates_of_five_previous_initializations(issued_time)
@@ -49,8 +51,8 @@ def iwv_itcz_edges(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     im = _draw_icwv_current_forecast(
         datarrays, briefing_time, lead_delta, issued_times, ax
     )
-    plot_sattrack(valid_time, ax)
-    _format_axes(briefing_time, issued_time, lead_delta, ax)
+    plot_sattrack(sattrack_time, ax)
+    _format_axes(briefing_time, issued_time, lead_delta, sattrack_time, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
     matplotlib.rc_file_defaults()
     return fig
@@ -107,7 +109,7 @@ def _draw_icwv_current_forecast(
     return im
 
 
-def _format_axes(briefing_time, issued_time, lead_delta, ax):
+def _format_axes(briefing_time, issued_time, lead_delta, sattrack_time, ax):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     valid_time = briefing_time + lead_delta
     title_str = (
@@ -122,9 +124,13 @@ def _format_axes(briefing_time, issued_time, lead_delta, ax):
     ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-    annotation = f"Latest ECMWF IFS forecast initialization: {issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+    annotation = ("Latest ECMWF IFS forecast initialization: "
+                  f"{issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+                  "\nSatellite tracks forecast issued on: "
+                  f"{sattrack_time.strftime('%Y-%m-%d %H:%M')}")
     ax.annotate(annotation,
-                (-21.25, -9),
+                xy=(-16.5, -9),
+                xycoords='data',
                 fontsize=8,
                 bbox = dict(facecolor='white',
                             edgecolor='none',

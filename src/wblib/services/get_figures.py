@@ -32,6 +32,7 @@ def generate_external_figures(current_time: pd.Timestamp,
 
 
 def generate_internal_figures(current_time: pd.Timestamp,
+                              sattrack_time: pd.Timestamp,
                               logger: Callable) -> dict[str, dict[str, Image]]:
     figures = dict()
     for product, function in INTERNAL_PLOTS.items():
@@ -41,14 +42,14 @@ def generate_internal_figures(current_time: pd.Timestamp,
         figures[product] = dict()
         for lead_hours in INTERNAL_PLOTS_LEADTIMES:
             try:
-                figure = function(current_time, lead_hours)
+                figure = function(current_time, lead_hours, sattrack_time)
                 figures[product][lead_hours] = figure
             except Exception as error:
                 msg = (f"Can not generate {product} with '{current_time}' "
                        f"and '{lead_hours}'. Please provide it manually or "
                        "debug the code.")
                 logger(msg, "ERROR")
-                print(error)
+                logger(error, "ERROR")
     return figures
 
 

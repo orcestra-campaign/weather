@@ -1,12 +1,16 @@
-import matplotlib.pyplot as plt
+"""Plot satellite tracks"""
+from matplotlib.axes import Axes
 import cartopy.crs as ccrs
 import numpy as np
 import pandas as pd
 import xarray as xr
 
-import orcestra.sat
+import orcestra
 
-def plot_sattrack(valid_time, ax, satellite:str = "EARTHCARE"):
+
+def plot_sattrack(valid_time: pd.Timestamp,
+                  ax: Axes,
+                  satellite: str = "EARTHCARE"):
     valid_day = str(valid_time.date())
     sattracks = orcestra.sat.SattrackLoader(satellite, "2024-07-22"
                                             ).get_track_for_day(valid_day)

@@ -110,9 +110,8 @@ def _format_axes(briefing_time, issued_time, lead_delta, ax):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     valid_time = briefing_time + lead_delta
     title_str = (
-        f"Forecast issue time: {issued_time.strftime('%Y-%m-%d %H:%M')} \n"
         f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
-        f"Lead hours: {int(lead_delta.total_seconds() / 3600):03d}H"
+        f"Lead hours: {int(lead_delta.total_seconds() / 3600):03d}"
                  )
     ax.set_title(title_str)
     ax.coastlines(lw=1.0, color="k")
@@ -122,11 +121,10 @@ def _format_axes(briefing_time, issued_time, lead_delta, ax):
     ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-
-
-if __name__ == "__main__":
-    time = pd.Timestamp(2024, 8, 1).tz_localize("UTC")
-    for lead_hours_str in  ["003h", "012h", "036h", "060h", "084h", "108h"]:
-        print(lead_hours_str)
-        figure = iwv_itcz_edges(time, lead_hours_str)
-        figure.savefig(f"test_{lead_hours_str}.png")
+    annotation = f"Latest ECMWF IFS forecast initialization: {issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+    ax.annotate(annotation,
+                (-21.25, -9),
+                fontsize=8,
+                bbox = dict(facecolor='white',
+                            edgecolor='none',
+                            alpha=1))

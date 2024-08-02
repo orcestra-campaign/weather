@@ -18,7 +18,7 @@ def get_expected_figures(
 ) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
     _validate_date(date)
-    sattracks_date = _parse_date(sattracks_date)
+    _validate_date(sattracks_date)
     _validate_location(location)
     output_path = get_figure_path()
     variables_nml = {
@@ -52,12 +52,12 @@ def get_expected_internal_figures(figures_output_path, date) -> dict:
         for lead_time in INTERNAL_PLOTS_LEADTIMES:
             figures[product][
                 lead_time
-            ] = f"{figures_output_path}/internal/IFS_{init}+{lead_time}_{product}.png"
+            ] = f"{figures_output_path}/internal/IFS_{date}+{lead_time}_{product}.png"
     return figures
 
 
 def get_expected_mss_side_view_figures(
-    figures_output_path, init, flight_id
+    figures_output_path, date, flight_id
 ) -> dict:
     figures = {
         "IFS": {

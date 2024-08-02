@@ -12,9 +12,10 @@ from matplotlib.figure import Figure
 import seaborn as sns
 
 from wblib.figures.internal.sattrack import plot_sattrack
+from wblib.figures.hifs import get_latest_forecast_issue_time
+from wblib.figures.hifs import get_dates_of_five_previous_initializations
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
-FORECAST_PUBLISH_LAG = "6h"
 ICWV_ITCZ_THRESHOLD = 48  # mm
 ICWV_MAX = 65  # mm
 ICWV_MIN = 0  # mm
@@ -32,60 +33,43 @@ REFDATE_COLORBAR = [
 REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 
-def iwv_itcz_edges(current_time: pd.Timestamp, lead_hours: str) -> Figure:
+def iwv_itcz_edges(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
-    forcast_latest_time = _get_latest_forecast_time(current_time)
-    init_times = _get_dates_of_previous_five_days(forcast_latest_time)
-    datarrays = _get_forecast_datarrays_dict(init_times)
+    issued_time = get_latest_forecast_issue_time(briefing_time)
+    issued_times = get_dates_of_five_previous_initializations(issued_time)
+    datarrays = _get_forecast_datarrays_dict(issued_times)
     # plot
     sns.set_context('talk')
     fig, ax = plt.subplots(
         figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
     )
-    _draw_icwv_contours_for_previous_forecast_at_lead_time(
-        datarrays, current_time, lead_delta, init_times, ax
+    _draw_icwv_contours_for_previous_forecasts(
+        datarrays, briefing_time, lead_delta, issued_times, ax
     )
-    im = _draw_icwv_current_forecast_at_lead_time(
-        datarrays, current_time, init_times, lead_delta, ax
+    im = _draw_icwv_current_forecast(
+        datarrays, briefing_time, lead_delta, issued_times, ax
     )
-    valid_time = current_time.floor("1D") + lead_delta
-    valid_time = valid_time.tz_localize(None)
     plot_sattrack(valid_time, ax)
-    _format_axes(current_time, lead_delta, ax)
+    _format_axes(briefing_time, issued_time, lead_delta, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
     matplotlib.rc_file_defaults()
     return fig
 
 
-def _get_latest_forecast_time(current_time: pd.Timestamp):
-    publish_lag = pd.Timedelta(FORECAST_PUBLISH_LAG)
-    forecast_time = (current_time - publish_lag).floor("1D")
-    return forecast_time
-
-
-def _get_dates_of_previous_five_days(
-    current_time: pd.Timestamp,
-) -> list[pd.Timestamp]:
-    day = pd.Timedelta("1D")
-    dates = [(current_time.floor("1D") - i * day) for i in range(1, 6)]
-    dates.reverse()
-    return dates
-
-
-def _get_forecast_datarrays_dict(init_times):
+def _get_forecast_datarrays_dict(issued_times):
     catalog = intake.open_catalog(CATALOG_URL)
     datarrays = dict()
-    for init_time in init_times:
-        refdate = init_time.strftime("%Y-%m-%d")
+    for issued_time in issued_times:
+        refdate = issued_time.strftime("%Y-%m-%d")
         dataset = (
             catalog.HIFS(refdate=refdate).to_dask().pipe(egh.attach_coords)
         )
-        datarrays[init_time] = dataset[ICWV_CATALOG_VARIABLE]
+        datarrays[issued_time] = dataset[ICWV_CATALOG_VARIABLE]
     return datarrays
 
 
-def _draw_icwv_contours_for_previous_forecast_at_lead_time(
-    datarrays, current_time, lead_delta, init_times, ax
+def _draw_icwv_contours_for_previous_forecasts(
+    datarrays, briefing_time, lead_delta, init_times, ax
 ):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     ax.set_extent(
@@ -94,7 +78,7 @@ def _draw_icwv_contours_for_previous_forecast_at_lead_time(
     for i, init_time in enumerate(init_times):
         color = REFDATE_COLORBAR[i]
         linewidth = REFDATE_LINEWIDTH[i]
-        valid_time = current_time.floor("1D") + lead_delta
+        valid_time = briefing_time + lead_delta
         valid_time = valid_time.tz_localize(None)
         field = datarrays[init_time].sel(time=valid_time)
         egh.healpix_contour(
@@ -106,10 +90,10 @@ def _draw_icwv_contours_for_previous_forecast_at_lead_time(
         )
 
 
-def _draw_icwv_current_forecast_at_lead_time(
-    datarrays, current_time, init_times, lead_delta, ax
+def _draw_icwv_current_forecast(
+    datarrays, briefing_time, lead_delta, init_times, ax
 ):
-    valid_time = current_time.floor("1D") + lead_delta
+    valid_time = briefing_time + lead_delta
     valid_time = valid_time.tz_localize(None)
     field = datarrays[init_times[-1]].sel(time=valid_time)
     im = egh.healpix_show(
@@ -123,10 +107,14 @@ def _draw_icwv_current_forecast_at_lead_time(
     return im
 
 
-def _format_axes(current_time, lead_delta, ax):
+def _format_axes(briefing_time, issued_time, lead_delta, ax):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    forecast_on_str = current_time.floor("1D") + lead_delta
-    ax.set_title(forecast_on_str)
+    valid_time = briefing_time + lead_delta
+    title_str = (
+        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
+        f"Lead hours: {int(lead_delta.total_seconds() / 3600):03d}"
+                 )
+    ax.set_title(title_str)
     ax.coastlines(lw=1.0, color="k")
     ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=ccrs.PlateCarree())
     ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
@@ -134,10 +122,10 @@ def _format_axes(current_time, lead_delta, ax):
     ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-
-
-if __name__ == "__main__":
-    time = pd.Timestamp.now("UTC").tz_localize(None)
-    lead_hours_str = "108H"
-    figure = iwv_itcz_edges(time, lead_hours_str)
-    figure.savefig("test2.png")
+    annotation = f"Latest ECMWF IFS forecast initialization: {issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+    ax.annotate(annotation,
+                (-21.25, -9),
+                fontsize=8,
+                bbox = dict(facecolor='white',
+                            edgecolor='none',
+                            alpha=1))

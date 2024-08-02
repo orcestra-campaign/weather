@@ -41,8 +41,8 @@ this will check that all figures are complete and indicate possible missing ones
 
 After creating the briefing structure and all necessary figures, you can use quarto to build the presentations and website
 ```
-quarto render --profile slides
 quarto render --profile website
+quarto render --profile slides
 ```
 
 ### Preview Server

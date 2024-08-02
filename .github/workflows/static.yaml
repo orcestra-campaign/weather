@@ -35,10 +35,11 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.5.56
-      - name: Build slides
-        run: quarto render --profile slides
+      # Build website first as it wipes the "public/" directory!
       - name: Build website
         run: quarto render --profile website
+      - name: Build slides
+        run: quarto render --profile slides
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

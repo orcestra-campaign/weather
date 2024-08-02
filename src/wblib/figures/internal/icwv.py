@@ -112,7 +112,7 @@ def _format_axes(briefing_time, issued_time, lead_delta, ax):
     title_str = (
         f"Forecast issue time: {issued_time.strftime('%Y-%m-%d %H:%M')} \n"
         f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
-        f"Horizon: {int(lead_delta.total_seconds() / 3600):03d}H"
+        f"Lead hours: {int(lead_delta.total_seconds() / 3600):03d}H"
                  )
     ax.set_title(title_str)
     ax.coastlines(lw=1.0, color="k")

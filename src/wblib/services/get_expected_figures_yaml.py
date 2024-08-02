@@ -17,7 +17,7 @@ def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
     date = _parse_date(date)
     _validate_location(location)
-    output_path = get_figure_path(date)
+    output_path = get_figure_path()
     variables_nml = {
         "flight_id": flight_id,
         "location": location,

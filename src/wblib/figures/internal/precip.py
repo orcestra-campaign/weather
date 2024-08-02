@@ -14,9 +14,9 @@ from matplotlib.lines import Line2D
 import seaborn as sns
 import cmocean as cmo
 
-import orcestra.sat
+#import orcestra.sat
 
-from wblib.figures.internal._general_plotting_functions import plot_sattrack
+#from wblib.figures.internal._general_plotting_functions import plot_sattrack
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 FORECAST_PUBLISH_LAG = "6h"

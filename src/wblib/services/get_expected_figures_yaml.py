@@ -15,19 +15,18 @@ ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
-    date = _parse_date(date)
+    _validate_date(date)
     _validate_location(location)
-    init = _find_latest_available_init(date)
-    output_path = get_figure_path(date)
+    output_path = get_figure_path()
     variables_nml = {
         "flight_id": flight_id,
         "location": location,
         "date": date,
         "plots": {
             "external": get_expected_external_figures(output_path),
-            "internal": get_expected_internal_figures(output_path, init),
+            "internal": get_expected_internal_figures(output_path, date),
             "mss_side_view": get_expected_mss_side_view_figures(
-                output_path, init, flight_id
+                output_path, date, flight_id
             ),
         },
     }
@@ -42,25 +41,25 @@ def get_expected_external_figures(figures_output_path) -> dict:
     return figures
 
 
-def get_expected_internal_figures(figures_output_path, init) -> dict:
+def get_expected_internal_figures(figures_output_path, date) -> dict:
     figures = dict()
     for product in INTERNAL_PLOTS.keys():
         figures[product] = dict()
         for lead_time in INTERNAL_PLOTS_LEADTIMES:
             figures[product][lead_time] = (
-                f"{figures_output_path}/internal/IFS_{init}+{lead_time}_{product}.png"
+                f"{figures_output_path}/internal/IFS_{date}+{lead_time}_{product}.png"
             )
     return figures
 
 
-def get_expected_mss_side_view_figures(figures_output_path, init, flight_id) -> dict:
+def get_expected_mss_side_view_figures(figures_output_path, date, flight_id) -> dict:
     figures = {
         "IFS": {
-            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_IFS_{init}_{product}.png"
+            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_IFS_{date}_{product}.png"
             for product in MSS_PLOTS_SIDE_VIEW
         },
         "ICON": {
-            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_ICON_{init}_{product}.png"
+            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_ICON_{date}_{product}.png"
             for product in MSS_PLOTS_SIDE_VIEW
         },
     }
@@ -74,19 +73,9 @@ def _validate_location(location: str) -> None:
         raise ValueError(msg)
 
 
-def _parse_date(date_str: str) -> None:
+def _validate_date(date_str: str) -> None:
     """Validate the date of the weather briefing provided by the user."""
     try:
-        return datetime.strptime(date_str, "%Y%m%d")
-    except ValueError:
-        raise ValueError("Incorrect data format, should be YYYYMMDD")
-
-
-def _change_date_format(date_str: str) -> str:
-    new_date_str = date_str[:4] + '-' + date_str[4:6] + '-' + date_str[6:8]
-    return new_date_str
-
-
-def _find_latest_available_init(date: datetime) -> str:
-    expected_latest_init = f"{date:%Y-%m-%d}T0000Z"
-    return expected_latest_init
+        datetime.strptime(date_str, "%Y%m%d")
+    except ValueError as exc:
+        raise ValueError("Incorrect data format, should be YYYYMMDD") from exc

@@ -2,4 +2,11 @@
 title: "About"
 ---
 
-About this site
+## Acknowledgements
+
+We acknowledge and appreciate the valuable contributions of the following organizations, which provide the data and imagery that power our website:
+
+* The National Weather Service (NWS) for providing the surface analysis map
+* The National Hurricane Center (NHC) for their seven-day hurricane forecast
+* NASA for granting convenient access to the latest GOES (Geostationary Operational Environmental Satellite) imagery
+* The European Centre for Medium-range Weather Forecast (ECMWF) for making the output of their Integrated Forecast System (IFS) openly available

@@ -9,8 +9,16 @@ title: "PERCUSION Weather briefing"
 ## NHC tropical weather outlook
 ![]({{< meta plots.external.nhc_seven_days_outlook >}})
 
-## NHC tropical cloud Hovmöller plots
-![]({{< meta plots.external.nhc_hovmoller >}})
+## 
+:::: {.columns}
+::: {.column width="30%"}
+### NHC tropical Hovmöller
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external.nhc_hovmoller >}}){width="61%"}
+:::
+::::
+
 
 # Latest satellite images
 ## GOES WEST Latest Infrared Image

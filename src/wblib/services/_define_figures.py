@@ -2,6 +2,7 @@
 
 from wblib.figures.external.goes import current_satellite_image_ir
 from wblib.figures.external.goes import current_satellite_image_vis
+from wblib.figures.external.noaa import nhc_hovmoller
 from wblib.figures.external.noaa import nhc_seven_days_outlook
 from wblib.figures.external.noaa import nhc_surface_analysis_atlantic
 from wblib.figures.internal.icwv import iwv_itcz_edges
@@ -13,6 +14,7 @@ EXTERNAL_PLOTS = {
     "nhc_seven_days_outlook": nhc_seven_days_outlook,
     "current_satellite_image_vis": current_satellite_image_vis,
     "current_satellite_image_ir": current_satellite_image_ir,
+    "nhc_hovmoller": nhc_hovmoller
 }
 
 INTERNAL_PLOTS = {

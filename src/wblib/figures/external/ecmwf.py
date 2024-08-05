@@ -9,7 +9,7 @@ ANALYSIS_URLS = {
     "IFS_meteogram": 'https://charts.ecmwf.int/opencharts-api/v1/products/opencharts_meteogram/',
 }
 
-def _create_params(location: str, issued_time: str) -> dict:
+def _create_params(location: str, issued_time: pd.Timestamp) -> dict:
     coords = _get_coordinates(location)
     params = {
         'lat': coords[0],
@@ -34,7 +34,7 @@ def _get_coordinates(location: str) -> tuple:
     return (lat, lon)
 
 
-def ifs_meteogram(location: str, briefing_time: str) -> img.Image:
+def ifs_meteogram(location: str, briefing_time: pd.Timestamp) -> img.Image:
     url = ANALYSIS_URLS["IFS_meteogram"]
     issued_time = get_latest_forecast_issue_time(briefing_time)
     params = _create_params(location, issued_time)

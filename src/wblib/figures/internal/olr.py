@@ -16,6 +16,10 @@ from wblib.figures.hifs import get_latest_forecast_issue_time
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 CATALOG_OLR_CODE = "ttr"
+CATALOG_ICWV_CODE = "tcwv"
+
+ICWV_ITCZ_THRESHOLD = 48  # mm
+ICWV_COLOR = "dimgrey"
 
 OLR_MAX = 250
 OLR_MIN = 100
@@ -30,26 +34,32 @@ def toa_outgoing_longwave(
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
     valid_time = briefing_time + lead_delta
-    accumulated_ttr = _get_ttr_forecast_datarray(issued_time)
+    catalog = intake.open_catalog(CATALOG_URL)
+    accumulated_ttr = _get_forecast_datarray(
+        catalog, issued_time, CATALOG_OLR_CODE
+    )
+    icwv = _get_forecast_datarray(catalog, issued_time, CATALOG_ICWV_CODE)
     olr = _convert_accumulated_ttr_to_olr(accumulated_ttr, issued_time)
     olr = olr.sel(time=valid_time.tz_localize(None))
-
+    icwv = icwv.sel(time=valid_time.tz_localize(None))
     # plot
     sns.set_context("talk")
     fig, ax = plt.subplots(
         figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
     )
     _draw_olr(olr, fig, ax)
-    _format_axes(briefing_time, issued_time, lead_delta, ax)
+    _draw_icwv_contour(icwv, ax)
+    _format_axes(valid_time, issued_time, lead_delta, ax)
     matplotlib.rc_file_defaults()
     return fig
 
 
-def _get_ttr_forecast_datarray(issued_time: pd.Timestamp) -> xr.DataArray:
-    catalog = intake.open_catalog(CATALOG_URL)
+def _get_forecast_datarray(
+    catalog, issued_time: pd.Timestamp, variable: str
+) -> xr.DataArray:
     refdate = issued_time.strftime("%Y-%m-%d")
     dataset = catalog.HIFS(refdate=refdate).to_dask().pipe(egh.attach_coords)
-    datarray = dataset[CATALOG_OLR_CODE]
+    datarray = dataset[variable]
     return datarray
 
 
@@ -75,7 +85,7 @@ def _convert_accumulated_ttr_to_olr(
 def _draw_olr(olr, fig, ax) -> None:
     sns.set_context("talk")
     # get_orl_colormap
-    gist_ncar = plt.cm.gist_ncar(np.linspace(0.0, 1, 128))
+    gist_ncar = plt.cm.gist_ncar_r(np.linspace(0.0, 1, 128))
     white = np.array([1.0, 1.0, 1.0, 1.0])
     colors = np.vstack((gist_ncar, white))
     colormap = mcolors.LinearSegmentedColormap.from_list("olr", colors)
@@ -91,9 +101,23 @@ def _draw_olr(olr, fig, ax) -> None:
     matplotlib.rc_file_defaults()
 
 
-def _format_axes(briefing_time, issued_time, lead_delta, ax):
+def _draw_icwv_contour(icwv, ax):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    valid_time = briefing_time + lead_delta
+    ax.set_extent([lon_min, lon_max, lat_min, lat_max])
+    color = ICWV_COLOR
+    hcs = egh.healpix_contour(
+        icwv,
+        ax=ax,
+        levels=[ICWV_ITCZ_THRESHOLD],
+        colors=color,
+        linewidths=2,
+        linestyles = 'dashed'
+    )
+    format_func = lambda level : f"{int(level)} mm"
+    ax.clabel(hcs, hcs.levels, inline=True, fontsize=10, fmt=format_func)
+
+def _format_axes(valid_time, issued_time, lead_delta, ax):
+    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     title_str = (
         f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
         f"Lead hours: {int(lead_delta.total_seconds() / 3600):03d}"

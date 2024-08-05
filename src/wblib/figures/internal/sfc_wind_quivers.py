@@ -99,11 +99,4 @@ def _speed_format_axes(briefing_time, issued_time, lead_delta, ax):
                             edgecolor='none',
                             alpha=1))
     
-# # if name == "main":
-# briefing_time = pd.Timestamp(2024, 8, 4, tz="UTC")
-# lead_hours = "048H"
-# fig = surface_wind_quivers(briefing_time, lead_hours)
-# # fig.show()
-# fig.savefig("test.png")
-
 

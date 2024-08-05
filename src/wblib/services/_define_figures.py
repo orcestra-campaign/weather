@@ -19,6 +19,6 @@ EXTERNAL_PLOTS = {
 
 INTERNAL_PLOTS = {
     "iwv_itcz_edges": iwv_itcz_edges,
-    "surface_wind_quivers": surface_wind_quivers
+    "surface_wind_quivers": surface_wind_quivers,
 }
 INTERNAL_PLOTS_LEADTIMES = ["003h", "012h", "036h", "060h", "084h", "108h"]

@@ -39,7 +39,7 @@ REFDATE_COLORBAR_TCWV = [
 ]
 REFDATE_LINEWIDTH = [1.0, 1.4]
 
-def plot_precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
+def precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     # retrieve the forecast data
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
@@ -116,7 +116,6 @@ def _draw_tp_contours_for_previous_forecasts(
             levels=[TP_THRESHOLD],
             colors=color,
             linewidths=linewidth,
-            label=init_time
         )
 
 def _draw_tcwv_contours_for_previous_forecasts(
@@ -157,7 +156,7 @@ def _draw_current_forecast(
     )
     return im
 
-def _format_axes(current_time, lead_delta, ax):
+def _format_axes(briefing_time, lead_delta, ax):
     lon_min, lon_max, lat_min, lat_max = _select_latlonbox(DOMAIN)
     valid_time = briefing_time + lead_delta
     title_str = (
@@ -183,7 +182,7 @@ def _add_legend(init_times: list, **kwargs):
     plt.legend(lines, labels, **kwargs, fontsize=12)
 
 if __name__ == "__main__":
-    briefing_time = pd.Timestamp("2024-08-05").tz_localize("UTC")
+    briefing_time = pd.Timestamp("2024-07-31").tz_localize("UTC")
     lead_hours_str = "12H"
-    figure = plot_precip(briefing_time, lead_hours_str)
+    figure = precip(briefing_time, lead_hours_str)
     figure.savefig("test.png")

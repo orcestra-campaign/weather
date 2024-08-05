@@ -5,6 +5,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+  # and on every pull request
+  pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,10 +25,7 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,18 +34,28 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.5.56
-      # Build website first as it wipes the "public/" directory!
-      - name: Build website
-        run: quarto render --profile website
-      - name: Build slides
-        run: quarto render --profile slides
+      - name: Build website and slides
+        run: quarto render
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
+          name: public
           path: 'public/'
+
+  deploy:
+    needs: build
+    if: "github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository_owner == 'orcestra-campaign'"
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download compiled book
+        uses: actions/download-artifact@v4
+        with:
+          name: public
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

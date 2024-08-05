@@ -69,7 +69,7 @@ def plot_precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     #plot_sattrack(valid_time, ax)
     _format_axes(briefing_time, lead_delta, ax)
     _add_legend(issued_times, loc='lower right')
-    fig.colorbar(im, label="3h mean precip. rate / mm$\,$day$^{-1}$",
+    fig.colorbar(im, label="3h mean precip. rate / mm day$^{-1}$",
                  shrink=0.7)
     matplotlib.rc_file_defaults()
     return fig
@@ -159,8 +159,12 @@ def _draw_current_forecast(
 
 def _format_axes(current_time, lead_delta, ax):
     lon_min, lon_max, lat_min, lat_max = _select_latlonbox(DOMAIN)
-    forecast_on_str = current_time.floor("1D") + lead_delta
-    ax.set_title(f'Valid: {forecast_on_str}')
+    valid_time = briefing_time + lead_delta
+    title_str = (
+        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')}UTC \n"
+        f"Lead hours: {int(lead_delta.total_seconds() / 3600):03d}"
+                 )
+    ax.set_title(title_str)
     ax.coastlines(lw=1.0, color="k")
     ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=ccrs.PlateCarree())
     ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
@@ -174,11 +178,12 @@ def _add_legend(init_times: list, **kwargs):
                     color=REFDATE_COLORBAR_TP[i],
                     linewidth=REFDATE_LINEWIDTH[i],
                     linestyle='-') for i in range(len(init_times)-1, -1, -1)]
-    labels = [f'init: {init_time}UTC' for init_time in init_times[::-1]]
+    labels = [f'init: {init_time.strftime('%Y-%m-%d %H:%M')}UTC' for
+              init_time in init_times[::-1]]
     plt.legend(lines, labels, **kwargs, fontsize=12)
 
 if __name__ == "__main__":
-    time = pd.Timestamp.now("UTC").tz_localize(None)
+    briefing_time = pd.Timestamp("2024-08-05").tz_localize("UTC")
     lead_hours_str = "12H"
-    figure = plot_precip(time, lead_hours_str)
+    figure = plot_precip(briefing_time, lead_hours_str)
     figure.savefig("test.png")

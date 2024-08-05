@@ -1,4 +1,5 @@
 project:
+  type: website
   output-dir: public/slides
   render:
     - "!index.qmd"

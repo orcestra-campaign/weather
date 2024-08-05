@@ -36,10 +36,8 @@ jobs:
         with:
           version: 1.5.56
       # Build website first as it wipes the "public/" directory!
-      - name: Build website
-        run: quarto render --profile website
-      - name: Build slides
-        run: quarto render --profile slides
+      - name: Build website and slides
+        run: quarto render
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

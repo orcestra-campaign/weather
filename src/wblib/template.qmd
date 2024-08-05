@@ -47,6 +47,24 @@ title: "PERCUSION Weather briefing"
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
 
+# ECMWF 10m Surface Wind Speed
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.surface_wind_quivers.003h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.surface_wind_quivers.012h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.surface_wind_quivers.036h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.surface_wind_quivers.060h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.surface_wind_quivers.084h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.surface_wind_quivers.108h >}})
 
 ## Summary
 Summary of weather briefing.

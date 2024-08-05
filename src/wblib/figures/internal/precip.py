@@ -50,7 +50,8 @@ def precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     tcwv = {init_time: datarrays[init_time]['tcwv'] for init_time in
             issued_times}
     for init_time in issued_times:
-        precip[init_time] = precip[init_time].diff('time') * 8000
+        precip[init_time] = precip[init_time].differentiate(
+            'time', datetime_unit='D') * 1000
     
     # plotting
     sns.set_context('talk')
@@ -69,7 +70,7 @@ def precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     #plot_sattrack(valid_time, ax)
     _format_axes(briefing_time, lead_delta, ax)
     _add_legend(issued_times, loc='lower right')
-    fig.colorbar(im, label="3h mean precip. rate / mm day$^{-1}$",
+    fig.colorbar(im, label="mean precip. rate / mm day$^{-1}$",
                  shrink=0.7)
     matplotlib.rc_file_defaults()
     return fig

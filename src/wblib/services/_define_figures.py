@@ -6,6 +6,7 @@ from wblib.figures.external.noaa import nhc_hovmoller
 from wblib.figures.external.noaa import nhc_seven_days_outlook
 from wblib.figures.external.noaa import nhc_surface_analysis_atlantic
 from wblib.figures.internal.icwv import iwv_itcz_edges
+from wblib.figures.internal.olr import toa_outgoing_longwave
 
 
 EXTERNAL_PLOTS = {
@@ -17,6 +18,7 @@ EXTERNAL_PLOTS = {
 }
 
 INTERNAL_PLOTS = {
-    "iwv_itcz_edges": iwv_itcz_edges
+    "iwv_itcz_edges": iwv_itcz_edges,
+    "toa_outgoing_longwave": toa_outgoing_longwave
 }
 INTERNAL_PLOTS_LEADTIMES = ["003h", "012h", "036h", "060h", "084h", "108h"]

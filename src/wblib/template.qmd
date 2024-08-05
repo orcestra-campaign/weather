@@ -19,7 +19,7 @@ title: "PERCUSION Weather briefing"
 
 # ECMWF Integrated Water Vapor Forecast
 ## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.000h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
 
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
@@ -35,6 +35,26 @@ title: "PERCUSION Weather briefing"
 
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
+
+
+# ECMWF Precipitation forecast
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.003h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.012h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.036h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.060h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.084h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.108h >}})
 
 
 ## Summary

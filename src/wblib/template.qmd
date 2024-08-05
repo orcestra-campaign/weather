@@ -18,7 +18,7 @@ title: "PERCUSION Weather briefing"
 
 # ECMWF Integrated Water Vapor Forecast
 ## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.000h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
 
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
@@ -37,7 +37,7 @@ title: "PERCUSION Weather briefing"
 
 # ECMWF Outgoing Longwave Radiation
 ## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.000h >}})
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
 
 ## Outgoing Longwave Radiation Forecast
 ![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})

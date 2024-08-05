@@ -11,18 +11,10 @@ from orcestra import bco, sal
 
 
 ANALYSIS_URLS = {
-    "two_days_outlook": "https://www.nhc.noaa.gov/xgtwo/two_atl_2d0.png",
     "seven_days_outlook": "https://www.nhc.noaa.gov/xgtwo/two_atl_7d0.png",
-    "surface_analysis_atlantic": "https://ocean.weather.gov/UA/Atl_Tropics.gif"
+    "surface_analysis_atlantic": "https://ocean.weather.gov/UA/Atl_Tropics.gif",
+    "hovmoller": "https://www.nhc.noaa.gov/tafb_latest/methov1latest.gif",
 }
-
-
-def nhc_two_days_outlook(*args) -> img.Image:
-    url = ANALYSIS_URLS["two_days_outlook"]
-    response = requests.get(url)
-    image = img.open(BytesIO(response.content))
-    return image
-
 
 
 def nhc_seven_days_outlook(*args) -> img.Image:
@@ -37,11 +29,18 @@ def nhc_surface_analysis_atlantic(*args, add_overlay=True) -> img.Image:
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
     image = image.crop((0, 300, 1720, 1260-300))
-
+    
     if add_overlay:
         return _overlay_nhc(image)
     else:
         return image
+
+
+def nhc_hovmoller(*args) -> img.Image:
+    url = ANALYSIS_URLS["hovmoller"]
+    response = requests.get(url)
+    image = img.open(BytesIO(response.content))
+    return image
 
 
 def _overlay_nhc(

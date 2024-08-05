@@ -14,7 +14,8 @@ from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
 Image = Union[img.Image, Figure]
 
 
-def generate_external_figures(current_time: pd.Timestamp,
+def generate_external_figures(current_location: str,
+                              current_time: pd.Timestamp,
                               logger: Callable)-> dict[str, Image]:
     figures = dict()
     for product, function in EXTERNAL_PLOTS.items():
@@ -22,7 +23,10 @@ def generate_external_figures(current_time: pd.Timestamp,
             _warn_function_is_not_defined(product, logger)
             continue
         try:
-            figures[product] = function(current_time)
+            if product == 'ifs_meteogram':
+                figures[product] = function(current_location, current_time)
+            else:
+                figures[product] = function(current_time)
         except Exception as error:
             msg = (f"Can not generate {product} with '{current_time}'. "
                    "Please provide it manually or debug the code.")

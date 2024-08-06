@@ -65,5 +65,25 @@ title: "PERCUSION Weather briefing"
 ## Outgoing Longwave Radiation Forecast
 ![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
 
+# ECMWF Precipitation forecast
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.003h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.012h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.036h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.060h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.084h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.108h >}})
+
+
 ## Summary
 Summary of the weather briefing.

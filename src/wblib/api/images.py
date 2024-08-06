@@ -3,6 +3,7 @@
 from typing import Callable
 from PIL.Image import Image
 from matplotlib.figure import Figure
+from matplotlib import pyplot as plt
 import pandas as pd
 
 from wblib.api._utils import TIME_ZONE_STR, _load_variables_yaml
@@ -27,15 +28,13 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
     # internal
     internal_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
     logger(f"Internal figure time set to {internal_time}", "INFO")
-    internal_figures = generate_internal_figures(internal_time, logger)
-    for name, images in internal_figures.items():
-        fig_paths = variables_dict["plots"]["internal"][name]
-        for lead_time, fig_path in fig_paths.items():
-            image = images[lead_time]
-            fig_path = get_briefing_path(date) + "/" + fig_path
-            _save_image(image, fig_path)
-            logger(f"Saved internal figure '{name}' for '{internal_time}' "
-                   f"and '{lead_time}' in '{fig_path}'.", "INFO")
+    for product, lead_time, image in generate_internal_figures(internal_time, logger):
+        fig_rel_path = variables_dict["plots"]["internal"][product][lead_time]
+        fig_path = get_briefing_path(date) + "/" + fig_rel_path
+        _save_image(image, fig_path)
+        logger(f"Saved internal figure '{product}' for '{internal_time}' "
+                f"and '{lead_time}' in '{fig_path}'.", "INFO")
+        plt.close(image)
 
 
 def _save_image(image, fig_path) -> None:

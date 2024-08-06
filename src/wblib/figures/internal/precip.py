@@ -178,7 +178,7 @@ def _add_legend(init_times: list, **kwargs):
                     color=REFDATE_COLORBAR_TP[i],
                     linewidth=REFDATE_LINEWIDTH[i],
                     linestyle='-') for i in range(len(init_times)-1, -1, -1)]
-    labels = [f'init: {init_time.strftime('%Y-%m-%d %H:%M')}UTC' for
+    labels = [f'init: {init_time.strftime("%Y-%m-%d %H:%M")}UTC' for
               init_time in init_times[::-1]]
     plt.legend(lines, labels, **kwargs, fontsize=12)
 

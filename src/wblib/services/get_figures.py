@@ -14,15 +14,19 @@ Image = Union[img.Image, Figure]
 
 
 def generate_external_figures(
-    current_time: pd.Timestamp, logger: Callable
+    current_location: str,
+    current_time: pd.Timestamp, 
+    logger: Callable
 ) -> Iterator[tuple[str, Image]]:
-    figures = dict()
     for product, function in EXTERNAL_PLOTS.items():
         if function is None:
             _warn_function_is_not_defined(product, logger)
             continue
         try:
-            figure = function(current_time)
+            if product == 'ifs_meteogram':
+                figure = function(current_location, current_time)
+            else:
+                figure = function(current_time)
             yield (product, figure)
         except Exception as error:
             msg = (

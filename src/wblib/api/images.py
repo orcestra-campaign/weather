@@ -17,9 +17,13 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
     logger("Generating briefing figures", "INFO")
     variables_dict = _load_variables_yaml(date, logger)
     # external
+    external_location = variables_dict["location"]
+    logger(f"External figure location set to {external_location}", "INFO")
     external_time = pd.Timestamp.now(TIME_ZONE_STR)
     logger(f"External figure time set to {external_time}", "INFO")
-    external_figures = generate_external_figures(external_time, logger)
+    external_figures = generate_external_figures(
+        external_location, external_time, logger
+        )
     for name, image in external_figures.items():
         fig_path = get_briefing_path(date) + "/" + variables_dict["plots"]["external"][name]
         _save_image(image, fig_path)

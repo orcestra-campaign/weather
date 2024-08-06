@@ -14,7 +14,7 @@ from wblib.services.get_paths import get_briefing_path
 from wblib.api._logger import logger
 
 
-def make_briefing_images(date: str, logger: Callable = logger) -> None:
+def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     logger("Generating briefing figures", "INFO")
     variables_dict = _load_variables_yaml(date, logger)
     # external
@@ -32,9 +32,10 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
     internal_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
     logger(f"Internal figure time set to {internal_time}", "INFO")
     for product, lead_time, image in generate_internal_figures(internal_time, logger):
-        fig_rel_path = variables_dict["plots"]["internal"][product][lead_time]
-        fig_path = get_briefing_path(date) + "/" + fig_rel_path
+        fig_path = variables_dict["plots"]["internal"][product][lead_time]
+        fig_path = get_briefing_path(date) + "/" + fig_path
         _save_image(image, fig_path)
+        _close_image(image)
         logger(f"Saved internal figure '{product}' for '{internal_time}' "
                 f"and '{lead_time}' in '{fig_path}'.", "INFO")
         _close_image(image)
@@ -61,6 +62,6 @@ def _close_image(image) -> None:
     raise ValueError("Unrecognized figure type")
 
 if __name__ == "__main__":
-    make_briefing_images("20240731")  # for testing
+    make_briefing_figures("20240731")  # for testing
 
 

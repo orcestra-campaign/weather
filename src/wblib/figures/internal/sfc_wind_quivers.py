@@ -25,18 +25,14 @@ FIGURE_BOUNDARIES = (-65, -5, -10, 20)
 MESH_GRID_SIZE = 50
 QUIVER_SKIP = 4
 
-def surface_wind_quivers(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
+def sfc_wind_quivers(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
     refdate = issued_time.strftime("%Y-%m-%d")
-    print(refdate)
-    # issued_time = '2024-08-04'
-    # refdate = '2024-08-04'
     cat = intake.open_catalog(CATALOG_URL)
     ds = cat['HIFS'](refdate=refdate).to_dask().pipe(egh.attach_coords)
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
    
-    # windspeed_100m = np.sqrt(ds['100u']**2 + ds['100v']**2)
     windspeed_10m = np.sqrt(ds['10u']**2 + ds['10v']**2)
     lon1 = np.linspace(lon_min, lon_max, MESH_GRID_SIZE)
     lat1 = np.linspace(lat_min, lat_max, MESH_GRID_SIZE)

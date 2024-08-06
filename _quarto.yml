@@ -1,18 +1,8 @@
 project:
   type: website
-  output-dir: public
   render:
     - "*.qmd"
     - "!src/"
 
-website:
-  title: "Weather"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-  sidebar:
-    search: true
-    contents: briefings/*/*.qmd
-  margin-header: "{{< meta slide_link >}}"
+profile:
+  default: website

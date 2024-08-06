@@ -27,10 +27,9 @@ title: "PERCUSION Weather briefing"
 ## GOES WEST Latest Visible Image
 ![]({{< meta plots.external.current_satellite_image_vis >}})
 
-
 # ECMWF Integrated Water Vapor Forecast
 ## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.000h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
 
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
@@ -46,6 +45,7 @@ title: "PERCUSION Weather briefing"
 
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
+
 
 # ECMWF 10m Surface Wind Speed
 ## 10m surface wind speed forecast
@@ -66,5 +66,45 @@ title: "PERCUSION Weather briefing"
 ## 10m surface wind speed forecast
 ![]({{< meta plots.internal.surface_wind_quivers.108h >}})
 
+# ECMWF Outgoing Longwave Radiation
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
+
+# ECMWF Precipitation forecast
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.003h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.012h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.036h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.060h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.084h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.108h >}})
+
+
+
 ## Summary
-Summary of weather briefing.
+Summary of the weather briefing.

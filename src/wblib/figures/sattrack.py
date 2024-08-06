@@ -10,14 +10,18 @@ from orcestra.sat import SattrackLoader
 
 def plot_sattrack(sattrack_time: pd.Timestamp,
                   ax: Axes,
-                  satellite: str = "EARTHCARE"):
+                  satellite: str = "EARTHCARE",
+                  which_orbit: list = ["ascending"]
+                  ):
     valid_day = str(sattrack_time.date())
     sattracks = SattrackLoader(satellite, "2024-07-22"
                                             ).get_track_for_day(valid_day)
     splitted_sattracks = _split_sattracks(sattracks)
+    splitted_sattracks = _add_orbit_attribute(splitted_sattracks)
     for sattrack in splitted_sattracks:
-        ax.plot(sattrack.lon, sattrack.lat, ls='-', color='blue', lw=1.5,
-                transform = ccrs.PlateCarree())
+        if sattrack.attrs['orbit'] in which_orbit:
+            ax.plot(sattrack.lon, sattrack.lat, ls='-', color='blue', lw=1.5,
+                    transform = ccrs.PlateCarree())
 
 
 def _split_sattracks(sattracks: xr.Dataset) -> list:
@@ -37,3 +41,22 @@ def _split_sattracks(sattracks: xr.Dataset) -> list:
                 sattracks.isel(time=slice(start_index, N_times))
                 )
     return splitted_sattracks
+
+def _add_orbit_attribute(sattrack_list: list) -> list:
+    for i, sattrack in enumerate(sattrack_list):
+        dlat_dt = sattrack['lat'].diff(dim='time')
+        if all(dlat_dt < 0):
+            orbit = "descending"
+        elif all(dlat_dt > 0):
+            orbit = "ascending"
+        else:
+            raise ValueError('Unclear satellite orbit, please have a look.')
+        sattrack_list[i] = sattrack_list[i].assign_attrs(orbit=orbit)
+    return sattrack_list
+
+
+if __name__ == "__main__":
+    sattracks = SattrackLoader('EARTHCARE', "2024-08-05"
+                                            ).get_track_for_day("2024-08-11")
+    splitted_sattracks = _split_sattracks(sattracks)
+    print(splitted_sattracks)

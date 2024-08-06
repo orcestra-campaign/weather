@@ -11,7 +11,7 @@ import matplotlib
 from matplotlib.figure import Figure
 import seaborn as sns
 
-from wblib.figures.internal.sattrack import plot_sattrack
+from wblib.figures.sattrack import plot_sattrack
 from wblib.figures.hifs import get_latest_forecast_issue_time
 from wblib.figures.hifs import get_dates_of_five_previous_initializations
 

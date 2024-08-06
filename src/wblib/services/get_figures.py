@@ -15,7 +15,7 @@ Image = Union[img.Image, Figure]
 
 def generate_external_figures(
     current_location: str,
-    current_time: pd.Timestamp, 
+    current_time: pd.Timestamp,
     logger: Callable
 ) -> Iterator[tuple[str, Image]]:
     for product, function in EXTERNAL_PLOTS.items():
@@ -36,7 +36,6 @@ def generate_external_figures(
             logger(msg, "ERROR")
             print(error)
             continue
-    return figures
 
 
 def generate_internal_figures(

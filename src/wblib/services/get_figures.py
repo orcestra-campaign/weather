@@ -1,6 +1,5 @@
 """Generate figures with the weather briefing library."""
 
-
 from typing import Callable, Iterator, Union
 from PIL import Image as img
 from matplotlib.figure import Figure
@@ -14,25 +13,31 @@ from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
 Image = Union[img.Image, Figure]
 
 
-def generate_external_figures(current_time: pd.Timestamp,
-                              logger: Callable)-> dict[str, Image]:
+def generate_external_figures(
+    current_time: pd.Timestamp, logger: Callable
+) -> Iterator[tuple[str, Image]]:
     figures = dict()
     for product, function in EXTERNAL_PLOTS.items():
         if function is None:
             _warn_function_is_not_defined(product, logger)
             continue
         try:
-            figures[product] = function(current_time)
+            figure = function(current_time)
+            yield (product, figure)
         except Exception as error:
-            msg = (f"Can not generate {product} with '{current_time}'. "
-                   "Please provide it manually or debug the code.")
+            msg = (
+                f"Can not generate {product} with '{current_time}'. "
+                "Please provide it manually or debug the code."
+            )
             logger(msg, "ERROR")
             print(error)
+            continue
     return figures
 
 
-def generate_internal_figures(current_time: pd.Timestamp,
-                              logger: Callable) -> Iterator[tuple[str, str, Image]]:
+def generate_internal_figures(
+    current_time: pd.Timestamp, logger: Callable
+) -> Iterator[tuple[str, str, Image]]:
     for product, function in INTERNAL_PLOTS.items():
         if function is None:
             _warn_function_is_not_defined(product, logger)
@@ -42,9 +47,11 @@ def generate_internal_figures(current_time: pd.Timestamp,
                 figure = function(current_time, lead_hours)
                 yield (product, lead_hours, figure)
             except Exception as error:
-                msg = (f"Can not generate {product} with '{current_time}' "
-                       f"and '{lead_hours}'. Please provide it manually or "
-                       "debug the code.")
+                msg = (
+                    f"Can not generate {product} with '{current_time}' "
+                    f"and '{lead_hours}'. Please provide it manually or "
+                    "debug the code."
+                )
                 logger(msg, "ERROR")
                 print(error)
                 continue

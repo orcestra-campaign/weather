@@ -20,11 +20,12 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
     # external
     external_time = pd.Timestamp.now(TIME_ZONE_STR)
     logger(f"External figure time set to {external_time}", "INFO")
-    external_figures = generate_external_figures(external_time, logger)
-    for name, image in external_figures.items():
-        fig_path = get_briefing_path(date) + "/" + variables_dict["plots"]["external"][name]
+    for product, image in generate_external_figures(external_time, logger):
+        fig_path = variables_dict["plots"]["external"][product]
+        fig_path = get_briefing_path(date) + "/" + fig_path
         _save_image(image, fig_path)
-        logger(f"Saved external figure '{name}' in '{fig_path}'.", "INFO")
+        _close_image(image)
+        logger(f"Saved external figure '{product}' in '{fig_path}'.", "INFO")
     # internal
     internal_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
     logger(f"Internal figure time set to {internal_time}", "INFO")
@@ -34,7 +35,7 @@ def make_briefing_images(date: str, logger: Callable = logger) -> None:
         _save_image(image, fig_path)
         logger(f"Saved internal figure '{product}' for '{internal_time}' "
                 f"and '{lead_time}' in '{fig_path}'.", "INFO")
-        plt.close(image)
+        _close_image(image)
 
 
 def _save_image(image, fig_path) -> None:
@@ -47,6 +48,15 @@ def _save_image(image, fig_path) -> None:
         return
     raise ValueError("Unrecognized figure type")
 
+
+def _close_image(image) -> None:
+    if isinstance(image, Figure):
+        plt.close(image)
+        return
+    if isinstance(image, Image):
+        image.close()
+        return
+    raise ValueError("Unrecognized figure type")
 
 if __name__ == "__main__":
     make_briefing_images("20240731")  # for testing

@@ -5,7 +5,7 @@ import argparse
 from wblib.api.status import check_briefing_status
 from wblib.api.directory import make_briefing_directory
 from wblib.api.variables_file import make_briefing_variables
-from wblib.api.images import make_briefing_figures
+from wblib.api.figures import make_briefing_figures
 
 
 ARGUMENT_DESCRIPTIONS = {

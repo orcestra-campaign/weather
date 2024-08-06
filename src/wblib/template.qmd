@@ -27,7 +27,6 @@ title: "PERCUSION Weather briefing"
 ## GOES WEST Latest Visible Image
 ![]({{< meta plots.external.current_satellite_image_vis >}})
 
-
 # ECMWF Integrated Water Vapor Forecast
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
@@ -47,6 +46,24 @@ title: "PERCUSION Weather briefing"
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
 
+# ECMWF Outgoing Longwave Radiation
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
 
 # ECMWF Precipitation forecast
 ## Precipitation Forecast
@@ -69,4 +86,4 @@ title: "PERCUSION Weather briefing"
 
 
 ## Summary
-Summary of weather briefing.
+Summary of the weather briefing.

@@ -6,6 +6,15 @@ FORECAST_PUBLISH_LAG = "8h"
 FORECAST_PUBLISH_FREQ = "12h"
 
 
+def get_valid_time(
+    briefing_time: pd.Timestamp, briefing_lead_hours: str
+) -> pd.Timestamp:
+    """Valid time for when the briefing info applies."""
+    briefing_delta = pd.Timedelta(hours=int(briefing_lead_hours[:-1]))
+    valid_time = briefing_time + briefing_delta
+    return valid_time
+
+
 def get_latest_forecast_issue_time(briefing_time: pd.Timestamp):
     current_time = pd.Timestamp.now("UTC")
     publish_lag = pd.Timedelta(FORECAST_PUBLISH_LAG)

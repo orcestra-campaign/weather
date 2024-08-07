@@ -18,8 +18,8 @@ import cmocean as cmo
 #import orcestra.sat
 #from wblib.figures.internal._general_plotting_functions import plot_sattrack
 
-from wblib.figures.hifs import get_latest_forecast_issue_time
-from wblib.figures.hifs import get_dates_of_previous_initializations
+from wblib.figures.briefing_info import get_latest_forecast_issue_time
+from wblib.figures.briefing_info import get_dates_of_previous_initializations
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 TP_THRESHOLD = 50  # mm
@@ -52,7 +52,7 @@ def precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     for init_time in issued_times:
         precip[init_time] = precip[init_time].differentiate(
             'time', datetime_unit='D') * 1000
-    
+
     # plotting
     sns.set_context('talk')
     fig, ax = plt.subplots(
@@ -86,7 +86,7 @@ def _select_latlonbox(domain: str) -> tuple:
         raise ValueError ('Please provide a valid domain! Valid domains are:' +
                           ' "full_Atlantic", "Sal", and "Barbados".')
 
- 
+
 def _get_forecast_datarrays_dict(init_times):
     catalog = intake.open_catalog(CATALOG_URL)
     datarrays = dict()
@@ -141,7 +141,7 @@ def _draw_tcwv_contours_for_previous_forecasts(
             linewidths=linewidth,
         )
         ax.clabel(im, inline=True, fontsize=10)
-        
+
 def _draw_current_forecast(
     datarrays, briefing_time, lead_delta, init_times, ax
 ):

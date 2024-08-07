@@ -12,8 +12,8 @@ from matplotlib.figure import Figure
 
 import seaborn as sns
 
-from wblib.figures.hifs import get_latest_forecast_issue_time
-from wblib.figures.hifs import get_dates_of_previous_initializations
+from wblib.figures.briefing_info import get_latest_forecast_issue_time
+from wblib.figures.briefing_info import get_dates_of_previous_initializations
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 ICWV_ITCZ_THRESHOLD = 48  # mm

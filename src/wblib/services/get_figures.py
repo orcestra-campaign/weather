@@ -23,10 +23,7 @@ def generate_external_figures(
             _warn_function_is_not_defined(product, logger)
             continue
         try:
-            if product == 'ifs_meteogram':
-                figure = function(current_location, current_time)
-            else:
-                figure = function(current_time)
+            figure = function(current_time, current_location)
             yield (product, figure)
         except Exception as error:
             msg = (

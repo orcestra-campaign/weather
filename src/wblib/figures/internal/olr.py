@@ -11,7 +11,7 @@ import matplotlib.colors as mcolors
 import seaborn as sns
 import easygems.healpix as egh
 
-from wblib.figures.hifs import get_latest_forecast_issue_time
+from wblib.figures.briefing_info import get_latest_forecast_issue_time
 
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"

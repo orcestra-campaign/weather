@@ -9,7 +9,7 @@ title: "PERCUSION Weather briefing"
 ## NHC tropical weather outlook
 ![]({{< meta plots.external.nhc_seven_days_outlook >}})
 
-## 
+##
 :::: {.columns}
 ::: {.column width="30%"}
 ### NHC tropical Hovmöller
@@ -46,15 +46,24 @@ title: "PERCUSION Weather briefing"
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
 
-##
-:::: {.columns}
-::: {.column width="30%"}
-### Local forecast for {{< meta location >}}
-:::
-::: {.column width="70%"}
-![]({{< meta plots.external.ifs_meteogram >}}){width="61%"}
-:::
-::::
+# ECMWF Outgoing Longwave Radiation
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
 
 # ECMWF 10m Surface Wind Speed
 ## 10m surface wind speed forecast
@@ -75,25 +84,6 @@ title: "PERCUSION Weather briefing"
 ## 10m surface wind speed forecast
 ![]({{< meta plots.internal.surface_wind_quivers.108h >}})
 
-# ECMWF Outgoing Longwave Radiation
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
-
 # ECMWF Precipitation forecast
 ## Precipitation Forecast
 ![]({{< meta plots.internal.precip.003h >}})
@@ -113,7 +103,15 @@ title: "PERCUSION Weather briefing"
 ## Precipitation Forecast
 ![]({{< meta plots.internal.precip.108h >}})
 
-
+##
+:::: {.columns}
+::: {.column width="30%"}
+### Local forecast for {{< meta location >}}
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external.ifs_meteogram >}}){width="61%"}
+:::
+::::
 
 ## Summary
 Summary of the weather briefing.

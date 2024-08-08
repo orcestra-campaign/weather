@@ -9,7 +9,7 @@ title: "PERCUSION Weather briefing"
 ## NHC tropical weather outlook
 ![]({{< meta plots.external.nhc_seven_days_outlook >}})
 
-## 
+##
 :::: {.columns}
 ::: {.column width="30%"}
 ### NHC tropical Hovmöller
@@ -46,34 +46,24 @@ title: "PERCUSION Weather briefing"
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
 
-##
-:::: {.columns}
-::: {.column width="30%"}
-### Local forecast for {{< meta location >}}
-:::
-::: {.column width="70%"}
-![]({{< meta plots.external.ifs_meteogram >}}){width="61%"}
-:::
-::::
-
 # ECMWF 10m Surface Wind Speed
 ## 10m surface wind speed forecast
-![]({{< meta plots.internal.surface_wind_quivers.003h >}})
+![]({{< meta plots.internal.sfc_winds.003h >}})
 
 ## 10m surface wind speed forecast
-![]({{< meta plots.internal.surface_wind_quivers.012h >}})
+![]({{< meta plots.internal.sfc_winds.012h >}})
 
 ## 10m surface wind speed forecast
-![]({{< meta plots.internal.surface_wind_quivers.036h >}})
+![]({{< meta plots.internal.sfc_winds.036h >}})
 
 ## 10m surface wind speed forecast
-![]({{< meta plots.internal.surface_wind_quivers.060h >}})
+![]({{< meta plots.internal.sfc_winds.060h >}})
 
 ## 10m surface wind speed forecast
-![]({{< meta plots.internal.surface_wind_quivers.084h >}})
+![]({{< meta plots.internal.sfc_winds.084h >}})
 
 ## 10m surface wind speed forecast
-![]({{< meta plots.internal.surface_wind_quivers.108h >}})
+![]({{< meta plots.internal.sfc_winds.108h >}})
 
 # ECMWF Outgoing Longwave Radiation
 ## Outgoing Longwave Radiation Forecast
@@ -113,6 +103,15 @@ title: "PERCUSION Weather briefing"
 ## Precipitation Forecast
 ![]({{< meta plots.internal.precip.108h >}})
 
+##
+:::: {.columns}
+::: {.column width="30%"}
+### Local forecast for {{< meta location >}}
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external.ifs_meteogram >}}){width="61%"}
+:::
+::::
 
 
 ## Summary

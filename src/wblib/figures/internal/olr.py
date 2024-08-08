@@ -11,6 +11,7 @@ import matplotlib.colors as mcolors
 import seaborn as sns
 import easygems.healpix as egh
 
+from wblib.figures.sattrack import plot_sattrack
 from wblib.figures.hifs import get_latest_forecast_issue_time
 
 
@@ -29,7 +30,10 @@ FIGURE_BOUNDARIES = (-70, 10, -10, 30)
 
 
 def toa_outgoing_longwave(
-    briefing_time: pd.Timestamp, lead_hours: str, *args, **kwargs
+    briefing_time: pd.Timestamp,
+    lead_hours: str,
+    sattracks_fc_time: pd.Timestamp,
+    *args, **kwargs
 ) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
@@ -49,7 +53,9 @@ def toa_outgoing_longwave(
     )
     _draw_olr(olr, fig, ax)
     _draw_icwv_contour(icwv, ax)
-    _format_axes(valid_time, issued_time, lead_delta, ax)
+    plot_sattrack(ax, briefing_time, lead_delta, sattracks_fc_time,
+                  which_orbit="descending")
+    _format_axes(valid_time, issued_time, lead_delta, sattracks_fc_time, ax)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -116,7 +122,7 @@ def _draw_icwv_contour(icwv, ax):
     format_func = lambda level : f"{int(level)} mm"
     ax.clabel(hcs, hcs.levels, inline=True, fontsize=10, fmt=format_func)
 
-def _format_axes(valid_time, issued_time, lead_delta, ax):
+def _format_axes(valid_time, issued_time, lead_delta, sattracks_fc_time, ax):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     title_str = (
         f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
@@ -130,7 +136,10 @@ def _format_axes(valid_time, issued_time, lead_delta, ax):
     ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-    annotation = f"Latest ECMWF IFS forecast initialization: {issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+    annotation = ("Latest ECMWF IFS forecast initialization: "
+                  f"{issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+                  "\nSatellite tracks forecast issued on: "
+                  f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M')}")
     ax.annotate(
         annotation,
         (-21.25, -9),

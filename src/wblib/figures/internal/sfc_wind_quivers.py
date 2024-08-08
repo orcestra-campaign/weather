@@ -12,6 +12,7 @@ import seaborn as sns
 import healpy as hp
 import xarray as xr
 
+from wblib.figures.sattrack import plot_sattrack
 from wblib.figures.hifs import get_latest_forecast_issue_time
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
@@ -25,7 +26,9 @@ FIGURE_BOUNDARIES = (-65, -5, -10, 20)
 MESH_GRID_SIZE = 50
 QUIVER_SKIP = 4
 
-def sfc_wind_quivers(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
+def sfc_wind_quivers(briefing_time: pd.Timestamp,
+                     lead_hours: str,
+                     sattracks_fc_time: pd.Timestamp) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
     refdate = issued_time.strftime("%Y-%m-%d")
@@ -65,14 +68,19 @@ def sfc_wind_quivers(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     im2 = egh.healpix_contour(windspeed_10m.sel(time=valid_time), ax = ax, 
             levels = [SPEED_THRESHOLD], colors = 'r'
             )
+    # satellite track
+    plot_sattrack(ax, briefing_time, lead_delta, sattracks_fc_time,
+                  which_orbit="descending")
     # axes formatting
     fig.colorbar(im1, label = '10m wind speed / m s$^{-1}$', shrink = 0.8)
     plt.clabel(im2, inline=True, fontsize=12, colors='r', fmt="%d")
-    _speed_format_axes(briefing_time, issued_time, lead_delta, ax)
+    _speed_format_axes(briefing_time, issued_time, lead_delta,
+                       sattracks_fc_time, ax)
     matplotlib.rc_file_defaults()
     return fig
     
-def _speed_format_axes(briefing_time, issued_time, lead_delta, ax):
+def _speed_format_axes(briefing_time, issued_time, lead_delta,
+                       sattracks_fc_time, ax):
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     valid_time = briefing_time + lead_delta
     title_str = (
@@ -87,12 +95,13 @@ def _speed_format_axes(briefing_time, issued_time, lead_delta, ax):
     ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-    annotation = f"Latest ECMWF IFS forecast initialization: {issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+    annotation = ("Latest ECMWF IFS forecast initialization: "
+                  f"{issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
+                  "\nSatellite tracks forecast issued on: "
+                  f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M')}")
     ax.annotate(annotation,
                 (-32.25, -9),
                 fontsize=8,
                 bbox = dict(facecolor='white',
                             edgecolor='none',
                             alpha=1))
-    
-

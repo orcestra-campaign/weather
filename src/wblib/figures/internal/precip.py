@@ -15,9 +15,7 @@ from matplotlib.colors import BoundaryNorm
 import seaborn as sns
 import cmocean as cmo
 
-#import orcestra.sat
-#from wblib.figures.internal._general_plotting_functions import plot_sattrack
-
+from wblib.figures.sattrack import plot_sattrack
 from wblib.figures.hifs import get_latest_forecast_issue_time
 from wblib.figures.hifs import get_dates_of_previous_initializations
 
@@ -39,7 +37,9 @@ REFDATE_COLORBAR_TCWV = [
 ]
 REFDATE_LINEWIDTH = [1.0, 1.4]
 
-def precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
+def precip(briefing_time: pd.Timestamp,
+           lead_hours: str,
+           sattracks_fc_time: pd.Timestamp) -> Figure:
     # retrieve the forecast data
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
@@ -67,8 +67,9 @@ def precip(briefing_time: pd.Timestamp, lead_hours: str) -> Figure:
     im = _draw_current_forecast(
         precip, briefing_time, lead_delta, issued_times, ax
     )
-    #plot_sattrack(valid_time, ax)
-    _format_axes(briefing_time, lead_delta, ax)
+    plot_sattrack(ax, briefing_time, lead_delta, sattracks_fc_time,
+                  which_orbit="descending")
+    _format_axes(briefing_time, lead_delta, sattracks_fc_time, ax)
     _add_legend(issued_times, loc='lower right')
     fig.colorbar(im, label="mean precip. rate / mm day$^{-1}$",
                  shrink=0.7)
@@ -157,7 +158,7 @@ def _draw_current_forecast(
     )
     return im
 
-def _format_axes(briefing_time, lead_delta, ax):
+def _format_axes(briefing_time, lead_delta, sattracks_fc_time, ax):
     lon_min, lon_max, lat_min, lat_max = _select_latlonbox(DOMAIN)
     valid_time = briefing_time + lead_delta
     title_str = (
@@ -172,6 +173,15 @@ def _format_axes(briefing_time, lead_delta, ax):
     ax.set_xlabel("Longitude / \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
+    annotation = ("Satellite tracks forecast issued on: "
+                  f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M')}")
+    ax.annotate(annotation,
+                xy=(-16.5, 0),
+                xycoords='data',
+                fontsize=8,
+                bbox = dict(facecolor='white',
+                            edgecolor='none',
+                            alpha=1))
 
 def _add_legend(init_times: list, **kwargs):
     lines = [Line2D([0], [0],
@@ -183,7 +193,8 @@ def _add_legend(init_times: list, **kwargs):
     plt.legend(lines, labels, **kwargs, fontsize=12)
 
 if __name__ == "__main__":
-    briefing_time = pd.Timestamp("2024-07-31").tz_localize("UTC")
+    briefing_time = pd.Timestamp("2024-08-08").tz_localize("UTC")
     lead_hours_str = "12H"
-    figure = precip(briefing_time, lead_hours_str)
+    sattracks_fc_time = pd.Timestamp("2024-08-05").tz_localize("UTC")
+    figure = precip(briefing_time, lead_hours_str, sattracks_fc_time)
     figure.savefig("test.png")

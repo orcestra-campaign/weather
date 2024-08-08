@@ -37,12 +37,12 @@ FIGURE_TITLES = {
 FIGURE_BOUNDARIES = (-70, 5, -10, 25)
 
 
-def current_satellite_image_vis(current_time: pd.Timestamp) -> Figure:
+def current_satellite_image_vis(current_time: pd.Timestamp, *args) -> Figure:
     fig = _get_satellite_image(current_time, "visible")
     return fig
 
 
-def current_satellite_image_ir(current_time: pd.Timestamp) -> Figure:
+def current_satellite_image_ir(current_time: pd.Timestamp, *args) -> Figure:
     fig = _get_satellite_image(current_time, "infrared")
     return fig
 

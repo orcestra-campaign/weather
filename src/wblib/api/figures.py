@@ -20,30 +20,36 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     # external
     external_location = variables_dict["location"]
     logger(f"External figure location set to {external_location}", "INFO")
-    external_time = pd.Timestamp.now(TIME_ZONE_STR)
-    logger(f"External figure time set to {external_time}", "INFO")
-    for product, image in generate_external_figures(external_location, external_time, logger):
+    current_time = pd.Timestamp.now(TIME_ZONE_STR)
+    logger(f"External figure time set to {current_time}", "INFO")
+    for product, image in generate_external_figures(
+        external_location, current_time, logger
+    ):
         fig_path = variables_dict["plots"]["external"][product]
         fig_path = get_briefing_path(date) + "/" + fig_path
         _save_image(image, fig_path)
         _close_image(image)
         logger(f"Saved external figure '{product}' in '{fig_path}'.", "INFO")
     # internal
-    internal_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
-    logger(f"Internal figure time set to {internal_time}", "INFO")
-    for product, lead_time, image in generate_internal_figures(internal_time, logger):
+    briefing_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
+    logger(f"Internal figure time set to {briefing_time}", "INFO")
+    for product, lead_time, image in generate_internal_figures(
+        briefing_time, current_time, logger
+    ):
         fig_path = variables_dict["plots"]["internal"][product][lead_time]
         fig_path = get_briefing_path(date) + "/" + fig_path
         _save_image(image, fig_path)
         _close_image(image)
-        logger(f"Saved internal figure '{product}' for '{internal_time}' "
-                f"and '{lead_time}' in '{fig_path}'.", "INFO")
+        logger(
+            f"Saved internal figure '{product}' for '{briefing_time}' "
+            f"and '{lead_time}' in '{fig_path}'.",
+            "INFO",
+        )
         _close_image(image)
 
 
 def _save_image(image, fig_path) -> None:
     if isinstance(image, Figure):
-        image.tight_layout()
         image.savefig(fig_path)
         return
     if isinstance(image, Image):
@@ -61,7 +67,6 @@ def _close_image(image) -> None:
         return
     raise ValueError("Unrecognized figure type")
 
+
 if __name__ == "__main__":
     make_briefing_figures("20240731")  # for testing
-
-

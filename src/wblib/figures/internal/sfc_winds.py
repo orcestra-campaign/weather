@@ -27,7 +27,7 @@ MESH_GRID_SIZE = 50
 QUIVER_SKIP = 4
 
 
-def sfc_wind_quivers(
+def sfc_winds(
     briefing_time: pd.Timestamp,
     lead_hours: str,
     current_time: pd.Timestamp,
@@ -151,4 +151,4 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 1).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 1, 11).tz_localize("UTC")
 
-    sfc_wind_quivers(briefing_time1, "003H", current_time1, hifs)
+    sfc_winds(briefing_time1, "003H", current_time1, hifs)

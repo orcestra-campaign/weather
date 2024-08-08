@@ -58,20 +58,22 @@ def toa_outgoing_longwave(
 
 def _draw_olr(olr, fig, ax) -> None:
     # get_orl_colormap
-    gist_ncar = plt.cm.Spectral(np.linspace(0.0, 1, 128))
+    spectral = plt.cm.Spectral(np.linspace(0.0, 1, 9))
     white = np.array([1.0, 1.0, 1.0, 1.0])
-    colors = np.vstack((gist_ncar, white))
-    colormap = mcolors.LinearSegmentedColormap.from_list("olr", colors)
+    colors = np.vstack((spectral, white))
+    colormap = mcolors.ListedColormap(colors, "olr")
     # draw plot
     im = egh.healpix_show(
         olr, method="linear", cmap=colormap, vmin=OLR_MIN, vmax=OLR_MAX, ax=ax
     )
     # format colorbar
-    fig.colorbar(im, label="OLR $W/m^2$", shrink=0.8)
+    fig.colorbar(im,
+                 label="OLR $W/m^2$",
+                 ticks=np.linspace(OLR_MIN, OLR_MAX, 11),
+                 shrink=0.8)
 
 
 def _draw_icwv_contour(icwv, ax):
-    color = ICWV_COLOR
     hcs = egh.healpix_contour(
         icwv,
         ax=ax,

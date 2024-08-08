@@ -6,7 +6,7 @@ import cartopy.crs as ccrs
 
 ORCESTRA_DOMAIN = -65, -5, -10, 25  # lon_min, lon_max, lat_min, lat_max
 
-INTERNAL_FIGURE_SIZE = (15, 7)
+INTERNAL_FIGURE_SIZE = (15, 8)
 
 
 def get_valid_time(
@@ -39,7 +39,7 @@ def format_internal_figure_axes(
     annotation = f"Latest ECMWF IFS forecast initialization: {issue_time.strftime('%Y-%m-%d %H:%M %Z')}"
     ax.annotate(
         annotation,
-        (-28.5, -9),
+        (-26, -9),
         fontsize=8,
         bbox=dict(facecolor="white", edgecolor="none", alpha=1),
     )

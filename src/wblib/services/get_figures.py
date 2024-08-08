@@ -5,6 +5,9 @@ from PIL import Image as img
 from matplotlib.figure import Figure
 import pandas as pd
 
+import intake
+
+from wblib.figures.hifs import HifsForecasts
 from wblib.services._define_figures import EXTERNAL_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
@@ -12,11 +15,11 @@ from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
 
 Image = Union[img.Image, Figure]
 
+INTAKE_CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
+
 
 def generate_external_figures(
-    current_location: str,
-    current_time: pd.Timestamp,
-    logger: Callable
+    current_location: str, current_time: pd.Timestamp, logger: Callable
 ) -> Iterator[tuple[str, Image]]:
     for product, function in EXTERNAL_PLOTS.items():
         if function is None:
@@ -36,15 +39,19 @@ def generate_external_figures(
 
 
 def generate_internal_figures(
-    current_time: pd.Timestamp, logger: Callable
+    briefing_time: pd.Timestamp, current_time: pd.Timestamp, logger: Callable
 ) -> Iterator[tuple[str, str, Image]]:
+    catalog = intake.open_catalog(INTAKE_CATALOG_URL)
+    hifs = HifsForecasts(catalog)
     for product, function in INTERNAL_PLOTS.items():
         if function is None:
             _warn_function_is_not_defined(product, logger)
             continue
         for lead_hours in INTERNAL_PLOTS_LEADTIMES:
             try:
-                figure = function(current_time, lead_hours)
+                figure = function(
+                    briefing_time, lead_hours, current_time, hifs
+                )
                 yield (product, lead_hours, figure)
             except Exception as error:
                 msg = (

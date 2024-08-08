@@ -5,7 +5,7 @@ import argparse
 from wblib.api.status import check_briefing_status
 from wblib.api.directory import make_briefing_directory
 from wblib.api.variables_file import make_briefing_variables
-from wblib.api.images import make_briefing_images
+from wblib.api.figures import make_briefing_figures
 
 
 ARGUMENT_DESCRIPTIONS = {
@@ -48,7 +48,7 @@ def _define_figures_subcommand(subparsers):
         "figures", help="Generate the figures of the weather report."
     )
     figures_parser.add_argument("date", help=ARGUMENT_DESCRIPTIONS["date"])
-    figures_parser.set_defaults(func=make_briefing_images)
+    figures_parser.set_defaults(func=make_briefing_figures)
 
 
 def _define_variable_subcommand(subparsers):

@@ -13,7 +13,7 @@ import seaborn as sns
 
 from wblib.figures.sattrack import plot_sattrack
 from wblib.figures.hifs import get_latest_forecast_issue_time
-from wblib.figures.hifs import get_dates_of_five_previous_initializations
+from wblib.figures.hifs import get_dates_of_previous_initializations
 
 CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 ICWV_ITCZ_THRESHOLD = 48  # mm
@@ -38,7 +38,7 @@ def iwv_itcz_edges(briefing_time: pd.Timestamp,
                    sattracks_fc_time: pd.Timestamp) -> Figure:
     lead_delta = pd.Timedelta(hours=int(lead_hours[:-1]))
     issued_time = get_latest_forecast_issue_time(briefing_time)
-    issued_times = get_dates_of_five_previous_initializations(issued_time)
+    issued_times = get_dates_of_previous_initializations(issued_time)
     datarrays = _get_forecast_datarrays_dict(issued_times)
     # plot
     sns.set_context('talk')

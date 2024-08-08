@@ -41,13 +41,14 @@ this will check that all figures are complete and indicate possible missing ones
 
 After creating the briefing structure and all necessary figures, you can use quarto to build the presentations and website
 ```
-quarto render --profile website
-quarto render --profile slides
+quarto render
 ```
 
 ### Preview Server
 
-You can also run quarto in preview mode, which will open a browser and navigate to the most recently modified file:
+You can also run quarto in preview mode, which will open a browser and navigate to the most recently modified file.
+Because all source files are built twice (in website and slide mode), the preview mechanism can get confused.
+Therefore, when working on a slide, it is best to explicitly run the preview server using the slide profile:
 ```
 quarto preview --profile slides
 ```

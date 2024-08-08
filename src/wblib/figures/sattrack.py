@@ -8,14 +8,17 @@ import xarray as xr
 from orcestra.sat import SattrackLoader
 
 
-def plot_sattrack(sattrack_time: pd.Timestamp,
-                  ax: Axes,
+def plot_sattrack(ax: Axes,
+                  briefing_time: pd.Timestamp,
+                  lead_delta: pd.Timedelta,
+                  sattrack_time: pd.Timestamp,
                   satellite: str = "EARTHCARE",
                   which_orbit: list = ["ascending"]
                   ):
-    valid_day = str(sattrack_time.date())
-    sattracks = SattrackLoader(satellite, "2024-07-22"
-                                            ).get_track_for_day(valid_day)
+    valid_time = briefing_time + lead_delta
+    valid_time = valid_time.tz_localize(None).date()
+    sattracks = SattrackLoader(satellite, sattrack_time
+                               ).get_track_for_day(valid_time)
     splitted_sattracks = _split_sattracks(sattracks)
     splitted_sattracks = _add_orbit_attribute(splitted_sattracks)
     for sattrack in splitted_sattracks:

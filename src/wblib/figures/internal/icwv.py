@@ -51,7 +51,8 @@ def iwv_itcz_edges(briefing_time: pd.Timestamp,
     im = _draw_icwv_current_forecast(
         datarrays, briefing_time, lead_delta, issued_times, ax
     )
-    plot_sattrack(sattrack_time, ax, which_orbit="descending")
+    plot_sattrack(ax, briefing_time, lead_delta, sattrack_time,
+                  which_orbit="descending")
     _format_axes(briefing_time, issued_time, lead_delta, sattrack_time, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
     matplotlib.rc_file_defaults()

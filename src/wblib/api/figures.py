@@ -50,7 +50,6 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
 
 def _save_image(image, fig_path) -> None:
     if isinstance(image, Figure):
-        image.tight_layout()
         image.savefig(fig_path)
         return
     if isinstance(image, Image):

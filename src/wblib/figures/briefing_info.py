@@ -39,7 +39,7 @@ def format_internal_figure_axes(
     annotation = f"Latest ECMWF IFS forecast initialization: {issue_time.strftime('%Y-%m-%d %H:%M %Z')}"
     ax.annotate(
         annotation,
-        (-25, -9),
+        (-28.5, -9),
         fontsize=8,
         bbox=dict(facecolor="white", edgecolor="none", alpha=1),
     )

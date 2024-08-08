@@ -52,6 +52,7 @@ def generate_internal_figures(
                 figure = function(
                     briefing_time, lead_hours, current_time, hifs
                 )
+                figure.tight_layout(pad=1.01)
                 yield (product, lead_hours, figure)
             except Exception as error:
                 msg = (
@@ -67,3 +68,11 @@ def generate_internal_figures(
 def _warn_function_is_not_defined(product, logger):
     msg = f"Undefined function for '{product}' product."
     logger(msg, "ERROR")
+
+if __name__ == "__main__":
+    def logger(message: str, level: str) -> None:
+        return None
+    briefing_time1 = pd.Timestamp(2024, 8, 7).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 15).tz_localize("UTC")
+    figures = generate_internal_figures(briefing_time1, current_time1, logger)
+    next(figures)

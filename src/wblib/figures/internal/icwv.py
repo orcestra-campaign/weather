@@ -53,7 +53,7 @@ def iwv_itcz_edges(
     format_internal_figure_axes(briefing_time, lead_hours, issue_time, ax)
     _draw_icwv_contours_for_previous_forecasts(forecasts, ax)
     im = _draw_icwv_current_forecast(forecast, ax)
-    fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.8)
+    fig.colorbar(im, label="IWV - kg m$^{-2}$", shrink=0.8)
     matplotlib.rc_file_defaults()
     return fig
 

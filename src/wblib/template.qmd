@@ -46,24 +46,6 @@ title: "PERCUSION Weather briefing"
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
 
-# ECMWF 10m Surface Wind Speed
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.003h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.012h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.036h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.060h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.084h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.108h >}})
 
 # ECMWF Outgoing Longwave Radiation
 ## Outgoing Longwave Radiation Forecast
@@ -83,6 +65,25 @@ title: "PERCUSION Weather briefing"
 
 ## Outgoing Longwave Radiation Forecast
 ![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
+
+# ECMWF 10m Surface Wind Speed
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.003h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.012h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.036h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.060h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.084h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.108h >}})
 
 # ECMWF Precipitation forecast
 ## Precipitation Forecast
@@ -112,7 +113,6 @@ title: "PERCUSION Weather briefing"
 ![]({{< meta plots.external.ifs_meteogram >}}){width="61%"}
 :::
 ::::
-
 
 ## Summary
 Summary of the weather briefing.

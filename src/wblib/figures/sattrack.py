@@ -11,13 +11,13 @@ from orcestra.sat import SattrackLoader
 def plot_sattrack(ax: Axes,
                   briefing_time: pd.Timestamp,
                   lead_delta: pd.Timedelta,
-                  sattrack_time: pd.Timestamp,
+                  sattracks_fc_time: pd.Timestamp,
                   satellite: str = "EARTHCARE",
                   which_orbit: list = ["ascending"]
                   ):
     valid_time = briefing_time + lead_delta
     valid_time = valid_time.tz_localize(None).date()
-    sattracks = SattrackLoader(satellite, sattrack_time
+    sattracks = SattrackLoader(satellite, sattracks_fc_time
                                ).get_track_for_day(valid_time)
     splitted_sattracks = _split_sattracks(sattracks)
     splitted_sattracks = _add_orbit_attribute(splitted_sattracks)

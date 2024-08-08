@@ -14,18 +14,18 @@ ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 
 def get_expected_figures(
-    date: str, location: str, flight_id: str, sattracks_date: str
+    date: str, location: str, flight_id: str, sattracks_fc_date: str
 ) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
     _validate_date(date)
-    _validate_date(sattracks_date)
+    _validate_date(sattracks_fc_date)
     _validate_location(location)
     output_path = get_figure_path()
     variables_nml = {
         "flight_id": flight_id,
         "location": location,
         "date": date,
-        "sattracks_date": sattracks_date,
+        "sattracks_fc_date": sattracks_fc_date,
         "plots": {
             "external": get_expected_external_figures(output_path),
             "internal": get_expected_internal_figures(output_path, date),

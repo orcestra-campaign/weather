@@ -14,11 +14,11 @@ def make_briefing_variables(
     date: str,
     flight_id: str,
     location: str,
-    sattracks_date: str,
+    sattracks_fc_date: str,
     logger: Callable = logger,
 ) -> None:
     variables_nml = get_expected_figures(
-        date, location, flight_id, sattracks_date
+        date, location, flight_id, sattracks_fc_date
     )
     variables_file_name = f"_metadata.yml"
     output_path = pathlib.Path(get_briefing_path(date))

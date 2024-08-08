@@ -136,15 +136,17 @@ def _accumulated_to_instantaneous(
     accumulated: xr.DataArray,
     differentiate_unit: str = "s",
 ) -> xr.DataArray:
-    time_0 = xr.DataArray(
-        data=[issue_time.tz_localize(None)],
-        coords={"time": [issue_time]},
-        dims=["time"],
-    )
-    time = xr.concat([time_0, accumulated.time], "time")
-    dtime = time.diff("time") / np.timedelta64(1, differentiate_unit)
+    # first time step
+    time_0 = issue_time.tz_localize(None).to_numpy()
+    time_1 = accumulated.time.isel(time=0)
+    dtime_1 = (time_1 - time_0) / np.timedelta64(1, differentiate_unit)
+    dacc_1 = accumulated.isel(time=0)
+    instantaneous_1 = dacc_1 / dtime_1
+    # other time steps
+    dtime = accumulated.time.diff("time") / np.timedelta64(1, differentiate_unit)
     dacc = accumulated.diff("time")
-    instantaneous = dacc / dtime
+    instantaneous_other = dacc / dtime
+    instantaneous = xr.concat([instantaneous_1, instantaneous_other], "time")
     return instantaneous
 
 
@@ -157,6 +159,6 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 7).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 15).tz_localize("UTC")
 
-    hifs.get_forecast(
+    issue_time, dttr = hifs.get_forecast(
         "ttr", briefing_time1, "108H", current_time1, differentiate=True
     )

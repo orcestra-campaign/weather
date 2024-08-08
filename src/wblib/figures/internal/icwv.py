@@ -18,9 +18,9 @@ from wblib.figures.hifs import HifsForecasts
 
 
 ICWV_ITCZ_THRESHOLD = 48  # mm
-ICWV_MAX = 65  # mm
-ICWV_MIN = 0  # mm
-ICWV_COLORMAP = "bone"
+ICWV_MAX = 70  # mm
+ICWV_MIN = 45  # mm
+ICWV_COLORMAP = "Blues"
 ICWV_CATALOG_VARIABLE = "tcwv"
 REFDATE_COLORBAR = [
     "#ffc99d",
@@ -76,6 +76,7 @@ def _draw_icwv_current_forecast(forecast, ax):
         forecast,
         ax=ax,
         method="linear",
+        alpha=0.75,
         cmap=ICWV_COLORMAP,
         vmin=ICWV_MIN,
         vmax=ICWV_MAX,
@@ -93,5 +94,4 @@ if __name__ == "__main__":
     current_time1 = pd.Timestamp(2024, 8, 15).tz_localize("UTC")
 
     fig = iwv_itcz_edges(briefing_time1, "003H", current_time1, hifs)
-    fig.tight_layout()
-    fig.savefig("test2.png")
+    fig

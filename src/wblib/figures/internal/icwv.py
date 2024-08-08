@@ -12,7 +12,8 @@ from matplotlib.figure import Figure
 
 import seaborn as sns
 
-from wblib.figures.briefing_info import get_valid_time
+from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
+from wblib.figures.briefing_info import format_internal_figure_axes
 from wblib.figures.hifs import HifsForecasts
 
 
@@ -21,8 +22,6 @@ ICWV_MAX = 65  # mm
 ICWV_MIN = 0  # mm
 ICWV_COLORMAP = "bone"
 ICWV_CATALOG_VARIABLE = "tcwv"
-FIGURE_SIZE = (15, 8)
-FIGURE_BOUNDARIES = (-70, 10, -10, 30)
 REFDATE_COLORBAR = [
     "#ffc99d",
     "#ffa472",
@@ -48,13 +47,13 @@ def iwv_itcz_edges(
     # plot
     sns.set_context("talk")
     fig, ax = plt.subplots(
-        figsize=FIGURE_SIZE,
+        figsize=INTERNAL_FIGURE_SIZE,
         subplot_kw={"projection": ccrs.PlateCarree()}
     )
-    _format_axes(briefing_time, lead_hours, issue_time, ax)
+    format_internal_figure_axes(briefing_time, lead_hours, issue_time, ax)
     _draw_icwv_contours_for_previous_forecasts(forecasts, ax)
     im = _draw_icwv_current_forecast(forecast, ax)
-    fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.7)
+    fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.8)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -84,34 +83,6 @@ def _draw_icwv_current_forecast(forecast, ax):
     return im
 
 
-def _format_axes(briefing_time, lead_hours, issued_time, ax):
-    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    ax.set_extent(
-        [lon_min, lon_max, lat_min, lat_max]
-    )  # need this line here to get the contours and lines on the plot
-    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    valid_time = get_valid_time(briefing_time, lead_hours)
-    title_str = (
-        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
-        f"Lead hours: {lead_hours}"
-    )
-    ax.set_title(title_str)
-    ax.coastlines(lw=1.0, color="k")
-    ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=ccrs.PlateCarree())
-    ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
-    ax.set_ylabel("Latitude \N{DEGREE SIGN}N")
-    ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
-    ax.set_xlim([lon_min, lon_max])
-    ax.set_ylim([lat_min, lat_max])
-    annotation = f"Latest ECMWF IFS forecast initialization: {issued_time.strftime('%Y-%m-%d %H:%M %Z')}"
-    ax.annotate(
-        annotation,
-        (-21.25, -9),
-        fontsize=8,
-        bbox=dict(facecolor="white", edgecolor="none", alpha=1),
-    )
-
-
 if __name__ == "__main__":
     import intake
 
@@ -121,4 +92,6 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 7).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 15).tz_localize("UTC")
 
-    iwv_itcz_edges(briefing_time1, "003H", current_time1, hifs)
+    fig = iwv_itcz_edges(briefing_time1, "003H", current_time1, hifs)
+    fig.tight_layout()
+    fig.savefig("test2.png")

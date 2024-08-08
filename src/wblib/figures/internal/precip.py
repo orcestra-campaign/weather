@@ -16,15 +16,15 @@ import seaborn as sns
 import cmocean as cmo
 
 from wblib.figures.hifs import HifsForecasts
-from wblib.figures.briefing_info import get_valid_time
+from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
+from wblib.figures.briefing_info import format_internal_figure_axes
+
 
 TP_THRESHOLD = 50  # mm
 TCWV_THRESHOLD = 48  # mm
 TP_STEPS = [0, 5, 25, 50, 75, 100]
 TP_COLORMAP = cmo.cm.rain
 DATA_CATALOG_VARIABLE = ["tp", "tcwv"]
-FIGURE_SIZE = (15, 8)
-DOMAIN = "Sal"
 REFDATE_COLORBAR_TP = [
     "#ff7e26",
     "#ff580f",
@@ -34,7 +34,6 @@ REFDATE_COLORBAR_TCWV = [
     "royalblue",
 ]
 REFDATE_LINEWIDTH = [1.0, 1.4]
-FIGURE_BOUNDARIES = (-70, 10, -10, 30)
 
 
 def precip(
@@ -75,9 +74,10 @@ def precip(
     # plotting
     sns.set_context("talk")
     fig, ax = plt.subplots(
-        figsize=FIGURE_SIZE, subplot_kw={"projection": ccrs.PlateCarree()}
+        figsize=INTERNAL_FIGURE_SIZE,
+        subplot_kw={"projection": ccrs.PlateCarree()}
     )
-    _format_axes(briefing_time, lead_hours, issue_time, ax)
+    format_internal_figure_axes(briefing_time, lead_hours, issue_time, ax)
     _draw_tp_contours_for_previous_forecasts(precip_forecasts, ax)
     _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax)
     _draw_current_forecast(precip, fig, ax)
@@ -124,32 +124,7 @@ def _draw_current_forecast(precip, fig, ax):
         norm=BoundaryNorm(TP_STEPS, ncolors=TP_COLORMAP.N, clip=True),
         cmap=TP_COLORMAP,
     )
-    fig.colorbar(im, label="mean precip. rate / mm day$^{-1}$", shrink=0.7)
-
-
-def _format_axes(briefing_time, lead_hours, issue_time, ax):
-    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    valid_time = get_valid_time(briefing_time, lead_hours)
-    ax.set_extent([lon_min, lon_max, lat_min, lat_max])
-    title_str = (
-        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')}UTC \n"
-        f"Lead hours: {lead_hours}"
-    )
-    ax.set_title(title_str)
-    ax.coastlines(lw=1.0, color="k")
-    ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=ccrs.PlateCarree())
-    ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
-    ax.set_ylabel("Latitude / \N{DEGREE SIGN}N")
-    ax.set_xlabel("Longitude / \N{DEGREE SIGN}E")
-    ax.set_xlim([lon_min, lon_max])
-    ax.set_ylim([lat_min, lat_max])
-    annotation = f"Latest ECMWF IFS forecast initialization: {issue_time.strftime('%Y-%m-%d %H:%M %Z')}"
-    ax.annotate(
-        annotation,
-        (-21.25, -9),
-        fontsize=8,
-        bbox=dict(facecolor="white", edgecolor="none", alpha=1),
-    )
+    fig.colorbar(im, label="mean precip. rate / mm day$^{-1}$", shrink=0.8)
 
 
 def _add_legend(init_times: list, **kwargs):

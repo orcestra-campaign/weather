@@ -12,8 +12,10 @@ import seaborn as sns
 import healpy as hp
 import xarray as xr
 
-from wblib.figures.briefing_info import get_valid_time
 from wblib.figures.hifs import HifsForecasts
+from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
+from wblib.figures.briefing_info import ORCESTRA_DOMAIN
+from wblib.figures.briefing_info import format_internal_figure_axes
 
 
 FORECAST_PUBLISH_LAG = "6h"
@@ -21,8 +23,6 @@ SPEED_THRESHOLD = 3  # m/s
 SPEED_MAX = 15  # m/s
 SPEED_MIN = 0  # m/s
 SPEED_COLORMAP = "YlGn"
-FIGURE_SIZE = (15, 8)
-FIGURE_BOUNDARIES = (-65, -5, -10, 20)
 MESH_GRID_SIZE = 50
 QUIVER_SKIP = 4
 
@@ -41,11 +41,11 @@ def sfc_winds(
     # plotting
     sns.set_context("talk")
     fig, ax = plt.subplots(
-        figsize=FIGURE_SIZE,
+        figsize=INTERNAL_FIGURE_SIZE,
         subplot_kw={"projection": ccrs.PlateCarree()},
         facecolor="white",
     )
-    _speed_format_axes(briefing_time, lead_hours, issue_time, ax)
+    format_internal_figure_axes(briefing_time, lead_hours, issue_time, ax)
     _windspeed_plot(windspeed_10m, fig, ax)
     _wind_direction_plot(u10m, v10m, ax)
     _windspeed_contour(windspeed_10m, ax)
@@ -72,11 +72,11 @@ def _windspeed_plot(windspeed_10m, fig, ax):
         vmax=SPEED_MAX,
         ax=ax,
     )
-    fig.colorbar(im, label="10m wind speed / m s$^{-1}$", shrink=0.8)
+    fig.colorbar(im, label="10m wind speed - m s$^{-1}$", shrink=0.8)
 
 
 def _wind_direction_plot(u10m, v10m, ax):
-    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
+    lon_min, lon_max, lat_min, lat_max = ORCESTRA_DOMAIN
     lon1 = np.linspace(lon_min, lon_max, MESH_GRID_SIZE)
     lat1 = np.linspace(lat_min, lat_max, MESH_GRID_SIZE)
     pix = xr.DataArray(
@@ -111,37 +111,6 @@ def _wind_direction_plot(u10m, v10m, ax):
     )
 
 
-def _speed_format_axes(briefing_time, lead_hours, issue_time, ax):
-    lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
-    valid_time = get_valid_time(briefing_time, lead_hours)
-    ax.set_extent([lon_min, lon_max, lat_min, lat_max])
-    ax.coastlines(lw=0.8)
-    title_str = (
-        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')} \n"
-        f"Lead hours: {lead_hours}"
-    )
-    ax.set_title(title_str)
-    ax.coastlines(lw=1.0, color="k")
-    ax.set_xticks(
-        np.round(np.linspace(lon_min + 5, lon_max - 5, 6), 0),
-        crs=ccrs.PlateCarree(),
-    )
-    ax.set_yticks(
-        np.round(np.linspace(lat_min, lat_max, 5), 0), crs=ccrs.PlateCarree()
-    )
-    ax.set_ylabel("Latitude \N{DEGREE SIGN}N")
-    ax.set_xlabel("Longitude \N{DEGREE SIGN}E")
-    ax.set_xlim([lon_min, lon_max])
-    ax.set_ylim([lat_min, lat_max])
-    annotation = f"Latest ECMWF IFS forecast initialization: {issue_time.strftime('%Y-%m-%d %H:%M %Z')}"
-    ax.annotate(
-        annotation,
-        (-32.25, -9),
-        fontsize=8,
-        bbox=dict(facecolor="white", edgecolor="none", alpha=1),
-    )
-
-
 if __name__ == "__main__":
     import intake
 
@@ -151,4 +120,7 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 1).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 1, 11).tz_localize("UTC")
 
-    sfc_winds(briefing_time1, "003H", current_time1, hifs)
+    fig = sfc_winds(briefing_time1, "003H", current_time1, hifs)
+    fig.tight_layout()
+    fig.savefig("test1.png")
+

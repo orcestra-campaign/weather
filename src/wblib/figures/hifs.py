@@ -2,6 +2,7 @@
 
 import copy
 from typing import Iterable
+import numpy as np
 import pandas as pd
 import xarray as xr
 import intake
@@ -24,14 +25,20 @@ class HifsForecasts:
         variable: str,
         briefing_time: pd.Timestamp,
         lead_hours: str,
-        current_time: pd.Timestamp
+        current_time: pd.Timestamp,
+        differentiate: bool = False,
+        differentiate_unit: str = "s",
     ) -> tuple[pd.Timestamp, xr.DataArray]:
-        issue_time, forecast_dataset = _load_forecast_dataset(
-            briefing_time, current_time, self.catalog
+        issue_time, forecast = self._get_forecast(
+            variable,
+            briefing_time,
+            current_time,
+            differentiate,
+            differentiate_unit,
         )
         valid_time = get_valid_time(briefing_time, lead_hours)
         valid_time = valid_time.tz_localize(None)
-        forecast = forecast_dataset[variable].sel(time=valid_time)
+        forecast = forecast.sel(time=valid_time)
         return issue_time, forecast
 
     def get_previous_forecasts(
@@ -41,6 +48,8 @@ class HifsForecasts:
         lead_hours: str,
         current_time: pd.Timestamp,
         number: int = 5,
+        differentiate: bool = False,
+        differentiate_unit: str = "s",
     ) -> Iterable[tuple[pd.Timestamp, xr.DataArray]]:
         valid_time = get_valid_time(briefing_time, lead_hours)
         valid_time = valid_time.tz_localize(None)
@@ -48,11 +57,33 @@ class HifsForecasts:
             briefing_time, number
         )
         for briefing_time in briefing_times:
-            issue_time, forecast_dataset = _load_forecast_dataset(
-                briefing_time, current_time, self.catalog
+            issue_time, forecast = self._get_forecast(
+                variable,
+                briefing_time,
+                current_time,
+                differentiate,
+                differentiate_unit,
             )
-            forecast = forecast_dataset[variable].sel(time=valid_time)
+            forecast = forecast.sel(time=valid_time)
             yield issue_time, forecast
+
+    def _get_forecast(
+        self,
+        variable,
+        briefing_time,
+        current_time,
+        differentiate,
+        differentiate_unit,
+    ) -> tuple[pd.Timestamp, xr.DataArray]:
+        issue_time, forecast_dataset = _load_forecast_dataset(
+            briefing_time, current_time, self.catalog
+        )
+        forecast = forecast_dataset[variable]
+        if differentiate:
+            forecast = _accumulated_to_instantaneous(
+                issue_time, forecast, differentiate_unit
+            )
+        return issue_time, forecast
 
 
 def _load_forecast_dataset(
@@ -100,6 +131,23 @@ def _get_dates_of_previous_briefings(
     return dates
 
 
+def _accumulated_to_instantaneous(
+    issue_time: pd.Timestamp,
+    accumulated: xr.DataArray,
+    differentiate_unit: str = "s",
+) -> xr.DataArray:
+    time_0 = xr.DataArray(
+        data=[issue_time.tz_localize(None)],
+        coords={"time": [issue_time]},
+        dims=["time"],
+    )
+    time = xr.concat([time_0, accumulated.time], "time")
+    dtime = time.diff("time") / np.timedelta64(1, differentiate_unit)
+    dacc = accumulated.diff("time")
+    instantaneous = dacc / dtime
+    return instantaneous
+
+
 if __name__ == "__main__":
     import intake
 
@@ -109,4 +157,6 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 7).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 15).tz_localize("UTC")
 
-    hifs.get_forecast('tp', briefing_time1, "108H", current_time1)
+    hifs.get_forecast(
+        "ttr", briefing_time1, "108H", current_time1, differentiate=True
+    )

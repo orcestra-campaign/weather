@@ -16,7 +16,6 @@ from wblib.figures.briefing_info import format_internal_figure_axes
 from wblib.figures.hifs import HifsForecasts
 from wblib.figures.sattrack import plot_sattrack
 
-CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 ICWV_ITCZ_THRESHOLD = 48  # mm
 ICWV_MAX = 70  # mm
 ICWV_MIN = 45  # mm

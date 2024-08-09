@@ -43,7 +43,7 @@ def format_internal_figure_axes(
                   f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M %Z')}")
     ax.annotate(
         annotation,
-        (-29, -9),
+        (-26, -9),
         fontsize=8,
         bbox=dict(facecolor="white", edgecolor="none", alpha=1),
     )

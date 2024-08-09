@@ -32,8 +32,8 @@ def sfc_winds(
     briefing_time: pd.Timestamp,
     lead_hours: str,
     current_time: pd.Timestamp,
+    sattracks_fc_time: pd.Timestamp,
     hifs: HifsForecasts,
-    sattracks_fc_time: pd.Timestamp
 ) -> Figure:
     issue_time, u10m = hifs.get_forecast(
         "10u", briefing_time, lead_hours, current_time
@@ -126,6 +126,6 @@ if __name__ == "__main__":
     current_time1 = pd.Timestamp(2024, 8, 9, 12).tz_localize("UTC")
     sattracks_fc_time1 = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
 
-    fig = sfc_winds(briefing_time1, "108H", current_time1, hifs,
-                    sattracks_fc_time1)
+    fig = sfc_winds(briefing_time1, "108H", current_time1,
+                    sattracks_fc_time1, hifs)
     fig.savefig("test1.png")

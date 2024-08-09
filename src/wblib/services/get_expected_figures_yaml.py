@@ -4,9 +4,10 @@ from datetime import datetime
 
 from wblib.services.get_paths import get_figure_path
 
-from wblib.services._define_figures import EXTERNAL_PLOTS
+from wblib.services._define_figures import EXTERNAL_INST_PLOTS
+from wblib.services._define_figures import EXTERNAL_LEAD_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
-from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
+from wblib.services._define_figures import PLOTS_LEADTIMES
 
 
 MSS_PLOTS_SIDE_VIEW = ["relative_humidity", "cloud_cover"]
@@ -27,7 +28,9 @@ def get_expected_figures(
         "date": date,
         "sattracks_fc_date": sattracks_fc_date,
         "plots": {
-            "external": get_expected_external_figures(output_path),
+            "external_inst": get_expected_external_inst_figures(output_path),
+            "external_lead": get_expected_external_lead_figures(output_path,
+                                                                date),
             "internal": get_expected_internal_figures(output_path, date),
             "mss_side_view": get_expected_mss_side_view_figures(
                 output_path, date, flight_id
@@ -37,11 +40,23 @@ def get_expected_figures(
     return variables_nml
 
 
-def get_expected_external_figures(figures_output_path) -> dict:
+def get_expected_external_inst_figures(figures_output_path) -> dict:
     figures = {
-        product: f"{figures_output_path}/external/{product}.png"
-        for product in EXTERNAL_PLOTS.keys()
+        product: f"{figures_output_path}/external_inst/{product}.png"
+        for product in EXTERNAL_INST_PLOTS.keys()
     }
+    return figures
+
+
+def get_expected_external_lead_figures(figures_output_path, date) -> dict:
+    figures = dict()
+    for product in EXTERNAL_LEAD_PLOTS.keys():
+        figures[product] = dict()
+        for lead_time in PLOTS_LEADTIMES:
+            figures[product][
+                lead_time
+            ] = (f"{figures_output_path}/external_lead/IFS_{date}+{lead_time}" +
+                 f"_{product}.png")
     return figures
 
 
@@ -49,10 +64,11 @@ def get_expected_internal_figures(figures_output_path, date) -> dict:
     figures = dict()
     for product in INTERNAL_PLOTS.keys():
         figures[product] = dict()
-        for lead_time in INTERNAL_PLOTS_LEADTIMES:
+        for lead_time in PLOTS_LEADTIMES:
             figures[product][
                 lead_time
-            ] = f"{figures_output_path}/internal/IFS_{date}+{lead_time}_{product}.png"
+            ] = (f"{figures_output_path}/internal/IFS_{date}+{lead_time}_" +
+                 f"{product}.png")
     return figures
 
 

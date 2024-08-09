@@ -93,7 +93,7 @@ def _load_forecast_dataset(
 ) -> tuple[pd.Timestamp, xr.Dataset]:
     publish_freq = pd.Timedelta(FORECAST_PUBLISH_FREQ)
     query_forecast_attempts = FORECAST_QUERY_MAX_ATTEMPS
-    issue_time = _expected_issue_time(briefing_time, current_time)
+    issue_time = expected_issue_time(briefing_time, current_time)
     while query_forecast_attempts:
         try:
             forecast = (
@@ -112,7 +112,7 @@ def _load_forecast_dataset(
     raise KeyError(msg)
 
 
-def _expected_issue_time(
+def expected_issue_time(
     briefing_time: pd.Timestamp, current_time: pd.Timestamp
 ) -> pd.Timestamp:
     if current_time >= briefing_time:

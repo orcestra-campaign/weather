@@ -32,9 +32,11 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
         logger(f"Saved external figure '{product}' in '{fig_path}'.", "INFO")
     # internal
     briefing_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
+    sattracks_fc_date = variables_dict["sattracks_fc_date"]
+    sattracks_fc_time = pd.Timestamp(sattracks_fc_date, tz=TIME_ZONE_STR)
     logger(f"Internal figure time set to {briefing_time}", "INFO")
     for product, lead_time, image in generate_internal_figures(
-        briefing_time, current_time, logger
+        briefing_time, current_time, sattracks_fc_time, logger
     ):
         fig_path = variables_dict["plots"]["internal"][product][lead_time]
         fig_path = get_briefing_path(date) + "/" + fig_path

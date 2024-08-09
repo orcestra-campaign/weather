@@ -19,7 +19,8 @@ def get_valid_time(
 
 
 def format_internal_figure_axes(
-    briefing_time, lead_hours, issue_time, ax, crs=ccrs.PlateCarree()
+    briefing_time, lead_hours, issue_time, sattracks_fc_time, ax,
+    crs=ccrs.PlateCarree()
 ):
     lon_min, lon_max, lat_min, lat_max = ORCESTRA_DOMAIN
     valid_time = get_valid_time(briefing_time, lead_hours)
@@ -36,7 +37,10 @@ def format_internal_figure_axes(
     ax.set_xlabel("Longitude - \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-    annotation = f"Latest ECMWF IFS forecast initialization: {issue_time.strftime('%Y-%m-%d %H:%M %Z')}"
+    annotation = (f"Latest ECMWF IFS forecast initialization: " +
+                  f"{issue_time.strftime('%Y-%m-%d %H:%M %Z')}\n" +
+                  f"Satellite tracks forecast issued on: "
+                  f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M %Z')}")
     ax.annotate(
         annotation,
         (-26, -9),

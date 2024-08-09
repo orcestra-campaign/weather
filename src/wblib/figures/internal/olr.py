@@ -14,6 +14,7 @@ import easygems.healpix as egh
 from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
 from wblib.figures.briefing_info import format_internal_figure_axes
 from wblib.figures.hifs import HifsForecasts
+from wblib.figures.sattrack import plot_sattrack
 
 CATALOG_OLR_CODE = "ttr"
 CATALOG_ICWV_CODE = "tcwv"
@@ -29,6 +30,7 @@ def toa_outgoing_longwave(
     briefing_time: pd.Timestamp,
     lead_hours: str,
     current_time: pd.Timestamp,
+    sattracks_fc_time: pd.Timestamp,
     hifs: HifsForecasts,
 ) -> Figure:
     issue_time, diff_ttr = hifs.get_forecast(
@@ -49,9 +51,12 @@ def toa_outgoing_longwave(
         figsize=INTERNAL_FIGURE_SIZE,
         subplot_kw={"projection": ccrs.PlateCarree()},
     )
-    format_internal_figure_axes(briefing_time, lead_hours, issue_time, ax)
+    format_internal_figure_axes(briefing_time, lead_hours, issue_time,
+                                sattracks_fc_time, ax)
     _draw_olr(olr, fig, ax)
     _draw_icwv_contour(icwv, ax)
+    plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
+                  which_orbit="descending")
     matplotlib.rc_file_defaults()
     return fig
 
@@ -85,14 +90,16 @@ def _draw_icwv_contour(icwv, ax):
     format_func = lambda level: f"{int(level)} mm"
     ax.clabel(hcs, hcs.levels, inline=True, fontsize=10, fmt=format_func)
 
-
 if __name__ == "__main__":
     import intake
 
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 1).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 1, 11).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 8, 9).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 9, 12).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
 
-    toa_outgoing_longwave(briefing_time1, "003H", current_time1, hifs)
+    fig = toa_outgoing_longwave(briefing_time1, "108H", current_time1,
+                                sattracks_fc_time1, hifs)
+    fig.savefig("test1.png")

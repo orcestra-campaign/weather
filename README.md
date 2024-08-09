@@ -27,10 +27,10 @@ where [BRIEFING_DATE] has the format "YYYYMMDD". This will create a new folder a
 Create the expected variable file in the folder with
 
 ```
-./wbcli.sh variables [BRIEFING_DATE] [FLIGHT_NUMBER] [LOCATION]
+./wbcli.sh variables [BRIEFING_DATE] [FLIGHT_CODE] [LOCATION] [SATTRACKS_FC_DATE]
 ```
 
-where [LOCATION] must be either Sal or Barbados. This will create a 'yaml' file in the briefing folder and link the '_variables.yml' file to it.
+where [LOCATION] must be either Sal or Barbados, and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD". This will create a 'yaml' file in the briefing folder and link the '_variables.yml' file to it.
 
 Create the figures of the report with
 

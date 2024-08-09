@@ -39,7 +39,10 @@ def generate_external_figures(
 
 
 def generate_internal_figures(
-    briefing_time: pd.Timestamp, current_time: pd.Timestamp, logger: Callable
+    briefing_time: pd.Timestamp,
+    current_time: pd.Timestamp,
+    sattracks_fc_time: pd.Timestamp,
+    logger: Callable
 ) -> Iterator[tuple[str, str, Image]]:
     catalog = intake.open_catalog(INTAKE_CATALOG_URL)
     hifs = HifsForecasts(catalog)
@@ -50,7 +53,11 @@ def generate_internal_figures(
         for lead_hours in INTERNAL_PLOTS_LEADTIMES:
             try:
                 figure = function(
-                    briefing_time, lead_hours, current_time, hifs
+                    briefing_time,
+                    lead_hours,
+                    current_time,
+                    sattracks_fc_time,
+                    hifs
                 )
                 figure.tight_layout(pad=1.01)
                 yield (product, lead_hours, figure)

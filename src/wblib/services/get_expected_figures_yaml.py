@@ -13,15 +13,19 @@ MSS_PLOTS_SIDE_VIEW = ["relative_humidity", "cloud_cover"]
 ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 
-def get_expected_figures(date: str, location: str, flight_id: str) -> dict:
+def get_expected_figures(
+    date: str, location: str, flight_id: str, sattracks_fc_date: str
+) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
     _validate_date(date)
+    _validate_date(sattracks_fc_date)
     _validate_location(location)
     output_path = get_figure_path()
     variables_nml = {
         "flight_id": flight_id,
         "location": location,
         "date": date,
+        "sattracks_fc_date": sattracks_fc_date,
         "plots": {
             "external": get_expected_external_figures(output_path),
             "internal": get_expected_internal_figures(output_path, date),
@@ -46,13 +50,15 @@ def get_expected_internal_figures(figures_output_path, date) -> dict:
     for product in INTERNAL_PLOTS.keys():
         figures[product] = dict()
         for lead_time in INTERNAL_PLOTS_LEADTIMES:
-            figures[product][lead_time] = (
-                f"{figures_output_path}/internal/IFS_{date}+{lead_time}_{product}.png"
-            )
+            figures[product][
+                lead_time
+            ] = f"{figures_output_path}/internal/IFS_{date}+{lead_time}_{product}.png"
     return figures
 
 
-def get_expected_mss_side_view_figures(figures_output_path, date, flight_id) -> dict:
+def get_expected_mss_side_view_figures(
+    figures_output_path, date, flight_id
+) -> dict:
     figures = {
         "IFS": {
             product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_IFS_{date}_{product}.png"

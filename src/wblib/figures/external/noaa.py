@@ -29,7 +29,7 @@ def nhc_surface_analysis_atlantic(*args, add_overlay=True) -> img.Image:
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
     image = image.crop((0, 300, 1720, 1260-300))
-    
+
     if add_overlay:
         return _overlay_nhc(image)
     else:
@@ -40,6 +40,7 @@ def nhc_hovmoller(*args) -> img.Image:
     url = ANALYSIS_URLS["hovmoller"]
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
+    image = image.crop((0, 4*95, 722- 165, 950))
     return image
 
 

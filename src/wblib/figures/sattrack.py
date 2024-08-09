@@ -7,15 +7,17 @@ import xarray as xr
 
 from orcestra.sat import SattrackLoader
 
+from wblib.figures.briefing_info import get_valid_time
+
 
 def plot_sattrack(ax: Axes,
                   briefing_time: pd.Timestamp,
-                  lead_delta: pd.Timedelta,
+                  lead_hours: str,
                   sattracks_fc_time: pd.Timestamp,
                   satellite: str = "EARTHCARE",
                   which_orbit: list = ["ascending"]
                   ):
-    valid_time = briefing_time + lead_delta
+    valid_time = get_valid_time(briefing_time, lead_hours)
     valid_time = valid_time.tz_localize(None).date()
     sattracks = SattrackLoader(satellite, sattracks_fc_time
                                ).get_track_for_day(valid_time)

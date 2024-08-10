@@ -26,53 +26,61 @@ title: "PERCUSION Weather briefing"
 
 # ECMWF Forecasts
 
-## Lead time = 12h
+## 
+### Lead time = 12h
 ::: {layout-nrow=2}
-![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
-![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
-![]({{< meta plots.internal.precip.012h >}})
-![]({{< meta plots.internal.sfc_winds.012h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.012h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.012h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.012h >}}){width=42%}
+![]({{< meta plots.internal.precip.012h >}}){width=42%}
 :::
 
-## Lead time = 36h
+## 
+### Lead time = 36h
 ::: {layout-nrow=2}
-![]({{< meta plots.internal.iwv_itcz_edges.036h >}})
-![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
-![]({{< meta plots.internal.precip.036h >}})
-![]({{< meta plots.internal.sfc_winds.036h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.036h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.036h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.036h >}}){width=42%}
+![]({{< meta plots.internal.precip.036h >}}){width=42%}
 :::
 
-## Lead time = 60h
+## 
+### Lead time = 60h
 ::: {layout-nrow=2}
-![]({{< meta plots.internal.iwv_itcz_edges.060h >}})
-![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
-![]({{< meta plots.internal.precip.060h >}})
-![]({{< meta plots.internal.sfc_winds.060h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.060h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.060h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.060h >}}){width=42%}
+![]({{< meta plots.internal.precip.060h >}}){width=42%}
 :::
 
-## Lead time = 84h
+## 
+### Lead time = 60h
 ::: {layout-nrow=2}
-![]({{< meta plots.internal.iwv_itcz_edges.084h >}})
-![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
-![]({{< meta plots.internal.precip.084h >}})
-![]({{< meta plots.internal.sfc_winds.084h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.084h >}}){width=42%}
+![]({{< meta plots.internal.precip.084h >}}){width=42%}
 :::
 
-## Lead time = 108h
+## 
+### Lead time = 108h
 ::: {layout-nrow=2}
-![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
-![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
-![]({{< meta plots.internal.precip.108h >}})
-![]({{< meta plots.internal.sfc_winds.108h >}})
+![]({{< meta plots.internal.iwv_itcz_edges.108h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.108h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.108h >}}){width=42%}
+![]({{< meta plots.internal.precip.108h >}}){width=42%}
 :::
 
 # Saharan dust forecast
-
+##
 ::: {layout-nrow=2}
-![lead time = 12h]({{< meta plots.external_lead.dust.012h >}})
-![lead time = 36h]({{< meta plots.external_lead.dust.036h  >}})
-![lead time = 60h]({{< meta plots.external_lead.dust.060h  >}})
-![lead time = 84h]({{< meta plots.external_lead.dust.084h  >}})
+![lead time = 12h]({{< meta plots.external_lead.dust.012h >}}){width=75%}
+
+![lead time = 36h]({{< meta plots.external_lead.dust.036h >}}){width=75%}
+
+![lead time = 60h]({{< meta plots.external_lead.dust.060h >}}){width=75%}
+
+![lead time = 84h]({{< meta plots.external_lead.dust.084h >}}){width=75%}
 :::
 
 ##

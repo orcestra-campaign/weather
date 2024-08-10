@@ -131,9 +131,12 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 9).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 9, 12).tz_localize("UTC")
     sattracks_fc_time1 = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
-    figure1 = ifs_meteogram(current_time1, location)
-    figure2 = ifs_dust(briefing_time1, "108H", current_time1,
-                       sattracks_fc_time1)
+    figure1 = ifs_meteogram(
+        current_time1, location
+        )
+    figure2 = ifs_dust(
+        briefing_time1, "108H", current_time1, sattracks_fc_time1
+        )
     figure3 = ifs_cloud_top_height(
         briefing_time1, "108H", current_time1, sattracks_fc_time1
         )

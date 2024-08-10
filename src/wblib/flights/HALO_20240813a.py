@@ -1,11 +1,10 @@
+import pandas as pd
 from orcestra.flightplan import sal, bco, LatLon, IntoCircle
-from datetime import datetime
 
 def _flight_HALO_20240813a():
-     flight_time = datetime(2024, 8, 13, 12, 0, 0)
+     flight_time = pd.Timestamp(2024, 8, 11, 12, 0, 0).tz_localize("UTC")
 
      radius = 100e3
-
      airport = sal
      north = LatLon(lat=17.475, lon=-22.223, label='north')
      far_north = LatLon(lat=21.354, lon=-21.441, label='far_north')

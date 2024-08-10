@@ -57,7 +57,6 @@ def generate_external_lead_figures(
                     current_time,
                     sattracks_fc_time,
                 )
-                figure.tight_layout(pad=1.01)
                 yield (product, lead_hours, figure)
             except Exception as error:
                 msg = (

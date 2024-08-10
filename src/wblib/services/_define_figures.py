@@ -15,7 +15,6 @@ from wblib.figures.internal.olr import toa_outgoing_longwave
 EXTERNAL_PLOTS = {
     "nhc_surface_analysis_atlantic": nhc_surface_analysis_atlantic,
     "nhc_seven_days_outlook": nhc_seven_days_outlook,
-    "current_satellite_image_vis": current_satellite_image_vis,
     "current_satellite_image_ir": current_satellite_image_ir,
     "nhc_hovmoller": nhc_hovmoller,
     "ifs_meteogram": ifs_meteogram,

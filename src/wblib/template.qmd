@@ -104,25 +104,6 @@ title: "PERCUSION Weather briefing"
 ## 10m surface wind speed forecast
 ![]({{< meta plots.internal.sfc_winds.108h >}})
 
-# ECMWF Cloud top height
-## Cloud top height forecast
-![]({{< meta plots.external_lead.cloud_top_height.003h >}})
-
-## Cloud top height forecast
-![]({{< meta plots.external_lead.cloud_top_height.012h >}})
-
-## Cloud top height forecast
-![]({{< meta plots.external_lead.cloud_top_height.036h >}})
-
-## Cloud top height forecast
-![]({{< meta plots.external_lead.cloud_top_height.060h >}})
-
-## Cloud top height forecast
-![]({{< meta plots.external_lead.cloud_top_height.084h >}})
-
-## Cloud top height forecast
-![]({{< meta plots.external_lead.cloud_top_height.108h >}})
-
 # ECMWF Dust
 ## Saharan dust forecast
 ![]({{< meta plots.external_lead.dust.003h >}})

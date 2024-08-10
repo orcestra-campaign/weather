@@ -16,7 +16,6 @@ from wblib.figures.internal.olr import toa_outgoing_longwave
 EXTERNAL_INST_PLOTS = {
     "nhc_surface_analysis_atlantic": nhc_surface_analysis_atlantic,
     "nhc_seven_days_outlook": nhc_seven_days_outlook,
-    "current_satellite_image_vis": current_satellite_image_vis,
     "current_satellite_image_ir": current_satellite_image_ir,
     "nhc_hovmoller": nhc_hovmoller,
     "ifs_meteogram": ifs_meteogram,
@@ -32,4 +31,5 @@ INTERNAL_PLOTS = {
     "precip": precip,
     "toa_outgoing_longwave": toa_outgoing_longwave
 }
-PLOTS_LEADTIMES = ["003h", "012h", "036h", "060h", "084h", "108h"]
+
+INTERNAL_PLOTS_LEADTIMES = ["012h", "036h", "060h", "084h", "108h"]

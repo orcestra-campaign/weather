@@ -1,0 +1,26 @@
+date: '20240805'
+flight_id: dummy_flight
+location: Sal
+plots:
+  external:
+    current_satellite_image_ir: fig/external/current_satellite_image_ir.png
+    current_satellite_image_vis: fig/external/current_satellite_image_vis.png
+    ifs_meteogram: fig/external/ifs_meteogram.png
+    nhc_hovmoller: fig/external/nhc_hovmoller.png
+    nhc_seven_days_outlook: fig/external/nhc_seven_days_outlook.png
+    nhc_surface_analysis_atlantic: fig/external/nhc_surface_analysis_atlantic.png
+  internal:
+    iwv_itcz_edges:
+      003h: fig/internal/IFS_20240805+003h_iwv_itcz_edges.png
+      012h: fig/internal/IFS_20240805+012h_iwv_itcz_edges.png
+      036h: fig/internal/IFS_20240805+036h_iwv_itcz_edges.png
+      060h: fig/internal/IFS_20240805+060h_iwv_itcz_edges.png
+      084h: fig/internal/IFS_20240805+084h_iwv_itcz_edges.png
+      108h: fig/internal/IFS_20240805+108h_iwv_itcz_edges.png
+  mss_side_view:
+    ICON:
+      cloud_cover: fig/mss/MSS_dummy_flight_sideview_ICON_20240805_cloud_cover.png
+      relative_humidity: fig/mss/MSS_dummy_flight_sideview_ICON_20240805_relative_humidity.png
+    IFS:
+      cloud_cover: fig/mss/MSS_dummy_flight_sideview_IFS_20240805_cloud_cover.png
+      relative_humidity: fig/mss/MSS_dummy_flight_sideview_IFS_20240805_relative_humidity.png

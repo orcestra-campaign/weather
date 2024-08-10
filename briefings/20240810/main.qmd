@@ -24,7 +24,12 @@ title: "PERCUSION Weather briefing"
 ## GOES WEST Latest Infrared Image
 ![]({{< meta plots.external_inst.current_satellite_image_ir >}})
 
+## GOES WEST Latest Visible Image
+![]({{< meta plots.external_inst.current_satellite_image_vis >}})
+
 # ECMWF Integrated Water Vapor Forecast
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
 
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
@@ -43,6 +48,8 @@ title: "PERCUSION Weather briefing"
 
 
 # ECMWF Outgoing Longwave Radiation
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
 
 ## Outgoing Longwave Radiation Forecast
 ![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
@@ -79,6 +86,8 @@ title: "PERCUSION Weather briefing"
 ![]({{< meta plots.internal.precip.108h >}})
 
 # ECMWF 10m Surface Wind Speed
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.003h >}})
 
 ## 10m surface wind speed forecast
 ![]({{< meta plots.internal.sfc_winds.012h >}})
@@ -95,7 +104,28 @@ title: "PERCUSION Weather briefing"
 ## 10m surface wind speed forecast
 ![]({{< meta plots.internal.sfc_winds.108h >}})
 
+# ECMWF Cloud top height
+## Cloud top height forecast
+![]({{< meta plots.external_lead.cloud_top_height.003h >}})
+
+## Cloud top height forecast
+![]({{< meta plots.external_lead.cloud_top_height.012h >}})
+
+## Cloud top height forecast
+![]({{< meta plots.external_lead.cloud_top_height.036h >}})
+
+## Cloud top height forecast
+![]({{< meta plots.external_lead.cloud_top_height.060h >}})
+
+## Cloud top height forecast
+![]({{< meta plots.external_lead.cloud_top_height.084h >}})
+
+## Cloud top height forecast
+![]({{< meta plots.external_lead.cloud_top_height.108h >}})
+
 # ECMWF Dust
+## Saharan dust forecast
+![]({{< meta plots.external_lead.dust.003h >}})
 
 ## Saharan dust forecast
 ![]({{< meta plots.external_lead.dust.012h >}})

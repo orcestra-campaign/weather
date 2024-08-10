@@ -1,0 +1,56 @@
+flight_id: dummy_flight
+location: Sal
+date: '20240808'
+sattracks_fc_date: '20240805'
+plots:
+  external_inst:
+    nhc_surface_analysis_atlantic: fig/external_inst/nhc_surface_analysis_atlantic.png
+    nhc_seven_days_outlook: fig/external_inst/nhc_seven_days_outlook.png
+    current_satellite_image_vis: fig/external_inst/current_satellite_image_vis.png
+    current_satellite_image_ir: fig/external_inst/current_satellite_image_ir.png
+    nhc_hovmoller: fig/external_inst/nhc_hovmoller.png
+    ifs_meteogram: fig/external_inst/ifs_meteogram.png
+  external_lead:
+    dust:
+      003h: fig/external_lead/IFS_20240808+003h_dust.png
+      012h: fig/external_lead/IFS_20240808+012h_dust.png
+      036h: fig/external_lead/IFS_20240808+036h_dust.png
+      060h: fig/external_lead/IFS_20240808+060h_dust.png
+      084h: fig/external_lead/IFS_20240808+084h_dust.png
+      108h: fig/external_lead/IFS_20240808+108h_dust.png
+  internal:
+    iwv_itcz_edges:
+      003h: fig/internal/IFS_20240808+003h_iwv_itcz_edges.png
+      012h: fig/internal/IFS_20240808+012h_iwv_itcz_edges.png
+      036h: fig/internal/IFS_20240808+036h_iwv_itcz_edges.png
+      060h: fig/internal/IFS_20240808+060h_iwv_itcz_edges.png
+      084h: fig/internal/IFS_20240808+084h_iwv_itcz_edges.png
+      108h: fig/internal/IFS_20240808+108h_iwv_itcz_edges.png
+    sfc_winds:
+      003h: fig/internal/IFS_20240808+003h_sfc_winds.png
+      012h: fig/internal/IFS_20240808+012h_sfc_winds.png
+      036h: fig/internal/IFS_20240808+036h_sfc_winds.png
+      060h: fig/internal/IFS_20240808+060h_sfc_winds.png
+      084h: fig/internal/IFS_20240808+084h_sfc_winds.png
+      108h: fig/internal/IFS_20240808+108h_sfc_winds.png
+    precip:
+      003h: fig/internal/IFS_20240808+003h_precip.png
+      012h: fig/internal/IFS_20240808+012h_precip.png
+      036h: fig/internal/IFS_20240808+036h_precip.png
+      060h: fig/internal/IFS_20240808+060h_precip.png
+      084h: fig/internal/IFS_20240808+084h_precip.png
+      108h: fig/internal/IFS_20240808+108h_precip.png
+    toa_outgoing_longwave:
+      003h: fig/internal/IFS_20240808+003h_toa_outgoing_longwave.png
+      012h: fig/internal/IFS_20240808+012h_toa_outgoing_longwave.png
+      036h: fig/internal/IFS_20240808+036h_toa_outgoing_longwave.png
+      060h: fig/internal/IFS_20240808+060h_toa_outgoing_longwave.png
+      084h: fig/internal/IFS_20240808+084h_toa_outgoing_longwave.png
+      108h: fig/internal/IFS_20240808+108h_toa_outgoing_longwave.png
+  mss_side_view:
+    IFS:
+      relative_humidity: fig/mss/MSS_dummy_flight_sideview_IFS_20240808_relative_humidity.png
+      cloud_cover: fig/mss/MSS_dummy_flight_sideview_IFS_20240808_cloud_cover.png
+    ICON:
+      relative_humidity: fig/mss/MSS_dummy_flight_sideview_ICON_20240808_relative_humidity.png
+      cloud_cover: fig/mss/MSS_dummy_flight_sideview_ICON_20240808_cloud_cover.png

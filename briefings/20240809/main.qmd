@@ -4,10 +4,10 @@ title: "PERCUSION Weather briefing"
 
 # Current synoptic situation
 ## NHC surface analysis
-![]({{< meta plots.external_inst.nhc_surface_analysis_atlantic >}})
+![]({{< meta plots.external.nhc_surface_analysis_atlantic >}})
 
 ## NHC tropical weather outlook
-![]({{< meta plots.external_inst.nhc_seven_days_outlook >}})
+![]({{< meta plots.external.nhc_seven_days_outlook >}})
 
 ##
 :::: {.columns}
@@ -15,16 +15,21 @@ title: "PERCUSION Weather briefing"
 ### NHC tropical Hovmöller
 :::
 ::: {.column width="70%"}
-![]({{< meta plots.external_inst.nhc_hovmoller >}}){width="61%"}
+![]({{< meta plots.external.nhc_hovmoller >}}){width="61%"}
 :::
 ::::
 
 
 # Latest satellite images
 ## GOES WEST Latest Infrared Image
-![]({{< meta plots.external_inst.current_satellite_image_ir >}})
+![]({{< meta plots.external.current_satellite_image_ir >}})
+
+## GOES WEST Latest Visible Image
+![]({{< meta plots.external.current_satellite_image_vis >}})
 
 # ECMWF Integrated Water Vapor Forecast
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
 
 ## Integrated Water Vapor Forecast
 ![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
@@ -43,6 +48,8 @@ title: "PERCUSION Weather briefing"
 
 
 # ECMWF Outgoing Longwave Radiation
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
 
 ## Outgoing Longwave Radiation Forecast
 ![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
@@ -58,6 +65,25 @@ title: "PERCUSION Weather briefing"
 
 ## Outgoing Longwave Radiation Forecast
 ![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
+
+# ECMWF 10m Surface Wind Speed
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.003h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.012h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.036h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.060h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.084h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.108h >}})
 
 # ECMWF Precipitation forecast
 ## Precipitation Forecast
@@ -77,40 +103,6 @@ title: "PERCUSION Weather briefing"
 
 ## Precipitation Forecast
 ![]({{< meta plots.internal.precip.108h >}})
-
-# ECMWF 10m Surface Wind Speed
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.012h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.036h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.060h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.084h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.108h >}})
-
-# ECMWF Dust
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.012h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.036h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.060h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.084h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.108h >}})
 
 ##
 :::: {.columns}

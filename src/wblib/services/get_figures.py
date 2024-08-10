@@ -42,6 +42,7 @@ def generate_internal_figures(
     briefing_time: pd.Timestamp,
     current_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
+    flight: str,
     logger: Callable
 ) -> Iterator[tuple[str, str, Image]]:
     catalog = intake.open_catalog(INTAKE_CATALOG_URL)
@@ -57,6 +58,7 @@ def generate_internal_figures(
                     lead_hours,
                     current_time,
                     sattracks_fc_time,
+                    flight,
                     hifs
                 )
                 figure.tight_layout(pad=1.01)

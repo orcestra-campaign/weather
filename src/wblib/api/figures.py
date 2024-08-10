@@ -10,7 +10,7 @@ from wblib.api._utils import TIME_ZONE_STR, _load_variables_yaml
 from wblib.services.get_figures import generate_external_figures
 from wblib.services.get_figures import generate_internal_figures
 from wblib.services.get_paths import get_briefing_path
-
+from wblib.flights.flighttrack import get_python_flightdata
 from wblib.api._logger import logger
 
 
@@ -34,9 +34,11 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     briefing_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
     sattracks_fc_date = variables_dict["sattracks_fc_date"]
     sattracks_fc_time = pd.Timestamp(sattracks_fc_date, tz=TIME_ZONE_STR)
+    flight_id = variables_dict["flight_id"]
+    flight = get_python_flightdata(flight_id)
     logger(f"Internal figure time set to {briefing_time}", "INFO")
     for product, lead_time, image in generate_internal_figures(
-        briefing_time, current_time, sattracks_fc_time, logger
+        briefing_time, current_time, sattracks_fc_time, flight, logger
     ):
         fig_path = variables_dict["plots"]["internal"][product][lead_time]
         fig_path = get_briefing_path(date) + "/" + fig_path

@@ -1,0 +1,69 @@
+---
+title: "PERCUSION Weather briefing"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< meta plots.external.nhc_surface_analysis_atlantic >}})
+
+## NHC tropical weather outlook
+![]({{< meta plots.external.nhc_seven_days_outlook >}})
+
+## 
+:::: {.columns}
+::: {.column width="30%"}
+### NHC tropical Hovmöller
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external.nhc_hovmoller >}}){width="61%"}
+:::
+::::
+
+
+# Latest satellite images
+## GOES WEST Latest Infrared Image
+![]({{< meta plots.external.current_satellite_image_ir >}})
+
+## GOES WEST Latest Visible Image
+![]({{< meta plots.external.current_satellite_image_vis >}})
+
+# ECMWF Integrated Water Vapor Forecast
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.036h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.060h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
+
+# ECMWF Outgoing Longwave Radiation
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
+
+## Summary
+Summary of the weather briefing.

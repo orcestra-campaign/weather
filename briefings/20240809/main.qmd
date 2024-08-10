@@ -1,0 +1,118 @@
+---
+title: "PERCUSION Weather briefing"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< meta plots.external.nhc_surface_analysis_atlantic >}})
+
+## NHC tropical weather outlook
+![]({{< meta plots.external.nhc_seven_days_outlook >}})
+
+##
+:::: {.columns}
+::: {.column width="30%"}
+### NHC tropical Hovmöller
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external.nhc_hovmoller >}}){width="61%"}
+:::
+::::
+
+
+# Latest satellite images
+## GOES WEST Latest Infrared Image
+![]({{< meta plots.external.current_satellite_image_ir >}})
+
+## GOES WEST Latest Visible Image
+![]({{< meta plots.external.current_satellite_image_vis >}})
+
+# ECMWF Integrated Water Vapor Forecast
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.003h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.036h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.060h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}})
+
+## Integrated Water Vapor Forecast
+![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
+
+
+# ECMWF Outgoing Longwave Radiation
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.003h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
+
+## Outgoing Longwave Radiation Forecast
+![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
+
+# ECMWF 10m Surface Wind Speed
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.003h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.012h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.036h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.060h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.084h >}})
+
+## 10m surface wind speed forecast
+![]({{< meta plots.internal.sfc_winds.108h >}})
+
+# ECMWF Precipitation forecast
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.003h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.012h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.036h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.060h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.084h >}})
+
+## Precipitation Forecast
+![]({{< meta plots.internal.precip.108h >}})
+
+##
+:::: {.columns}
+::: {.column width="30%"}
+### Local forecast for {{< meta location >}}
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external.ifs_meteogram >}}){width="61%"}
+:::
+::::
+
+## Summary
+Summary of the weather briefing.

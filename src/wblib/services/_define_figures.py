@@ -32,4 +32,4 @@ INTERNAL_PLOTS = {
     "toa_outgoing_longwave": toa_outgoing_longwave
 }
 
-INTERNAL_PLOTS_LEADTIMES = ["012h", "036h", "060h", "084h", "108h"]
+PLOTS_LEADTIMES = ["012h", "036h", "060h", "084h", "108h"]

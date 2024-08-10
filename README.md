@@ -74,6 +74,16 @@ You can also use quarto to build the presentations and website
 quarto render
 ```
 
+After rendering, you can have a look on the result by running
+```
+open public/index.html
+```
+
+in your MacOS terminal. Alternatively, you can directly open the following path in your browser:
+```
+file:///absolute/path/to/public/index.html
+```
+
 ## 6. Upload the weather briefing foder to the git repository
 
 After checking that the presentation builds correctly, upload the files in the

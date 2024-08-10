@@ -80,8 +80,9 @@ open public/index.html
 ```
 
 in your MacOS terminal. Alternatively, you can directly open the following path in your browser:
-
+```
 file:///absolute/path/to/public/index.html
+```
 
 ## 6. Upload the weather briefing foder to the git repository
 

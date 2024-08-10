@@ -54,7 +54,7 @@ title: "PERCUSION Weather briefing"
 :::
 
 ## 
-### Lead time = 60h
+### Lead time = 84h
 ::: {layout-nrow=2}
 ![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
 ![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}

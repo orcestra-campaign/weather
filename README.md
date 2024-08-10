@@ -79,10 +79,7 @@ After rendering, you can have a look on the result by running
 open public/index.html
 ```
 
-in your MacOS terminal. Alternatively, you can directly open the following path:
-```
-file:///absolute/path/to/public/index.html
-```
+in your MacOS terminal.
 
 ## 6. Upload the weather briefing foder to the git repository
 

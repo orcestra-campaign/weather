@@ -27,4 +27,4 @@ INTERNAL_PLOTS = {
     "precip": precip,
     "toa_outgoing_longwave": toa_outgoing_longwave
 }
-INTERNAL_PLOTS_LEADTIMES = ["003h", "012h", "036h", "060h", "084h", "108h"]
+INTERNAL_PLOTS_LEADTIMES = ["012h", "036h", "060h", "084h", "108h"]

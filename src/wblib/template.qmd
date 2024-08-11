@@ -31,7 +31,7 @@ title: "PERCUSION Weather briefing"
 ::: {layout-nrow=2}
 ![]({{< meta plots.internal.iwv_itcz_edges.012h >}}){width=42%}
 ![]({{< meta plots.internal.sfc_winds.012h >}}){width=42%}
-![]({{< meta plots.internal.toa_outgoing_longwave.012h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.012h >}}){width=42%}
 ![]({{< meta plots.internal.precip.012h >}}){width=42%}
 :::
 
@@ -40,7 +40,7 @@ title: "PERCUSION Weather briefing"
 ::: {layout-nrow=2}
 ![]({{< meta plots.internal.iwv_itcz_edges.036h >}}){width=42%}
 ![]({{< meta plots.internal.sfc_winds.036h >}}){width=42%}
-![]({{< meta plots.internal.toa_outgoing_longwave.036h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.036h >}}){width=42%}
 ![]({{< meta plots.internal.precip.036h >}}){width=42%}
 :::
 
@@ -49,7 +49,7 @@ title: "PERCUSION Weather briefing"
 ::: {layout-nrow=2}
 ![]({{< meta plots.internal.iwv_itcz_edges.060h >}}){width=42%}
 ![]({{< meta plots.internal.sfc_winds.060h >}}){width=42%}
-![]({{< meta plots.internal.toa_outgoing_longwave.060h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.060h >}}){width=42%}
 ![]({{< meta plots.internal.precip.060h >}}){width=42%}
 :::
 
@@ -58,7 +58,7 @@ title: "PERCUSION Weather briefing"
 ::: {layout-nrow=2}
 ![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
 ![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}
-![]({{< meta plots.internal.toa_outgoing_longwave.084h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.084h >}}){width=42%}
 ![]({{< meta plots.internal.precip.084h >}}){width=42%}
 :::
 
@@ -67,7 +67,7 @@ title: "PERCUSION Weather briefing"
 ::: {layout-nrow=2}
 ![]({{< meta plots.internal.iwv_itcz_edges.108h >}}){width=42%}
 ![]({{< meta plots.internal.sfc_winds.108h >}}){width=42%}
-![]({{< meta plots.internal.toa_outgoing_longwave.108h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.108h >}}){width=42%}
 ![]({{< meta plots.internal.precip.108h >}}){width=42%}
 :::
 

@@ -77,7 +77,7 @@ def _draw_olr(olr, fig, ax) -> None:
     )
     # format colorbar
     fig.colorbar(im,
-                 label="OLR $W/m^2$",
+                 label="OLR \ W/m$^2$",
                  ticks=np.linspace(OLR_MIN, OLR_MAX, 11),
                  shrink=0.8)
 

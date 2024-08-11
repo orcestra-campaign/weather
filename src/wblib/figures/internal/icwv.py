@@ -56,7 +56,7 @@ def iwv_itcz_edges(
                                 sattracks_fc_time, ax)
     _draw_icwv_contours_for_previous_forecasts(forecasts, ax)
     im = _draw_icwv_current_forecast(forecast, ax)
-    fig.colorbar(im, label="IWV - kg m$^{-2}$", shrink=0.8)
+    fig.colorbar(im, label="IWV \ kg m$^{-2}$", shrink=0.8)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
     plot_python_flighttrack(flight, briefing_time, lead_hours, ax, color="C1",

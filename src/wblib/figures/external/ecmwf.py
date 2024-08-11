@@ -82,6 +82,7 @@ def ifs_meteogram(current_time: pd.Timestamp, location: str) -> img.Image:
     figure_url = response.json().get("data").get("link").get("href")
     response = requests.get(figure_url)
     image = img.open(BytesIO(response.content))
+    image = image.crop((60, 0, 620, 760))
     return image
 
 

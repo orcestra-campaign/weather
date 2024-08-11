@@ -11,6 +11,7 @@ from wblib.figures.internal.icwv import iwv_itcz_edges
 from wblib.figures.internal.sfc_winds import sfc_winds
 from wblib.figures.internal.precip import precip
 from wblib.figures.internal.olr import toa_outgoing_longwave
+from wblib.figures.internal.cld_top_height import cloud_top_height
 
 
 EXTERNAL_INST_PLOTS = {
@@ -29,7 +30,7 @@ INTERNAL_PLOTS = {
     "iwv_itcz_edges": iwv_itcz_edges,
     "sfc_winds": sfc_winds,
     "precip": precip,
-    "toa_outgoing_longwave": toa_outgoing_longwave
+    "cloud_top_height": cloud_top_height,
 }
 
 PLOTS_LEADTIMES = ["012h", "036h", "060h", "084h", "108h"]

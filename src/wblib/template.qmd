@@ -24,93 +24,64 @@ title: "PERCUSION Weather briefing"
 ## GOES WEST Latest Infrared Image
 ![]({{< meta plots.external_inst.current_satellite_image_ir >}})
 
-# ECMWF Integrated Water Vapor Forecast
+# ECMWF Forecasts
 
-## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.012h >}})
+## 
+### Lead time = 12h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.012h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.012h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.012h >}}){width=42%}
+![]({{< meta plots.internal.precip.012h >}}){width=42%}
+:::
 
-## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.036h >}})
+## 
+### Lead time = 36h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.036h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.036h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.036h >}}){width=42%}
+![]({{< meta plots.internal.precip.036h >}}){width=42%}
+:::
 
-## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.060h >}})
+## 
+### Lead time = 60h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.060h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.060h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.060h >}}){width=42%}
+![]({{< meta plots.internal.precip.060h >}}){width=42%}
+:::
 
-## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.084h >}})
+## 
+### Lead time = 84h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.084h >}}){width=42%}
+![]({{< meta plots.internal.precip.084h >}}){width=42%}
+:::
 
-## Integrated Water Vapor Forecast
-![]({{< meta plots.internal.iwv_itcz_edges.108h >}})
+## 
+### Lead time = 108h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.108h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.108h >}}){width=42%}
+![]({{< meta plots.internal.toa_outgoing_longwave.108h >}}){width=42%}
+![]({{< meta plots.internal.precip.108h >}}){width=42%}
+:::
 
+# Saharan dust forecast
+##
+::: {layout-nrow=2}
+![lead time = 12h]({{< meta plots.external_lead.dust.012h >}}){width=75%}
 
-# ECMWF Outgoing Longwave Radiation
+![lead time = 36h]({{< meta plots.external_lead.dust.036h >}}){width=75%}
 
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.012h >}})
+![lead time = 60h]({{< meta plots.external_lead.dust.060h >}}){width=75%}
 
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.036h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.060h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.084h >}})
-
-## Outgoing Longwave Radiation Forecast
-![]({{< meta plots.internal.toa_outgoing_longwave.108h >}})
-
-# ECMWF Precipitation forecast
-## Precipitation Forecast
-![]({{< meta plots.internal.precip.003h >}})
-
-## Precipitation Forecast
-![]({{< meta plots.internal.precip.012h >}})
-
-## Precipitation Forecast
-![]({{< meta plots.internal.precip.036h >}})
-
-## Precipitation Forecast
-![]({{< meta plots.internal.precip.060h >}})
-
-## Precipitation Forecast
-![]({{< meta plots.internal.precip.084h >}})
-
-## Precipitation Forecast
-![]({{< meta plots.internal.precip.108h >}})
-
-# ECMWF 10m Surface Wind Speed
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.012h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.036h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.060h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.084h >}})
-
-## 10m surface wind speed forecast
-![]({{< meta plots.internal.sfc_winds.108h >}})
-
-# ECMWF Dust
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.012h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.036h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.060h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.084h >}})
-
-## Saharan dust forecast
-![]({{< meta plots.external_lead.dust.108h >}})
+![lead time = 84h]({{< meta plots.external_lead.dust.084h >}}){width=75%}
+:::
 
 ##
 :::: {.columns}

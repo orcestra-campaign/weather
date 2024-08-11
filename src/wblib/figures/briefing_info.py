@@ -33,8 +33,8 @@ def format_internal_figure_axes(
     ax.coastlines(lw=1.0, color="k")
     ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=crs)
     ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=crs)
-    ax.set_ylabel("Latitude - \N{DEGREE SIGN}N")
-    ax.set_xlabel("Longitude - \N{DEGREE SIGN}E")
+    ax.set_ylabel("Latitude / \N{DEGREE SIGN}N")
+    ax.set_xlabel("Longitude / \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
     annotation = (f"Latest ECMWF IFS forecast initialization: " +

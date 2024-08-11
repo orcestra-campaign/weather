@@ -81,7 +81,7 @@ def _windspeed_plot(windspeed_10m, fig, ax):
         vmax=SPEED_MAX,
         ax=ax,
     )
-    fig.colorbar(im, label="10m wind speed - m s$^{-1}$", shrink=0.8)
+    fig.colorbar(im, label="10m wind speed \ m s$^{-1}$", shrink=0.8)
 
 
 def _wind_direction_plot(u10m, v10m, ax):

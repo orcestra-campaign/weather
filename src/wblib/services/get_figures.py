@@ -8,9 +8,10 @@ import pandas as pd
 import intake
 
 from wblib.figures.hifs import HifsForecasts
-from wblib.services._define_figures import EXTERNAL_PLOTS
+from wblib.services._define_figures import EXTERNAL_INST_PLOTS
+from wblib.services._define_figures import EXTERNAL_LEAD_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
-from wblib.services._define_figures import INTERNAL_PLOTS_LEADTIMES
+from wblib.services._define_figures import PLOTS_LEADTIMES
 
 
 Image = Union[img.Image, Figure]
@@ -18,10 +19,10 @@ Image = Union[img.Image, Figure]
 INTAKE_CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
 
 
-def generate_external_figures(
+def generate_external_inst_figures(
     current_location: str, current_time: pd.Timestamp, logger: Callable
 ) -> Iterator[tuple[str, Image]]:
-    for product, function in EXTERNAL_PLOTS.items():
+    for product, function in EXTERNAL_INST_PLOTS.items():
         if function is None:
             _warn_function_is_not_defined(product, logger)
             continue
@@ -38,6 +39,36 @@ def generate_external_figures(
             continue
 
 
+def generate_external_lead_figures(
+    briefing_time: pd.Timestamp,
+    current_time: pd.Timestamp,
+    sattracks_fc_time: pd.Timestamp,
+    logger: Callable
+) -> Iterator[tuple[str, str, Image]]:
+    for product, function in EXTERNAL_LEAD_PLOTS.items():
+        if function is None:
+            _warn_function_is_not_defined(product, logger)
+            continue
+        for lead_hours in PLOTS_LEADTIMES:
+            try:
+                figure = function(
+                    briefing_time,
+                    lead_hours,
+                    current_time,
+                    sattracks_fc_time,
+                )
+                yield (product, lead_hours, figure)
+            except Exception as error:
+                msg = (
+                    f"Can not generate {product} with '{current_time}' "
+                    f"and '{lead_hours}'. Please provide it manually or "
+                    "debug the code."
+                )
+                logger(msg, "ERROR")
+                print(error)
+                continue
+
+
 def generate_internal_figures(
     briefing_time: pd.Timestamp,
     current_time: pd.Timestamp,
@@ -51,7 +82,7 @@ def generate_internal_figures(
         if function is None:
             _warn_function_is_not_defined(product, logger)
             continue
-        for lead_hours in INTERNAL_PLOTS_LEADTIMES:
+        for lead_hours in PLOTS_LEADTIMES:
             try:
                 figure = function(
                     briefing_time,

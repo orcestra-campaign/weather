@@ -1,8 +1,26 @@
 project:
+  type: website
   output-dir: public
+  post-render:
+    - quarto render --profile slides
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
+
+filters:
+  - path_meta.lua
+
+website:
+  title: "Weather"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+  sidebar:
+    search: true
+    contents: briefings/*/*.qmd
+  margin-header: "{{< meta slide_link >}}"

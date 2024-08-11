@@ -1,0 +1,24 @@
+date: '20240802'
+flight_id: argsg
+location: Sal
+plots:
+  external:
+    current_satellite_image_ir: fig/external/current_satellite_image_ir.png
+    current_satellite_image_vis: fig/external/current_satellite_image_vis.png
+    nhc_seven_days_outlook: fig/external/nhc_seven_days_outlook.png
+    nhc_surface_analysis_atlantic: fig/external/nhc_surface_analysis_atlantic.png
+  internal:
+    iwv_itcz_edges:
+      003h: fig/internal/IFS_20240802+003h_iwv_itcz_edges.png
+      012h: fig/internal/IFS_20240802+012h_iwv_itcz_edges.png
+      036h: fig/internal/IFS_20240802+036h_iwv_itcz_edges.png
+      060h: fig/internal/IFS_20240802+060h_iwv_itcz_edges.png
+      084h: fig/internal/IFS_20240802+084h_iwv_itcz_edges.png
+      108h: fig/internal/IFS_20240802+108h_iwv_itcz_edges.png
+  mss_side_view:
+    ICON:
+      cloud_cover: fig/mss/MSS_argsg_sideview_ICON_20240802_cloud_cover.png
+      relative_humidity: fig/mss/MSS_argsg_sideview_ICON_20240802_relative_humidity.png
+    IFS:
+      cloud_cover: fig/mss/MSS_argsg_sideview_IFS_20240802_cloud_cover.png
+      relative_humidity: fig/mss/MSS_argsg_sideview_IFS_20240802_relative_humidity.png

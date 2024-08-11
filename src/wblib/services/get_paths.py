@@ -14,25 +14,25 @@ def get_briefing_path(date) -> str:
     return f"briefings/{date}"
 
 
-def get_figure_path(date) -> str:
-    briefing_path = get_briefing_path(date)
-    figures_output_path = f"{briefing_path}/fig"
+def get_figure_path() -> str:
+    figures_output_path = "fig"
     return figures_output_path
 
 
 def get_briefing_paths(date: str) -> list[str]:
-    figures_output_path = get_figure_path(date)
+    figures_output_path = get_briefing_path(date) + "/" + get_figure_path()
     briefing_paths = [
         f"{figures_output_path}",
         f"{figures_output_path}/internal",
-        f"{figures_output_path}/external",
+        f"{figures_output_path}/external_inst",
+        f"{figures_output_path}/external_lead",
         f"{figures_output_path}/mss",
     ]
     return briefing_paths
 
 
 def get_variables_path(date: str) -> str:
-    variables_path = get_briefing_path(date) + f"/_variables_{date}.yml"
+    variables_path = get_briefing_path(date) + "/_metadata.yml"
     return variables_path
 
 
@@ -45,5 +45,5 @@ def _validate_date(date_str: str) -> None:
     """Validate the date of the weather briefing provided by the user."""
     try:
         datetime.strptime(date_str, "%Y%m%d")
-    except ValueError:
-        raise ValueError("Incorrect data format, should be YYYYMMDD")
+    except ValueError as excp:
+        raise ValueError("Incorrect data format, should be YYYYMMDD") from excp

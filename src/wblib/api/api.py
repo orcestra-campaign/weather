@@ -5,12 +5,13 @@ import argparse
 from wblib.api.status import check_briefing_status
 from wblib.api.directory import make_briefing_directory
 from wblib.api.variables_file import make_briefing_variables
-from wblib.api.images import make_briefing_images
+from wblib.api.figures import make_briefing_figures
 
 
 ARGUMENT_DESCRIPTIONS = {
-    "date": "Issue date of the weather briefing",
+    "date": "Issue date of the weather briefing [YYYMMDD]",
     "flight_id": "ID of the flight",
+    "sattracks_fc_date": "Issue date on the satellite track forecast [YYYMMDD]",
     "location": "Either 'Barbados' or 'Sal'",
 }
 
@@ -35,7 +36,9 @@ def _run_chosen_subcommand(parser):
         if args.command in ["status", "start", "figures"]:
             args.func(args.date)
         else:
-            args.func(args.date, args.flight_id, args.location)
+            args.func(
+                args.date, args.flight_id, args.location, args.sattracks_fc_date
+            )
     else:
         parser.print_help()
 
@@ -45,7 +48,7 @@ def _define_figures_subcommand(subparsers):
         "figures", help="Generate the figures of the weather report."
     )
     figures_parser.add_argument("date", help=ARGUMENT_DESCRIPTIONS["date"])
-    figures_parser.set_defaults(func=make_briefing_images)
+    figures_parser.set_defaults(func=make_briefing_figures)
 
 
 def _define_variable_subcommand(subparsers):
@@ -61,6 +64,9 @@ def _define_variable_subcommand(subparsers):
     )
     variable_file_parser.add_argument(
         "location", help=ARGUMENT_DESCRIPTIONS["location"]
+    )
+    variable_file_parser.add_argument(
+        "sattracks_fc_date", help=ARGUMENT_DESCRIPTIONS["sattracks_fc_date"]
     )
     variable_file_parser.set_defaults(func=make_briefing_variables)
 

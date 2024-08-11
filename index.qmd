@@ -1,7 +1,11 @@
 ---
-title: "Weather"
+title: "ORCESTRA weather briefings"
+listing:
+  contents:
+    - "briefings/*/main.qmd"
+  type: grid
+  sort: date desc
+  fields: [image, description, date]
+  sort-ui: true
+  filter-ui: true
 ---
-
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.

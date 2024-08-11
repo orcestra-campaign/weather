@@ -14,8 +14,8 @@ import cartopy.feature as cfeature
 
 
 API_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
-TIME_ROUND_FREQUENCY = "10T"
-TIME_LAG = "1H"
+TIME_ROUND_FREQUENCY = "10min"
+TIME_LAG = "1h"
 
 GOES_PRODUCT_NAME = {
     "infrared": "Band13_Clean_Infrared",
@@ -37,12 +37,12 @@ FIGURE_TITLES = {
 FIGURE_BOUNDARIES = (-70, 5, -10, 25)
 
 
-def current_satellite_image_vis(current_time: pd.Timestamp) -> Figure:
+def current_satellite_image_vis(current_time: pd.Timestamp, *args) -> Figure:
     fig = _get_satellite_image(current_time, "visible")
     return fig
 
 
-def current_satellite_image_ir(current_time: pd.Timestamp) -> Figure:
+def current_satellite_image_ir(current_time: pd.Timestamp, *args) -> Figure:
     fig = _get_satellite_image(current_time, "infrared")
     return fig
 

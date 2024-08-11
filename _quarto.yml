@@ -1,14 +1,8 @@
 project:
   type: website
-  output-dir: public
+  render:
+    - "*.qmd"
+    - "!src/"
 
-website:
-  title: "Weather"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-  sidebar:
-    search: true
-    contents: briefings/*/*.qmd
+profile:
+  default: website

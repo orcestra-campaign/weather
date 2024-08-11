@@ -16,11 +16,10 @@ import seaborn as sns
 import cmocean as cmo
 
 from wblib.figures.hifs import HifsForecasts
-from wblib.figures.hifs import get_valid_time
 from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
 from wblib.figures.briefing_info import format_internal_figure_axes
 from wblib.figures.sattrack import plot_sattrack
-from orcestra.flightplan import plot_path
+from wblib.flights.flighttrack import plot_python_flighttrack
 
 TP_THRESHOLD = 50  # mm
 TCWV_THRESHOLD = 48  # mm
@@ -87,10 +86,8 @@ def precip(
     _draw_current_forecast(precip, fig, ax)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
-    # plotting flight track
-    valid_time = get_valid_time(briefing_time, lead_hours)
-    if flight['time'] == valid_time:
-        plot_path(flight["track"], ax, color="C1")
+    plot_python_flighttrack(flight, briefing_time, lead_hours, ax, color="C1",
+                            show_waypoints=False)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -162,10 +159,10 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 9).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 9, 12).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 8, 11).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 11, 12).tz_localize("UTC")
     sattracks_fc_time1 = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
-    test_flight = get_python_flightdata('HALO-20240811a')
+    test_flight = get_python_flightdata('HALO-20240813a')
     fig = precip(briefing_time1, "60H", current_time1,
                  sattracks_fc_time1, test_flight, hifs)
     fig.savefig("test1.png")

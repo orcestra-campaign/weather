@@ -89,7 +89,7 @@ title: "PERCUSION Weather briefing"
 ### Local forecast for {{< meta location >}}
 :::
 ::: {.column width="70%"}
-![]({{< meta plots.external.ifs_meteogram >}}){width="61%"}
+![]({{< meta plots.external_inst.ifs_meteogram >}}){width="61%"}
 :::
 ::::
 

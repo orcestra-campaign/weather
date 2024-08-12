@@ -131,7 +131,7 @@ def _draw_current_forecast(precip, fig, ax):
         norm=BoundaryNorm(TP_STEPS, ncolors=TP_COLORMAP.N, clip=True),
         cmap=TP_COLORMAP,
     )
-    fig.colorbar(im, label="mean precip. rate \ mm day$^{-1}$", shrink=0.8)
+    fig.colorbar(im, label="mean precip. rate / mm day$^{-1}$", shrink=0.8)
 
 
 def _add_legend(init_times: list, **kwargs):

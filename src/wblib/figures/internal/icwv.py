@@ -23,12 +23,12 @@ ICWV_MIN = 45  # mm
 ICWV_COLORMAP = "Blues"
 ICWV_CATALOG_VARIABLE = "tcwv"
 REFDATE_COLORBAR = [
-    "#ffc99d",
-    "#ffa472",
-    "#ff9c59",
-    "#ff7e26",
-    "#ff580f",
-]  # the ordering of the colors indicate the latest available refdate
+    "#e5ffe5",
+    "#80ff80",
+    "#00cc00",
+    "#006600",
+    "#001a00"
+] # the ordering of the colors indicate the latest available refdate
 REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 
@@ -56,7 +56,7 @@ def iwv_itcz_edges(
                                 sattracks_fc_time, ax)
     _draw_icwv_contours_for_previous_forecasts(forecasts, ax)
     im = _draw_icwv_current_forecast(forecast, ax)
-    fig.colorbar(im, label="IWV \ kg m$^{-2}$", shrink=0.8)
+    fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.8)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
     plot_python_flighttrack(flight, briefing_time, lead_hours, ax, color="C1",

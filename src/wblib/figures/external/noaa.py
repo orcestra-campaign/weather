@@ -31,7 +31,11 @@ def nhc_surface_analysis_atlantic(*args, add_overlay=True) -> img.Image:
     image = image.crop((0, 300, 1720, 1260-300))
 
     if add_overlay:
-        return _overlay_nhc(image)
+        return _overlay_nhc(
+            image,
+            proj=ccrs.Mercator(),
+            extents=[-106.7, 20, -2.8, 41.8],
+        )
     else:
         return image
 
@@ -46,6 +50,8 @@ def nhc_hovmoller(*args) -> img.Image:
 
 def _overlay_nhc(
     image: img.Image,
+    proj,
+    extents,
     color="#00267F",
     linewidth=1.2,
     fontfamily="monospace",
@@ -57,11 +63,6 @@ def _overlay_nhc(
     """Overlay the NHC surface analysis with coastlines and waypoints."""
     nhc = np.asarray(image.convert("RGBA"))
     ny, nx, _ = nhc.shape
-
-    # Hard-coded extent and map projection
-    # (Needs to be adjusted for ohter map producs!)
-    proj = ccrs.Mercator()
-    extents = [-106.7, 20, -2.8, 41.8]
 
     # Convert map extent to Mercator projection
     img_extents = proj.transform_points(

@@ -1,4 +1,6 @@
 from goes2go.data import goes_nearesttime, goes_latest
+import matplotlib
+from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import pandas as pd
@@ -10,26 +12,27 @@ from wblib.figures.sattrack import plot_sattrack
 from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
 
-def get_yesterdays_goes2go_image(
+def yesterdays_goes2go_image(
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
         flight: dict,
         ):
     yesterday = briefing_time - pd.Timedelta("12h")
     goes_data_yesterday = _get_goes2go_data(yesterday)
-    plot_goes2go_satimage(goes_data_yesterday, yesterday, sattracks_fc_time,
-                          flight)
+    figure = plot_goes2go_satimage(goes_data_yesterday, yesterday,
+                                   sattracks_fc_time, flight)
+    return figure
 
 
-def get_latest_goes2go_image(
-        current_time: pd.Timestamp,
+def latest_goes2go_image(
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
         flight: dict,
         ):
-    goes_data_latest = _get_goes2go_data(current_time)
-    plot_goes2go_satimage(goes_data_latest, briefing_time, sattracks_fc_time,
-                          flight)
+    goes_data_latest = _get_goes2go_data_latest()
+    figure = plot_goes2go_satimage(goes_data_latest, briefing_time,
+                                   sattracks_fc_time, flight)
+    return figure
 
 
 def _get_goes2go_data(
@@ -37,6 +40,10 @@ def _get_goes2go_data(
         ) -> xr.Dataset:
     time_sat = time.strftime('%Y-%m-%dT%H:%M%:%S')
     return goes_nearesttime(time_sat, satellite=16, product="ABI", domain = "F")
+
+
+def _get_goes2go_data_latest() -> xr.Dataset:
+    return goes_latest(satellite=16, product="ABI", domain = "F")
 
 
 def _create_GOES_variable(
@@ -75,7 +82,8 @@ def plot_goes2go_satimage(
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
         flight: dict,
-        ):
+        goes_variable: str="TrueColor",
+        ) -> Figure:
     sns.set_context("talk")
     fig, ax = plt.subplots(
         figsize=INTERNAL_FIGURE_SIZE,
@@ -83,7 +91,7 @@ def plot_goes2go_satimage(
     )
     ax.set_global()
     ax.coastlines()
-    goes_variable = _create_GOES_variable(goes_object, "TrueColor")
+    goes_variable = _create_GOES_variable(goes_object, goes_variable)
     ax.imshow(goes_variable, transform=goes_object.rgb.crs, regrid_shape=3500,
               interpolation='nearest') 
     ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False,
@@ -94,7 +102,8 @@ def plot_goes2go_satimage(
                   which_orbit="descending")
     plot_python_flighttrack(flight, briefing_time, "00H", ax, color="C1",
                             show_waypoints=False)
-    fig.savefig('test1.png', dpi=100)
+    matplotlib.rc_file_defaults()
+    return fig
 
 
 if __name__ == "__main__":
@@ -104,7 +113,7 @@ if __name__ == "__main__":
     current_time = pd.Timestamp(2024, 8, 11, 9, 30).tz_localize("UTC")
     flight = get_python_flightdata('HALO-20240811a')
 
-    get_latest_goes2go_image(current_time, briefing_time, sattracks_fc_time, flight)
+    latest_goes2go_image(current_time, briefing_time, sattracks_fc_time, flight)
 
     # test get_yesterdays_goes2go_image()
     sattracks_fc_time = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
@@ -112,4 +121,5 @@ if __name__ == "__main__":
     current_time = pd.Timestamp(2024, 8, 12, 9, 30).tz_localize("UTC")
     flight = get_python_flightdata('HALO-20240811a')
 
-    get_yesterdays_goes2go_image(briefing_time, sattracks_fc_time, flight)
+    yesterdays_goes2go_image(current_time, briefing_time, sattracks_fc_time,
+                             flight)

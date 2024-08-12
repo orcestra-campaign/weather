@@ -111,3 +111,13 @@ def _overlay_nhc(
     buf.seek(0)
 
     return img.open(buf)
+
+
+def create_tiles(img, num=6):
+    """Split an image into `num` vertical tiles."""
+    width, height = img.size
+    vchunksize = height // num
+
+    return [
+        img.crop([0, i * vchunksize, width, (i + 1) * vchunksize]) for i in range(num)
+    ]

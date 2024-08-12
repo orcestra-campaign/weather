@@ -121,3 +121,20 @@ def create_tiles(img, num=6):
     return [
         img.crop([0, i * vchunksize, width, (i + 1) * vchunksize]) for i in range(num)
     ]
+
+
+def vstack_images(images):
+    """Vertically stack a series of PIL.Images objects."""
+    # Create a new image with the total height and maximum width
+    total_height = sum(image.height for image in images)
+    max_width = max(image.width for image in images)
+
+    concatenated_image = img.new("RGB", (max_width, total_height))
+
+    # Paste the images onto the concatenated image
+    y = 0
+    for image in images:
+        concatenated_image.paste(image, (0, y))
+        y += image.height
+
+    return concatenated_image

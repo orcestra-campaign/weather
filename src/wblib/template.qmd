@@ -21,6 +21,12 @@ title: "PERCUSION Weather briefing"
 
 
 # Latest satellite images
+## GOES yesterday's image
+![]({{< meta plots.goes2go.yesterdays_goes2go_image >}})
+
+## GOES latest image
+![]({{< meta plots.goes2go.latest_goes2go_image >}})
+
 ## GOES WEST Latest Infrared Image
 ![]({{< meta plots.external_inst.current_satellite_image_ir >}})
 

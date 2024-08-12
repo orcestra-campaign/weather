@@ -23,7 +23,7 @@ def plot_python_flighttrack(
         **kwargs
         ):
     valid_time = get_valid_time(briefing_time, lead_hours)
-    if flight['time'] == valid_time:
+    if flight['time'].date() == valid_time.date():
         plot_path(flight["track"], ax, **kwargs)
 
 

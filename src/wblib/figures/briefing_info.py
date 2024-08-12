@@ -26,8 +26,7 @@ def format_internal_figure_axes(
     valid_time = get_valid_time(briefing_time, lead_hours)
     ax.set_extent([lon_min, lon_max, lat_min, lat_max])
     title_str = (
-        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')}UTC \n"
-        f"Lead hours: {lead_hours}"
+        f"Valid time: {valid_time.strftime('%Y-%m-%d %H:%M')}UTC"
     )
     ax.set_title(title_str)
     ax.coastlines(lw=1.0, color="k")

@@ -31,21 +31,43 @@ def nhc_surface_analysis_atlantic(*args, add_overlay=True) -> img.Image:
     image = image.crop((0, 300, 1720, 1260-300))
 
     if add_overlay:
-        return _overlay_nhc(image)
+        return _overlay_nhc(
+            image,
+            proj=ccrs.Mercator(),
+            extents=[-106.7, 20, -2.8, 41.8],
+        )
     else:
         return image
 
 
-def nhc_hovmoller(*args) -> img.Image:
+def nhc_hovmoller(*args, add_overlay=True) -> img.Image:
     url = ANALYSIS_URLS["hovmoller"]
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
-    image = image.crop((0, 4*95, 722- 165, 950))
-    return image
+    image = image.crop((0, 4 * 95, 722 - 165, 950))
+
+    if add_overlay:
+        tiles = create_tiles(image, num=6)
+
+        overlayed_tiles = [
+            _overlay_nhc(
+                tile,
+                proj=ccrs.Mercator(),
+                extents=[-70, 38, 4, 24],
+                color="white",
+                fontsize=4,
+                linewidth=0.4,
+                markersize=2,
+            ) for tile in tiles
+        ]
+
+    return vstack_images(overlayed_tiles)
 
 
 def _overlay_nhc(
     image: img.Image,
+    proj,
+    extents,
     color="#00267F",
     linewidth=1.2,
     fontfamily="monospace",
@@ -57,11 +79,6 @@ def _overlay_nhc(
     """Overlay the NHC surface analysis with coastlines and waypoints."""
     nhc = np.asarray(image.convert("RGBA"))
     ny, nx, _ = nhc.shape
-
-    # Hard-coded extent and map projection
-    # (Needs to be adjusted for ohter map producs!)
-    proj = ccrs.Mercator()
-    extents = [-106.7, 20, -2.8, 41.8]
 
     # Convert map extent to Mercator projection
     img_extents = proj.transform_points(
@@ -110,3 +127,30 @@ def _overlay_nhc(
     buf.seek(0)
 
     return img.open(buf)
+
+
+def create_tiles(img, num=6):
+    """Split an image into `num` vertical tiles."""
+    width, height = img.size
+    vchunksize = height // num
+
+    return [
+        img.crop([0, i * vchunksize, width, (i + 1) * vchunksize]) for i in range(num)
+    ]
+
+
+def vstack_images(images):
+    """Vertically stack a series of PIL.Images objects."""
+    # Create a new image with the total height and maximum width
+    total_height = sum(image.height for image in images)
+    max_width = max(image.width for image in images)
+
+    concatenated_image = img.new("RGB", (max_width, total_height))
+
+    # Paste the images onto the concatenated image
+    y = 0
+    for image in images:
+        concatenated_image.paste(image, (0, y))
+        y += image.height
+
+    return concatenated_image

@@ -40,12 +40,28 @@ def nhc_surface_analysis_atlantic(*args, add_overlay=True) -> img.Image:
         return image
 
 
-def nhc_hovmoller(*args) -> img.Image:
+def nhc_hovmoller(*args, add_overlay=True) -> img.Image:
     url = ANALYSIS_URLS["hovmoller"]
     response = requests.get(url)
     image = img.open(BytesIO(response.content))
-    image = image.crop((0, 4*95, 722- 165, 950))
-    return image
+    image = image.crop((0, 4 * 95, 722 - 165, 950))
+
+    if add_overlay:
+        tiles = create_tiles(image, num=6)
+
+        overlayed_tiles = [
+            _overlay_nhc(
+                tile,
+                proj=ccrs.Mercator(),
+                extents=[-70, 38, 4, 24],
+                color="white",
+                fontsize=4,
+                linewidth=0.4,
+                markersize=2,
+            ) for tile in tiles
+        ]
+
+    return vstack_images(overlayed_tiles)
 
 
 def _overlay_nhc(

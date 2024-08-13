@@ -4,7 +4,6 @@ from datetime import datetime
 
 from wblib.services.get_paths import get_figure_path
 
-from wblib.services._define_figures import GOES2GO_PLOTS
 from wblib.services._define_figures import EXTERNAL_INST_PLOTS
 from wblib.services._define_figures import EXTERNAL_LEAD_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
@@ -29,7 +28,6 @@ def get_expected_figures(
         "date": date,
         "sattracks_fc_date": sattracks_fc_date,
         "plots": {
-            "goes2go": get_expected_goes2go_figures(output_path),
             "external_inst": get_expected_external_inst_figures(output_path),
             "external_lead": get_expected_external_lead_figures(output_path,
                                                                 date),
@@ -40,14 +38,6 @@ def get_expected_figures(
         },
     }
     return variables_nml
-
-
-def get_expected_goes2go_figures(figures_output_path) -> dict:
-    figures = {
-        product: f"{figures_output_path}/goes2go/{product}.png"
-        for product in GOES2GO_PLOTS.keys()
-    }
-    return figures
 
 
 def get_expected_external_inst_figures(figures_output_path) -> dict:

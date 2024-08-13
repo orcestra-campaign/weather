@@ -1,0 +1,50 @@
+flight_id: HALO-20240813a
+location: Sal
+date: '20240813'
+sattracks_fc_date: '20240805'
+plots:
+  external_inst:
+    nhc_surface_analysis_atlantic: fig/external_inst/nhc_surface_analysis_atlantic.png
+    nhc_seven_days_outlook: fig/external_inst/nhc_seven_days_outlook.png
+    current_satellite_image_ir: fig/external_inst/current_satellite_image_ir.png
+    nhc_hovmoller: fig/external_inst/nhc_hovmoller.png
+    ifs_meteogram: fig/external_inst/ifs_meteogram.png
+  external_lead:
+    dust:
+      012h: fig/external_lead/IFS_20240813+012h_dust.png
+      036h: fig/external_lead/IFS_20240813+036h_dust.png
+      060h: fig/external_lead/IFS_20240813+060h_dust.png
+      084h: fig/external_lead/IFS_20240813+084h_dust.png
+      108h: fig/external_lead/IFS_20240813+108h_dust.png
+  internal:
+    iwv_itcz_edges:
+      012h: fig/internal/IFS_20240813+012h_iwv_itcz_edges.png
+      036h: fig/internal/IFS_20240813+036h_iwv_itcz_edges.png
+      060h: fig/internal/IFS_20240813+060h_iwv_itcz_edges.png
+      084h: fig/internal/IFS_20240813+084h_iwv_itcz_edges.png
+      108h: fig/internal/IFS_20240813+108h_iwv_itcz_edges.png
+    sfc_winds:
+      012h: fig/internal/IFS_20240813+012h_sfc_winds.png
+      036h: fig/internal/IFS_20240813+036h_sfc_winds.png
+      060h: fig/internal/IFS_20240813+060h_sfc_winds.png
+      084h: fig/internal/IFS_20240813+084h_sfc_winds.png
+      108h: fig/internal/IFS_20240813+108h_sfc_winds.png
+    precip:
+      012h: fig/internal/IFS_20240813+012h_precip.png
+      036h: fig/internal/IFS_20240813+036h_precip.png
+      060h: fig/internal/IFS_20240813+060h_precip.png
+      084h: fig/internal/IFS_20240813+084h_precip.png
+      108h: fig/internal/IFS_20240813+108h_precip.png
+    cloud_top_height:
+      012h: fig/internal/IFS_20240813+012h_cloud_top_height.png
+      036h: fig/internal/IFS_20240813+036h_cloud_top_height.png
+      060h: fig/internal/IFS_20240813+060h_cloud_top_height.png
+      084h: fig/internal/IFS_20240813+084h_cloud_top_height.png
+      108h: fig/internal/IFS_20240813+108h_cloud_top_height.png
+  mss_side_view:
+    IFS:
+      relative_humidity: fig/mss/MSS_HALO-20240813a_sideview_IFS_20240813_relative_humidity.png
+      cloud_cover: fig/mss/MSS_HALO-20240813a_sideview_IFS_20240813_cloud_cover.png
+    ICON:
+      relative_humidity: fig/mss/MSS_HALO-20240813a_sideview_ICON_20240813_relative_humidity.png
+      cloud_cover: fig/mss/MSS_HALO-20240813a_sideview_ICON_20240813_cloud_cover.png

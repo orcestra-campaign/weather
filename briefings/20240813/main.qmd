@@ -21,9 +21,6 @@ NHC tropical Hovmöller
 
 
 # Latest satellite images
-## GOES yesterday's image
-![]({{< meta plots.goes2go.yesterdays_goes2go_image >}})
-
 ## GOES latest image
 ![]({{< meta plots.goes2go.latest_goes2go_image >}})
 
@@ -100,4 +97,6 @@ NHC tropical Hovmöller
 ::::
 
 ## Summary
-Summary of the weather briefing.
+- Today's flight still looks calm based on satellite images
+- Next tropical wave will approach us on Friday with increasing uncertainty
+- No up-to-date forecast due to Levante outage...

@@ -13,16 +13,12 @@ from wblib.figures.internal.sfc_winds import sfc_winds
 from wblib.figures.internal.precip import precip
 from wblib.figures.internal.cld_top_height import cloud_top_height
 
-
-GOES2GO_PLOTS = {
-    "latest_goes2go_image": latest_goes2go_image,
-    "yesterdays_goes2go_image": yesterdays_goes2go_image,
-}
-
 EXTERNAL_INST_PLOTS = {
     "nhc_surface_analysis_atlantic": nhc_surface_analysis_atlantic,
     "nhc_seven_days_outlook": nhc_seven_days_outlook,
     "current_satellite_image_ir": current_satellite_image_ir,
+    "latest_goes2go_image": latest_goes2go_image,
+    "yesterdays_goes2go_image": yesterdays_goes2go_image,
     "nhc_hovmoller": nhc_hovmoller,
     "ifs_meteogram": ifs_meteogram,
 }

@@ -8,43 +8,14 @@ import pandas as pd
 import intake
 
 from wblib.figures.hifs import HifsForecasts
-from wblib.services._define_figures import GOES2GO_PLOTS
 from wblib.services._define_figures import EXTERNAL_INST_PLOTS
 from wblib.services._define_figures import EXTERNAL_LEAD_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
 from wblib.services._define_figures import PLOTS_LEADTIMES
 
-
 Image = Union[img.Image, Figure]
 
 INTAKE_CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
-
-
-def generate_goes2go_figures(
-    briefing_time: pd.Timestamp,
-    sattracks_fc_time: pd.Timestamp,
-    flight: dict,
-    logger: Callable
-) -> Iterator[tuple[str, Image]]:
-    for product, function in GOES2GO_PLOTS.items():
-        if function is None:
-            _warn_function_is_not_defined(product, logger)
-            continue
-        try:
-            figure = function(
-                briefing_time,
-                sattracks_fc_time,
-                flight)
-            yield (product, figure)
-        except Exception as error:
-            msg = (
-                f"Can not generate {product} with '{briefing_time}'. "
-                "Please provide it manually or debug the code."
-            )
-            logger(msg, "ERROR")
-            print(error)
-            continue
-
 
 def generate_external_inst_figures(
     current_location: str,

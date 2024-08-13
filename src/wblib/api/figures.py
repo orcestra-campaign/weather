@@ -30,7 +30,7 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     logger(f"Goes2go figure time set to {current_time}", "INFO")
     for product, image in generate_goes2go_figures(
         briefing_time, sattracks_fc_time, flight, logger
-    ):
+        ):
         fig_path = variables_dict["plots"]["goes2go"][product]
         fig_path = get_briefing_path(date) + "/" + fig_path
         _save_image(image, fig_path)
@@ -41,10 +41,19 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     external_location = variables_dict["location"]
     logger(f"External figure location set to {external_location}", "INFO")
     current_time = pd.Timestamp.now(TIME_ZONE_STR)
+    briefing_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
+    sattracks_fc_date = variables_dict["sattracks_fc_date"]
+    sattracks_fc_time = pd.Timestamp(sattracks_fc_date, tz=TIME_ZONE_STR)
+    flight_id = variables_dict["flight_id"]
+    flight = get_python_flightdata(flight_id)
     logger(f"External instantaneous figure time set to {current_time}", "INFO")
     for product, image in generate_external_inst_figures(
-        external_location, current_time, logger
-    ):
+        external_location,
+        current_time,
+        briefing_time,
+        sattracks_fc_time,
+        flight,logger
+        ):
         fig_path = variables_dict["plots"]["external_inst"][product]
         fig_path = get_briefing_path(date) + "/" + fig_path
         _save_image(image, fig_path)
@@ -60,7 +69,7 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     logger(f"External lead time figure time set to {briefing_time}", "INFO")
     for product, lead_time, image in generate_external_lead_figures(
             briefing_time, current_time, sattracks_fc_time, logger
-        ):
+            ):
             fig_path = variables_dict["plots"]["external_lead"][product][lead_time]
             fig_path = get_briefing_path(date) + "/" + fig_path
             _save_image(image, fig_path)

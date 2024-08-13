@@ -1,0 +1,102 @@
+---
+title: "PERCUSION Weather briefing"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< meta plots.external_inst.nhc_surface_analysis_atlantic >}})
+
+## NHC tropical weather outlook
+![]({{< meta plots.external_inst.nhc_seven_days_outlook >}})
+
+## 
+:::: {.columns}
+::: {.column width="7%"}
+NHC tropical Hovmöller
+:::
+::: {.column width="93%"}
+![]({{< meta plots.external_inst.nhc_hovmoller >}}){width="60%"}
+:::
+::::
+
+
+# Latest satellite images
+## GOES latest image
+![]({{< meta plots.goes2go.latest_goes2go_image >}})
+
+## GOES WEST Latest Infrared Image
+![]({{< meta plots.external_inst.current_satellite_image_ir >}})
+
+# ECMWF Forecasts
+
+## 
+### Lead time = 12h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.012h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.012h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.012h >}}){width=42%}
+![]({{< meta plots.internal.precip.012h >}}){width=42%}
+:::
+
+## 
+### Lead time = 36h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.036h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.036h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.036h >}}){width=42%}
+![]({{< meta plots.internal.precip.036h >}}){width=42%}
+:::
+
+## 
+### Lead time = 60h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.060h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.060h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.060h >}}){width=42%}
+![]({{< meta plots.internal.precip.060h >}}){width=42%}
+:::
+
+## 
+### Lead time = 84h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.084h >}}){width=42%}
+![]({{< meta plots.internal.precip.084h >}}){width=42%}
+:::
+
+## 
+### Lead time = 108h
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.108h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.108h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.108h >}}){width=42%}
+![]({{< meta plots.internal.precip.108h >}}){width=42%}
+:::
+
+# Saharan dust forecast
+##
+::: {layout-nrow=2}
+![lead time = 12h]({{< meta plots.external_lead.dust.012h >}}){width=75%}
+
+![lead time = 36h]({{< meta plots.external_lead.dust.036h >}}){width=75%}
+
+![lead time = 60h]({{< meta plots.external_lead.dust.060h >}}){width=75%}
+
+![lead time = 84h]({{< meta plots.external_lead.dust.084h >}}){width=75%}
+:::
+
+##
+:::: {.columns}
+::: {.column width="30%"}
+### Local forecast for {{< meta location >}}
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external_inst.ifs_meteogram >}}){width="61%"}
+:::
+::::
+
+## Summary
+- Today's flight still looks calm based on satellite images
+- Next tropical wave will approach us on Friday with increasing uncertainty
+- No up-to-date forecast due to Levante outage...

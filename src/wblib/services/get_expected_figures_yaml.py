@@ -1,14 +1,13 @@
 """Get the figures expected by the Quarto report."""
 
 from datetime import datetime
-
+import pandas as pd
 from wblib.services.get_paths import get_figure_path
 
 from wblib.services._define_figures import EXTERNAL_INST_PLOTS
 from wblib.services._define_figures import EXTERNAL_LEAD_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
 from wblib.services._define_figures import PLOTS_LEADTIMES
-
 
 MSS_PLOTS_SIDE_VIEW = ["relative_humidity", "cloud_cover"]
 ALLOWED_LOCATIONS = ["Barbados", "Sal"]
@@ -27,6 +26,7 @@ def get_expected_figures(
         "location": location,
         "date": date,
         "sattracks_fc_date": sattracks_fc_date,
+        "valid_dates": get_valid_dates(date, PLOTS_LEADTIMES),
         "plots": {
             "external_inst": get_expected_external_inst_figures(output_path),
             "external_lead": get_expected_external_lead_figures(output_path,
@@ -39,6 +39,13 @@ def get_expected_figures(
     }
     return variables_nml
 
+def get_valid_dates(date, lead_times) -> dict:
+    valid_dates = dict()
+    for lead in PLOTS_LEADTIMES:
+        temp_time = (pd.Timestamp(date, tz='UTC') 
+                     + pd.Timedelta(hours=int(lead[:-1]))).strftime('%Y-%m-%d %H:%M') 
+        valid_dates[lead] = str(temp_time) + ' UTC'
+    return valid_dates
 
 def get_expected_external_inst_figures(figures_output_path) -> dict:
     figures = {

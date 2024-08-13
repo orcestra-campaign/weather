@@ -33,7 +33,7 @@ NHC tropical Hovmöller
 # ECMWF Forecasts
 
 ## 
-### Lead time = 12h
+### {{< meta valid_dates.012h >>}}
 ::: {layout-nrow=2}
 ![]({{< meta plots.internal.iwv_itcz_edges.012h >}}){width=42%}
 ![]({{< meta plots.internal.sfc_winds.012h >}}){width=42%}

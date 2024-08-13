@@ -18,6 +18,7 @@ from wblib.api._logger import logger
 def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     logger("Generating briefing figures", "INFO")
     variables_dict = _load_variables_yaml(date, logger)
+
     # external instantaneous plots
     external_location = variables_dict["location"]
     logger(f"External figure location set to {external_location}", "INFO")
@@ -33,7 +34,8 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
         current_time,
         briefing_time,
         sattracks_fc_time,
-        flight,logger
+        flight,
+        logger,
         ):
         fig_path = variables_dict["plots"]["external_inst"][product]
         fig_path = get_briefing_path(date) + "/" + fig_path
@@ -49,7 +51,10 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     sattracks_fc_time = pd.Timestamp(sattracks_fc_date, tz=TIME_ZONE_STR)
     logger(f"External lead time figure time set to {briefing_time}", "INFO")
     for product, lead_time, image in generate_external_lead_figures(
-            briefing_time, current_time, sattracks_fc_time, logger
+            briefing_time,
+            current_time,
+            sattracks_fc_time,
+            logger,
             ):
             fig_path = variables_dict["plots"]["external_lead"][product][lead_time]
             fig_path = get_briefing_path(date) + "/" + fig_path
@@ -70,8 +75,12 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     flight = get_python_flightdata(flight_id)
     logger(f"Internal figure time set to {briefing_time}", "INFO")
     for product, lead_time, image in generate_internal_figures(
-        briefing_time, current_time, sattracks_fc_time, flight, logger
-    ):
+        briefing_time,
+        current_time,
+        sattracks_fc_time,
+        flight,
+        logger,
+        ):
         fig_path = variables_dict["plots"]["internal"][product][lead_time]
         fig_path = get_briefing_path(date) + "/" + fig_path
         _save_image(image, fig_path)

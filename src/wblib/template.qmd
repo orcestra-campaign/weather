@@ -88,6 +88,7 @@ NHC tropical Hovmöller
 
 ![lead time = 84h]({{< meta plots.external_lead.dust.084h >}}){width=75%}
 :::
+![](dust_colorbar.png)
 
 ##
 :::: {.columns}

@@ -26,7 +26,7 @@ def get_expected_figures(
         "location": location,
         "date": date,
         "sattracks_fc_date": sattracks_fc_date,
-        "valid_dates": get_valid_dates(date, PLOTS_LEADTIMES),
+        "valid_dates": _get_valid_dates(date, PLOTS_LEADTIMES),
         "plots": {
             "external_inst": get_expected_external_inst_figures(output_path),
             "external_lead": get_expected_external_lead_figures(output_path,
@@ -39,7 +39,7 @@ def get_expected_figures(
     }
     return variables_nml
 
-def get_valid_dates(date, lead_times) -> dict:
+def _get_valid_dates(date, lead_times) -> dict:
     valid_dates = dict()
     for lead in PLOTS_LEADTIMES:
         temp_time = (pd.Timestamp(date, tz='UTC') 

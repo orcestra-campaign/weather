@@ -8,6 +8,7 @@ dependencies:
   - cmocean
   - colorama
   - goes2go
+  - healpy
   - intake<2
   - intake-xarray
   - ipykernel

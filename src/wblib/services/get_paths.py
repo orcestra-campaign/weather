@@ -41,6 +41,11 @@ def get_briefing_template_path() -> str:
     return briefing_template_path
 
 
+def get_dust_colorbar_path() -> str:
+    dust_colorbar_path = "src/wblib/dust_colorbar.png"
+    return dust_colorbar_path
+
+
 def _validate_date(date_str: str) -> None:
     """Validate the date of the weather briefing provided by the user."""
     try:

@@ -79,6 +79,8 @@ NHC tropical Hovmöller
 
 # Saharan dust forecast
 ##
+:::: {.columns}
+::: {.column  width="93%"}
 ::: {layout-nrow=2}
 ![{{< meta valid_dates.012h >}}]({{< meta plots.external_lead.dust.012h >}}){width=75%}
 
@@ -88,6 +90,11 @@ NHC tropical Hovmöller
 
 ![{{< meta valid_dates.084h >}}]({{< meta plots.external_lead.dust.084h >}}){width=75%}
 :::
+:::
+::: {.column width="7%"}
+![](dust_colorbar.png){width=100%}
+:::
+::::
 
 ##
 :::: {.columns}

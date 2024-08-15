@@ -8,6 +8,7 @@ from typing import Callable
 from wblib.services import get_briefing_path
 from wblib.services import get_briefing_paths
 from wblib.services import get_briefing_template_path
+from wblib.services import get_dust_colorbar_path
 
 from wblib.api._logger import logger
 
@@ -20,6 +21,7 @@ def make_briefing_directory(date: str, logger: Callable = logger) -> None:
         logger(f"Path for date '{date}' already existed.", "WARNING")
     briefing_parent_path.mkdir(parents=True, exist_ok=True)
     _copy_template_to_briefing_folder(briefing_parent_path, logger)
+    _copy_dust_colorbar_to_briefing_folder(briefing_parent_path, logger)
     for briefing_path_str in briefing_paths:
         briefing_path = pathlib.Path(briefing_path_str)
         briefing_path.mkdir(parents=False, exist_ok=True)
@@ -35,6 +37,13 @@ def _copy_template_to_briefing_folder(briefing_path: pathlib.Path,
     shutil.copyfile(template_path, briefing_quarto_path)
     logger(f"Briefing template copied to '{briefing_quarto_path}'", "INFO")
 
+def _copy_dust_colorbar_to_briefing_folder(briefing_path: pathlib.Path,
+                                           logger: Callable) -> None:
+    src_dust_colorbar_file = pathlib.Path(get_dust_colorbar_path())
+    target_dust_colorbar_file = briefing_path / "dust_colorbar.png"
+    shutil.copyfile(src_dust_colorbar_file, target_dust_colorbar_file)
+    logger(f"Dust colorbar copied to '{briefing_path}'", "INFO")
+   
 if __name__ == "__main__":
     make_briefing_directory("20240101")
 

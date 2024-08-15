@@ -15,11 +15,12 @@ def plot_sattrack(ax: Axes,
                   lead_hours: str,
                   sattracks_fc_time: pd.Timestamp,
                   satellite: str = "EARTHCARE",
-                  which_orbit: list = ["ascending"]
+                  which_orbit: list = ["ascending"],
+                  kind: str = "PRE",
                   ):
     valid_time = get_valid_time(briefing_time, lead_hours)
     valid_time = valid_time.tz_localize(None).date()
-    sattracks = SattrackLoader(satellite, sattracks_fc_time
+    sattracks = SattrackLoader(satellite, sattracks_fc_time, kind=kind,
                                ).get_track_for_day(valid_time)
     splitted_sattracks = _split_sattracks(sattracks)
     splitted_sattracks = _add_orbit_attribute(splitted_sattracks)
@@ -61,7 +62,7 @@ def _add_orbit_attribute(sattrack_list: list) -> list:
 
 
 if __name__ == "__main__":
-    sattracks = SattrackLoader('EARTHCARE', "2024-08-05"
-                                            ).get_track_for_day("2024-08-11")
+    sattracks = SattrackLoader('EARTHCARE', "2024-08-14", kind="PRE",
+                               ).get_track_for_day("2024-08-16")
     splitted_sattracks = _split_sattracks(sattracks)
     print(splitted_sattracks)

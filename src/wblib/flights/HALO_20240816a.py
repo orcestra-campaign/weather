@@ -8,13 +8,13 @@ def _flight_HALO_20240816a():
      atr_radius = 70e3
 
      airport = sal
-     north_ec = LatLon(lat=15.500000, lon=-30.502500, label='north_ec')
-     circle_north = LatLon(lat=12.700000, lon=-31.005200, label='circle_north')
-     circle_center = LatLon(lat=8.851118, lon=-31.749216, label='circle_center')
-     circle_south = LatLon(lat=5.000000, lon=-32.477900, label='circle_south')
-     south_ec = LatLon(lat=3.500000, lon=-32.720100, label='south_ec')
-     earthcare = LatLon(lat=10.775902, lon=-31.379572, label='earthcare')
-     atr = LatLon(lat=17.800000, lon=-23.600000, label='atr')
+     north_ec = LatLon(lat=12.2994, lon=-31.1748, label='north_ec')
+     circle_north = LatLon(lat=11.0045, lon=-31.4247, label='circle_north')
+     circle_center = LatLon(lat=7.119, lon=-32.1586, label='circle_center')
+     circle_south = LatLon(lat=3.2327, lon=-32.8863, label='circle_south')
+     south_ec = LatLon(lat=1.5, lon=-33.2358, label='south_ec')
+     earthcare = LatLon(lat=8.4143, lon=-31.9163, label='earthcare')
+     atr = LatLon(lat=17.43333, lon=-23.500000, label='atr')
 
      leg_south = [
           airport,

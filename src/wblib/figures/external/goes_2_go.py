@@ -13,9 +13,11 @@ from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
 
 def yesterdays_goes2go_image(
+        current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
         flight: dict,
+        *args
         ):
     yesterday = briefing_time - pd.Timedelta("12h")
     goes_data_yesterday = _get_goes2go_data(yesterday)
@@ -25,9 +27,11 @@ def yesterdays_goes2go_image(
 
 
 def latest_goes2go_image(
+        current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
         flight: dict,
+        *args
         ):
     goes_data_latest = _get_goes2go_data_latest()
     figure = plot_goes2go_satimage(goes_data_latest, briefing_time,

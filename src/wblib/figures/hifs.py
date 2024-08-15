@@ -125,8 +125,9 @@ def _get_dates_of_previous_briefings(
     briefing_time: pd.Timestamp,
     number: int = 5,
 ) -> list[pd.Timestamp]:
-    day = pd.Timedelta("1D")
-    dates = [(briefing_time.floor("1D") - i * day) for i in range(0, number)]
+    fc_interval = pd.Timedelta("12H")
+    dates = [(briefing_time.floor("1D") - i * fc_interval)
+             for i in range(0, number)]
     dates.reverse()
     return dates
 

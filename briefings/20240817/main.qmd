@@ -1,0 +1,121 @@
+---
+title: "PERCUSION Weather briefing"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< meta plots.external_inst.nhc_surface_analysis_atlantic >}})
+
+## NHC tropical weather outlook
+![]({{< meta plots.external_inst.nhc_seven_days_outlook >}})
+
+## 
+:::: {.columns}
+::: {.column width="7%"}
+NHC tropical Hovmöller
+:::
+::: {.column width="93%"}
+![]({{< meta plots.external_inst.nhc_hovmoller >}}){width="60%"}
+:::
+::::
+
+
+# Latest satellite images
+## GOES yesterday's image
+![]({{< meta plots.external_inst.yesterdays_goes2go_image >}})
+
+## Zoom in at 15:15 UTC
+![](fig/external_inst/screenshot_1515Z.png)
+
+## GOES latest image
+![]({{< meta plots.external_inst.latest_goes2go_image >}})
+
+## GOES WEST Latest Infrared Image
+![]({{< meta plots.external_inst.current_satellite_image_ir >}})
+
+# ECMWF Forecasts
+
+## 
+### {{< meta valid_dates.012h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.012h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.012h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.012h >}}){width=42%}
+![]({{< meta plots.internal.precip.012h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.036h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.036h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.036h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.036h >}}){width=42%}
+![]({{< meta plots.internal.precip.036h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.060h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.060h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.060h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.060h >}}){width=42%}
+![]({{< meta plots.internal.precip.060h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.084h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.084h >}}){width=42%}
+![]({{< meta plots.internal.precip.084h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.108h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.108h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.108h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.108h >}}){width=42%}
+![]({{< meta plots.internal.precip.108h >}}){width=42%}
+:::
+
+# Saharan dust forecast
+##
+:::: {.columns}
+::: {.column  width="93%"}
+::: {layout-nrow=2}
+![{{< meta valid_dates.012h >}}]({{< meta plots.external_lead.dust.012h >}}){width=75%}
+
+![{{< meta valid_dates.036h >}}]({{< meta plots.external_lead.dust.036h >}}){width=75%}
+
+![{{< meta valid_dates.060h >}}]({{< meta plots.external_lead.dust.060h >}}){width=75%}
+
+![{{< meta valid_dates.084h >}}]({{< meta plots.external_lead.dust.084h >}}){width=75%}
+:::
+:::
+::: {.column width="7%"}
+![](dust_colorbar.png){width=100%}
+:::
+::::
+
+##
+:::: {.columns}
+::: {.column width="30%"}
+### Local forecast for {{< meta location >}}
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external_inst.ifs_meteogram >}}){width="61%"}
+:::
+::::
+
+## Summary
+- Tomorrow's flight:
+  - Still some uncertainty in moist margins position
+  - Strong convection expected during the flight, in particular on the northern edge
+  - Chance to sample pronounced doldrums
+
+- (Hopefully) Tuesday's flight:
+  - Northern circle is hard to place, forecast still uncertain
+  - Moderate deep convection expected in the ITCZ itself
+  - High chance for notable rain on Sal

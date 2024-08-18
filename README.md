@@ -8,7 +8,7 @@ Weather briefings for PERCUSION.
 Creating a new weather briefing presentations consists of the following steps:
 
 1. Start a new weather briefing, generate its automatic figures, and its quarto files.
-2. Add manually the MSS figures to the briefing folder.
+2. Add manually the MSS figures to the briefing folder. 
 3. Check all figures are present in the briefing folder.
 4. Add a summary of the weather briefing.
 5. Preview the weather briefing presentation.
@@ -22,7 +22,7 @@ Use **wbcli.sh** for this. Initialize a new folder with
 ./wbcli.sh start [BRIEFING_DATE]
 ```
 
-where [BRIEFING_DATE] has the format "YYYYMMDD". This will create a new folder and copy a quarto template to it. The folder will be located in the inside the briefings folder with a name given by briefing date.
+where [BRIEFING_DATE] has the format "YYYYMMDD". This will create a new folder and copy a quarto template to it. The folder will be located inside the briefings folder with a name given by briefing date.
 
 Create the expected variable file in the folder with
 
@@ -30,7 +30,8 @@ Create the expected variable file in the folder with
 ./wbcli.sh variables [BRIEFING_DATE] [FLIGHT_CODE] [LOCATION] [SATTRACKS_FC_DATE]
 ```
 
-where [LOCATION] must be either Sal or Barbados, and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD". This will create a 'yaml' file in the briefing folder and link the '_variables.yml' file to it.
+where [LOCATION] must be either Sal or Barbados, the [FLIGH_CODE] is taken from the [https://orcestra-campaign.org/operation/halo.html](PERCUSION) operations page, e.g. [HALO-20240818a] and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD", where the most recent satellite forecast data can be retrieved [https://sattracks.orcestra-campaign.org](here). 
+This will create a 'yaml' file in the briefing folder and link the '_variables.yml' file to it.
 
 Create the figures of the report with
 
@@ -45,6 +46,10 @@ Add MSS figures to briefings/[BRIEFING_DATE]/mss folder.
 
 The name of the figures can be seen in briefings/[BRIEFING_DATE]/_metadata.yml
 
+```{note}
+It has established itself that MSS figures are not used in the weather briefings, so this step is redundant.
+```
+
 ## 3 - Check all figures are present in the briefing folder.
 
 Check the status of the briefing by running
@@ -54,6 +59,10 @@ Check the status of the briefing by running
 ```
 
 this will check that all figures are complete and indicate possible missing ones, including those that need to be added manually to the briefing folder.
+
+```{note}
+Since at least the MSS figures are missing, this will throw an error message.
+```
 
 ## 4 - Add a summary of the weather briefing.
 Add a summary of the weather briefing in the quarto file briefings/[BRIEFING_DATE]/main.qmd.

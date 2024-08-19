@@ -10,7 +10,6 @@ from wblib.api.figures import make_briefing_figures
 
 ARGUMENT_DESCRIPTIONS = {
     "date": "Issue date of the weather briefing [YYYMMDD]",
-    "flight_id": "ID of the flight",
     "sattracks_fc_date": "Issue date on the satellite track forecast [YYYMMDD]",
     "location": "Either 'Barbados' or 'Sal'",
 }
@@ -37,7 +36,7 @@ def _run_chosen_subcommand(parser):
             args.func(args.date)
         else:
             args.func(
-                args.date, args.flight_id, args.location, args.sattracks_fc_date
+                args.date, args.location, args.sattracks_fc_date
             )
     else:
         parser.print_help()
@@ -58,9 +57,6 @@ def _define_variable_subcommand(subparsers):
     )
     variable_file_parser.add_argument(
         "date", help=ARGUMENT_DESCRIPTIONS["date"]
-    )
-    variable_file_parser.add_argument(
-        "flight_id", help=ARGUMENT_DESCRIPTIONS["flight_id"]
     )
     variable_file_parser.add_argument(
         "location", help=ARGUMENT_DESCRIPTIONS["location"]

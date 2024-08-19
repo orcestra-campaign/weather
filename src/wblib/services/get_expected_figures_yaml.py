@@ -14,7 +14,7 @@ ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 
 def get_expected_figures(
-    date: str, location: str, flight_id: str, sattracks_fc_date: str
+    date: str, location: str, sattracks_fc_date: str
 ) -> dict:
     """Returns a dictionary with the expected figures for the briefing."""
     _validate_date(date)
@@ -22,7 +22,6 @@ def get_expected_figures(
     _validate_location(location)
     output_path = get_figure_path()
     variables_nml = {
-        "flight_id": flight_id,
         "location": location,
         "date": date,
         "sattracks_fc_date": sattracks_fc_date,
@@ -32,9 +31,6 @@ def get_expected_figures(
             "external_lead": get_expected_external_lead_figures(output_path,
                                                                 date),
             "internal": get_expected_internal_figures(output_path, date),
-            "mss_side_view": get_expected_mss_side_view_figures(
-                output_path, date, flight_id
-            ),
         },
     }
     return variables_nml
@@ -76,22 +72,6 @@ def get_expected_internal_figures(figures_output_path, date) -> dict:
                 lead_time
             ] = (f"{figures_output_path}/internal/IFS_{date}+{lead_time}_" +
                  f"{product}.png")
-    return figures
-
-
-def get_expected_mss_side_view_figures(
-    figures_output_path, date, flight_id
-) -> dict:
-    figures = {
-        "IFS": {
-            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_IFS_{date}_{product}.png"
-            for product in MSS_PLOTS_SIDE_VIEW
-        },
-        "ICON": {
-            product: f"{figures_output_path}/mss/MSS_{flight_id}_sideview_ICON_{date}_{product}.png"
-            for product in MSS_PLOTS_SIDE_VIEW
-        },
-    }
     return figures
 
 

@@ -11,18 +11,18 @@ from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE, ORCESTRA_DOMAIN
 from wblib.figures.sattrack import plot_sattrack
 from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
+from wblib.flights._define_flights import FLIGHTS
 
 def yesterdays_goes2go_image(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        flight: dict,
         *args
         ):
     yesterday = briefing_time - pd.Timedelta("12h")
     goes_data_yesterday = _get_goes2go_data(yesterday)
     figure = plot_goes2go_satimage(goes_data_yesterday, yesterday,
-                                   sattracks_fc_time, flight)
+                                   sattracks_fc_time)
     return figure
 
 
@@ -30,12 +30,11 @@ def latest_goes2go_image(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        flight: dict,
         *args
         ):
     goes_data_latest = _get_goes2go_data_latest()
     figure = plot_goes2go_satimage(goes_data_latest, briefing_time,
-                                   sattracks_fc_time, flight)
+                                   sattracks_fc_time)
     return figure
 
 
@@ -85,7 +84,6 @@ def plot_goes2go_satimage(
         goes_object: xr.Dataset,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        flight: dict,
         goes_variable: str="TrueColor",
         ) -> Figure:
     sns.set_context("talk")
@@ -104,8 +102,10 @@ def plot_goes2go_satimage(
     plt.title(f"Valid time: {str(goes_object.t.values)[:19]} UTC", pad=15)
     plot_sattrack(ax, briefing_time, "00H", sattracks_fc_time,
                   which_orbit="descending")
-    plot_python_flighttrack(flight, briefing_time, "00H", ax, color="C1",
-                            show_waypoints=False)
+    for flight_id in FLIGHTS:
+        flight = get_python_flightdata(flight_id)
+        plot_python_flighttrack(flight, briefing_time, "00H", ax,
+                                color="C1", show_waypoints=False)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -115,15 +115,12 @@ if __name__ == "__main__":
     sattracks_fc_time = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
     briefing_time = pd.Timestamp(2024, 8, 11).tz_localize("UTC")
     current_time = pd.Timestamp(2024, 8, 11, 9, 30).tz_localize("UTC")
-    flight = get_python_flightdata('HALO-20240811a')
 
-    latest_goes2go_image(current_time, briefing_time, sattracks_fc_time, flight)
+    latest_goes2go_image(current_time, briefing_time, sattracks_fc_time)
 
     # test get_yesterdays_goes2go_image()
     sattracks_fc_time = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
     briefing_time = pd.Timestamp(2024, 8, 12).tz_localize("UTC")
     current_time = pd.Timestamp(2024, 8, 12, 9, 30).tz_localize("UTC")
-    flight = get_python_flightdata('HALO-20240811a')
 
-    yesterdays_goes2go_image(current_time, briefing_time, sattracks_fc_time,
-                             flight)
+    yesterdays_goes2go_image(current_time, briefing_time, sattracks_fc_time)

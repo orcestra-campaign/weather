@@ -157,7 +157,6 @@ def _add_legend(init_times: list, **kwargs):
 
 if __name__ == "__main__":
     import intake
-    from wblib.flights.flighttrack import get_python_flightdata
 
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)

@@ -31,6 +31,7 @@ Create the expected variable file in the folder with
 ```
 
 where [LOCATION] must be either Sal or Barbados, and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD", where the most recent satellite forecast data can be retrieved [https://sattracks.orcestra-campaign.org](here).
+
 This will create a 'yaml' file in the briefing folder and link the '_variables.yml' file to it.
 
 Create the figures of the report with
@@ -51,11 +52,11 @@ Check the status of the briefing by running
 
 this will check that all figures are complete and indicate possible missing ones, including those that need to be added manually to the briefing folder.
 
-## 4 - Add a summary of the weather briefing.
+## 3 - Add a summary of the weather briefing.
 Add a summary of the weather briefing in the quarto file briefings/[BRIEFING_DATE]/main.qmd.
 
 
-## 5 - Preview the weather briefing presentation
+## 4 - Preview the weather briefing presentation
 
 After creating the briefing structure and all necessary figures, you can run
 quarto in preview mode, which will open a browser and navigate to the most recently modified file.
@@ -88,5 +89,3 @@ new briefing folder (briefings/[BRIEFING_DATE]) to the repository.
 Create a new branch for this and name it after the briefing date, as "briefing_[BRIEFING_DATE]".
 
 Integrate the new branch to main using a merge request. After integration to the main branch the briefing will be published.
-
-

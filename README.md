@@ -30,7 +30,7 @@ Create the expected variable file in the folder with
 ./wbcli.sh variables [BRIEFING_DATE] [FLIGHT_CODE] [LOCATION] [SATTRACKS_FC_DATE]
 ```
 
-where [LOCATION] must be either Sal or Barbados, the [FLIGHT_CODE] is taken from the [https://orcestra-campaign.org/operation/halo.html](PERCUSION) operations page, e.g. [HALO-20240818a] and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD", where the most recent satellite forecast data can be retrieved [https://sattracks.orcestra-campaign.org](here). 
+where [LOCATION] must be either Sal or Barbados, the [FLIGHT_CODE] is taken from the [PERCUSION](https://orcestra-campaign.org/operation/halo.html) operations page, e.g. [HALO-20240818a] and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD", where the most recent satellite forecast data can be retrieved [here](https://sattracks.orcestra-campaign.org). 
 This will create a 'yaml' file in the briefing folder and link the '_variables.yml' file to it.
 
 Create the figures of the report with
@@ -46,9 +46,12 @@ Add MSS figures to briefings/[BRIEFING_DATE]/mss folder.
 
 The name of the figures can be seen in briefings/[BRIEFING_DATE]/_metadata.yml
 
-```{note}
+```{tip}
+:class: note
+:name: a-tip-reference
 It has established itself that MSS figures are not used in the weather briefings, so this step is redundant.
 ```
+
 
 ## 3 - Check all figures are present in the briefing folder.
 

@@ -20,6 +20,8 @@ from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
 from wblib.figures.briefing_info import format_internal_figure_axes
 from wblib.figures.sattrack import plot_sattrack
 from wblib.flights.flighttrack import plot_python_flighttrack
+from wblib.flights.flighttrack import get_python_flightdata
+from wblib.flights._define_flights import FLIGHTS
 
 TP_THRESHOLD = 50  # mm
 TCWV_THRESHOLD = 48  # mm
@@ -41,7 +43,6 @@ def precip(
     lead_hours: str,
     current_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
-    flight: dict,
     hifs: HifsForecasts,
 ) -> Figure:
     # retrieve the forecast data
@@ -86,8 +87,10 @@ def precip(
     _draw_current_forecast(precip, fig, ax)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
-    plot_python_flighttrack(flight, briefing_time, lead_hours, ax, color="C1",
-                            show_waypoints=False)
+    for flight_id in FLIGHTS:
+        flight = get_python_flightdata(flight_id)
+        plot_python_flighttrack(flight, briefing_time, lead_hours, ax,
+                                color="C1", show_waypoints=False)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -159,10 +162,10 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 11).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 11, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
-    test_flight = get_python_flightdata('HALO-20240813a')
-    fig = precip(briefing_time1, "60H", current_time1,
-                 sattracks_fc_time1, test_flight, hifs)
-    fig.savefig("test1.png")
+    briefing_time1 = pd.Timestamp(2024, 8, 19).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 19, 12).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 17).tz_localize("UTC")
+    test_flight = get_python_flightdata('HALO-20240821a')
+    fig = precip(briefing_time1, "48H", current_time1,
+                 sattracks_fc_time1, hifs)
+    fig.savefig("test2.png")

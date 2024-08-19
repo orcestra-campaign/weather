@@ -46,11 +46,7 @@ Add MSS figures to briefings/[BRIEFING_DATE]/mss folder.
 
 The name of the figures can be seen in briefings/[BRIEFING_DATE]/_metadata.yml
 
-```{tip}
-:class: note
-:name: a-tip-reference
-It has established itself that MSS figures are not used in the weather briefings, so this step is redundant.
-```
+>It has established itself that MSS figures are not used in the weather briefings, so this step is redundant.
 
 
 ## 3 - Check all figures are present in the briefing folder.
@@ -63,9 +59,9 @@ Check the status of the briefing by running
 
 this will check that all figures are complete and indicate possible missing ones, including those that need to be added manually to the briefing folder.
 
-```{note}
-Since at least the MSS figures are missing, this will throw an error message.
-```
+
+>Since at least the MSS figures are missing, this action will throw an error message.
+
 
 ## 4 - Add a summary of the weather briefing.
 Add a summary of the weather briefing in the quarto file briefings/[BRIEFING_DATE]/main.qmd.
@@ -104,5 +100,3 @@ new briefing folder (briefings/[BRIEFING_DATE]) to the repository.
 Create a new branch for this and name it after the briefing date, as "briefing_[BRIEFING_DATE]".
 
 Integrate the new branch to main using a merge request. After integration to the main branch the briefing will be published.
-
-

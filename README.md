@@ -8,11 +8,10 @@ Weather briefings for PERCUSION.
 Creating a new weather briefing presentations consists of the following steps:
 
 1. Start a new weather briefing, generate its automatic figures, and its quarto files.
-2. Add manually the MSS figures to the briefing folder. 
-3. Check all figures are present in the briefing folder.
-4. Add a summary of the weather briefing.
-5. Preview the weather briefing presentation.
-6. Upload the weather briefing folder to the git repository.
+2. Check all figures are present in the briefing folder.
+3. Add a summary of the weather briefing.
+4. Preview the weather briefing presentation.
+5. Upload the weather briefing folder to the git repository.
 
 ## 1 - Start a new weather briefing, generate its automatic figures, and its quarto files.
 

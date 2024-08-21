@@ -11,7 +11,7 @@ import easygems.healpix as egh
 from wblib.figures.briefing_info import get_valid_time
 
 
-FORECAST_PUBLISH_LAG = "8h"
+FORECAST_PUBLISH_LAG = "9h"
 FORECAST_PUBLISH_FREQ = "12h"
 FORECAST_QUERY_MAX_ATTEMPS = 6  # last 6 initializations
 
@@ -47,14 +47,15 @@ class HifsForecasts:
         briefing_time: pd.Timestamp,
         lead_hours: str,
         current_time: pd.Timestamp,
+        issue_time_reference: pd.Timestamp,
         number: int = 5,
         differentiate: bool = False,
         differentiate_unit: str = "s",
     ) -> Iterable[tuple[pd.Timestamp, xr.DataArray]]:
         valid_time = get_valid_time(briefing_time, lead_hours)
         valid_time = valid_time.tz_localize(None)
-        briefing_times = _get_dates_of_previous_briefings(
-            briefing_time, number
+        briefing_times = _get_dates_of_previous_forecasts(
+            issue_time_reference, number
         )
         for briefing_time in briefing_times:
             issue_time, forecast = self._get_forecast(
@@ -108,7 +109,7 @@ def _load_forecast_dataset(
         except KeyError:
             query_forecast_attempts -= 1
             issue_time = issue_time - publish_freq
-    msg = f"No forecasts available for brifieng_time '{briefing_time}'."
+    msg = f"No forecasts available for briefing_time '{briefing_time}'."
     raise KeyError(msg)
 
 
@@ -121,12 +122,12 @@ def expected_issue_time(
         return current_time.floor(FORECAST_PUBLISH_FREQ)
 
 
-def _get_dates_of_previous_briefings(
-    briefing_time: pd.Timestamp,
+def _get_dates_of_previous_forecasts(
+    issue_time_reference: pd.Timestamp,
     number: int = 5,
 ) -> list[pd.Timestamp]:
     fc_interval = pd.Timedelta("12H")
-    dates = [(briefing_time.floor("1D") - i * fc_interval)
+    dates = [(issue_time_reference - i * fc_interval)
              for i in range(0, number)]
     dates.reverse()
     return dates

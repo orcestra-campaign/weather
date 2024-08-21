@@ -42,10 +42,11 @@ def iwv_itcz_edges(
     hifs: HifsForecasts,
 ) -> Figure:
     issue_time, forecast = hifs.get_forecast(
-        ICWV_CATALOG_VARIABLE, briefing_time, lead_hours, current_time
+        ICWV_CATALOG_VARIABLE, briefing_time, lead_hours, current_time,
     )
     forecasts = hifs.get_previous_forecasts(
-        ICWV_CATALOG_VARIABLE, briefing_time, lead_hours, current_time
+        ICWV_CATALOG_VARIABLE, briefing_time, lead_hours, current_time,
+        issue_time,
     )
     # plot
     sns.set_context("talk")

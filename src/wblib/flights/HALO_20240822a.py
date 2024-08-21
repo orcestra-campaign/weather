@@ -85,8 +85,3 @@ def _flight_HALO_20240822a():
     path = leg_south + leg_circles + leg_home
      
     return flight_time, path
-
-if __name__ == "__main__":
-   flight_time, flight_track = _flight_HALO_20240821a()
-   print(flight_time)
-   print(flight_track)

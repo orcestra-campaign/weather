@@ -16,6 +16,8 @@ from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
 from wblib.flights._define_flights import FLIGHTS
 
+from wblib.figures.meteor_pos import plot_meteor_latest_position
+
 API_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 TIME_ROUND_FREQUENCY = "10min"
 TIME_LAG = "1h"
@@ -110,6 +112,7 @@ def _get_figure(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00", ax,
                                 color="C1", show_waypoints=False)
+    plot_meteor_latest_position(ax, color="blue", marker="*", zorder=10)
     _format_axes(plot_type, query_time_str, ax)
     return fig
 

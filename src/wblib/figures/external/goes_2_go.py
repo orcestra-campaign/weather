@@ -13,6 +13,8 @@ from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
 from wblib.flights._define_flights import FLIGHTS
 
+from wblib.figures.meteor_pos import plot_meteor_position
+
 def yesterdays_goes2go_image(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
@@ -22,7 +24,7 @@ def yesterdays_goes2go_image(
     yesterday = briefing_time - pd.Timedelta("12h")
     goes_data_yesterday = _get_goes2go_data(yesterday)
     figure = plot_goes2go_satimage(goes_data_yesterday, yesterday,
-                                   sattracks_fc_time)
+                                   sattracks_fc_time, yesterday)
     return figure
 
 
@@ -34,7 +36,7 @@ def latest_goes2go_image(
         ):
     goes_data_latest = _get_goes2go_data_latest()
     figure = plot_goes2go_satimage(goes_data_latest, briefing_time,
-                                   sattracks_fc_time)
+                                   sattracks_fc_time, current_time)
     return figure
 
 
@@ -84,6 +86,7 @@ def plot_goes2go_satimage(
         goes_object: xr.Dataset,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
+        meteor_time: pd.Timestamp,
         goes_variable: str="TrueColor",
         ) -> Figure:
     sns.set_context("talk")
@@ -106,6 +109,7 @@ def plot_goes2go_satimage(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00H", ax,
                                 color="C1", show_waypoints=False)
+    plot_meteor_position(meteor_time, ax, color="red", marker="*", zorder=10)
     matplotlib.rc_file_defaults()
     return fig
 

@@ -6,7 +6,8 @@ def _flight_HALO_20240822a():
     flight_time = pd.Timestamp(2024, 8, 22, 12, 0, 0).tz_localize("UTC")
     flight_time_str = flight_time.strftime('%Y-%m-%d')
 
-    track = orcestra.sat.SattrackLoader("EARTHCARE", "2024-08-19", kind="PRE").get_track_for_day(flight_time_str)
+    track = orcestra.sat.SattrackLoader("EARTHCARE", "2024-08-19", kind="PRE"
+                                        ).get_track_for_day(flight_time_str)
     track = track.sel(time=slice(flight_time_str + " 06:00", None))
     ec_lons, ec_lats = track.lon.values, track.lat.values
      

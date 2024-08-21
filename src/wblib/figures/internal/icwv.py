@@ -100,9 +100,9 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 15).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 15, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 15).tz_localize("UTC")
-    fig = iwv_itcz_edges(briefing_time1, "60H", current_time1,
+    briefing_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 21, 11).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    fig = iwv_itcz_edges(briefing_time1, "12H", current_time1,
                          sattracks_fc_time1, hifs)
     fig.savefig("test1.png")

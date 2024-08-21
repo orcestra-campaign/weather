@@ -13,6 +13,15 @@ Creating a new weather briefing presentations consists of the following steps:
 4. Preview the weather briefing presentation.
 5. Upload the weather briefing folder to the git repository.
 
+IMPORTANT: If you want to include the latest Meteor position, you have to generate a file `~/.config/orcestra/planet.json`, which includes your PLANET ground credentials as:
+
+```
+{
+    "user": "<username>",
+    "password": "<password>"
+}
+```
+
 ## 1 - Start a new weather briefing, generate its automatic figures, and its quarto files.
 
 Use **wbcli.sh** for this. Initialize a new folder with

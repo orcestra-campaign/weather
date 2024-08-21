@@ -11,5 +11,5 @@ FLIGHTS = {
      "HALO-20240816a": _flight_HALO_20240816a,
      "HALO-20240818a": _flight_HALO_20240818a,
      "HALO-20240821a": _flight_HALO_20240821a,
-     "HALO-20240821a": _flight_HALO_20240822a,
+     "HALO-20240822a": _flight_HALO_20240822a,
 }

@@ -68,11 +68,12 @@ def ifs_cloud_top_height(
     return image
 
 
-def ifs_meteogram(current_time: pd.Timestamp,
-                  briefing_time: pd.Timestamp,
-                  sattracks_fc_time: pd.Timestamp,
-                  flight: dict,
-                  location: str) -> img.Image:
+def ifs_meteogram(
+        current_time: pd.Timestamp,
+        briefing_time: pd.Timestamp,
+        sattracks_fc_time: pd.Timestamp,
+        location: str
+        ) -> img.Image:
     url = ANALYSIS_URLS["ifs_meteogram"]
     params = _create_ifs_meteogram_params(location)
     headers = {

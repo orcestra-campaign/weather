@@ -62,7 +62,7 @@ def _add_orbit_attribute(sattrack_list: list) -> list:
 
 
 if __name__ == "__main__":
-    sattracks = SattrackLoader('EARTHCARE', "2024-08-14", kind="PRE",
-                               ).get_track_for_day("2024-08-16")
+    sattracks = SattrackLoader('EARTHCARE', "2024-08-21", kind="PRE",
+                               ).get_track_for_day("2024-08-22")
     splitted_sattracks = _split_sattracks(sattracks)
     print(splitted_sattracks)

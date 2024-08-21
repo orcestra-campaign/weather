@@ -26,7 +26,6 @@ def get_briefing_paths(date: str) -> list[str]:
         f"{figures_output_path}/internal",
         f"{figures_output_path}/external_inst",
         f"{figures_output_path}/external_lead",
-        f"{figures_output_path}/mss",
     ]
     return briefing_paths
 

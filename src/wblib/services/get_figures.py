@@ -22,7 +22,6 @@ def generate_external_inst_figures(
     current_time: pd.Timestamp,
     briefing_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
-    flight: dict,
     logger: Callable
 ) -> Iterator[tuple[str, Image]]:
     for product, function in EXTERNAL_INST_PLOTS.items():
@@ -31,7 +30,7 @@ def generate_external_inst_figures(
             continue
         try:
             figure = function(current_time, briefing_time, sattracks_fc_time,
-                              flight, current_location)
+                              current_location)
             yield (product, figure)
         except Exception as error:
             msg = (
@@ -77,7 +76,6 @@ def generate_internal_figures(
     briefing_time: pd.Timestamp,
     current_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
-    flight: dict,
     logger: Callable
 ) -> Iterator[tuple[str, str, Image]]:
     catalog = intake.open_catalog(INTAKE_CATALOG_URL)
@@ -93,7 +91,6 @@ def generate_internal_figures(
                     lead_hours,
                     current_time,
                     sattracks_fc_time,
-                    flight,
                     hifs
                 )
                 figure.tight_layout(pad=1.01)
@@ -114,13 +111,11 @@ def _warn_function_is_not_defined(product, logger):
     logger(msg, "ERROR")
 
 if __name__ == "__main__":
-    from wblib.flights.flighttrack import get_python_flightdata
     def logger(message: str, level: str) -> None:
         return None
     sattracks_fc_time = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
     briefing_time1 = pd.Timestamp(2024, 8, 11).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 11).tz_localize("UTC")
-    flight = get_python_flightdata('HALO-20240811a')
-    figures = generate_goes2go_figures(
-        briefing_time1, sattracks_fc_time, flight, logger)
+    figures = generate_internal_figures(
+        briefing_time1, current_time1, sattracks_fc_time, logger)
     next(figures)

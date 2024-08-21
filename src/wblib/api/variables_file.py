@@ -12,13 +12,12 @@ from wblib.services import get_expected_figures
 
 def make_briefing_variables(
     date: str,
-    flight_id: str,
     location: str,
     sattracks_fc_date: str,
     logger: Callable = logger,
 ) -> None:
     variables_nml = get_expected_figures(
-        date, location, flight_id, sattracks_fc_date
+        date, location, sattracks_fc_date
     )
     variables_file_name = f"_metadata.yml"
     output_path = pathlib.Path(get_briefing_path(date))
@@ -33,4 +32,4 @@ def make_briefing_variables(
 if __name__ == "__main__":
     from wblib.api._logger import logger
 
-    make_briefing_variables("20240101", "FX2", "Barbados", logger)
+    make_briefing_variables("20240101", "Barbados", "20240817", logger)

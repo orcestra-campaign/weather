@@ -13,6 +13,8 @@ import cartopy.feature as cfeature
 
 from wblib.figures.sattrack import plot_sattrack
 from wblib.flights.flighttrack import plot_python_flighttrack
+from wblib.flights.flighttrack import get_python_flightdata
+from wblib.flights._define_flights import FLIGHTS
 
 API_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 TIME_ROUND_FREQUENCY = "10min"
@@ -42,11 +44,10 @@ def current_satellite_image_vis(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        flight: dict,
         *args
         ) -> Figure:
     fig = _get_satellite_image(
-        current_time, briefing_time, sattracks_fc_time, flight, "visible"
+        current_time, briefing_time, sattracks_fc_time, "visible"
         )
     return fig
 
@@ -55,11 +56,10 @@ def current_satellite_image_ir(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        flight: dict,
         *args
         ) -> Figure:
     fig = _get_satellite_image(
-        current_time, briefing_time, sattracks_fc_time, flight, "infrared")
+        current_time, briefing_time, sattracks_fc_time, "infrared")
     return fig
 
 
@@ -67,12 +67,11 @@ def _get_satellite_image(
     current_time: pd.Timestamp,
     briefing_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
-    flight: dict,
     plot_type: str
 ) -> plt.Figure:
     query_time_str = _get_query_date_string(current_time)
     goes_image = _get_goes_image_datarray(plot_type, query_time_str)
-    fig = _get_figure(briefing_time, sattracks_fc_time, flight, plot_type,
+    fig = _get_figure(briefing_time, sattracks_fc_time, plot_type,
                       query_time_str, goes_image)
     return fig
 
@@ -80,7 +79,6 @@ def _get_satellite_image(
 def _get_figure(
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        flight: dict,
         plot_type: str,
         query_time_str: str,
         goes_image: xr.DataArray) -> Figure:
@@ -108,8 +106,10 @@ def _get_figure(
     )
     plot_sattrack(ax, briefing_time, "00H", sattracks_fc_time,
                   which_orbit="descending")
-    plot_python_flighttrack(flight, briefing_time, "00H", ax, color="C1",
-                            show_waypoints=False)
+    for flight_id in FLIGHTS:
+        flight = get_python_flightdata(flight_id)
+        plot_python_flighttrack(flight, briefing_time, "00", ax,
+                                color="C1", show_waypoints=False)
     _format_axes(plot_type, query_time_str, ax)
     return fig
 
@@ -159,11 +159,9 @@ def _get_query_date_string(current_time):
 
 
 if __name__ == "__main__":
-    from wblib.flights.flighttrack import get_python_flightdata
     sattracks_fc_time = pd.Timestamp(2024, 8, 12).tz_localize("UTC")
     briefing_time = pd.Timestamp(2024, 8, 13).tz_localize("UTC")
     current_time = pd.Timestamp.now("UTC")
-    flight = get_python_flightdata('HALO-20240813a')
     fig = _get_satellite_image(current_time, briefing_time, sattracks_fc_time,
-                               flight, "infrared")
+                               "infrared")
     fig.savefig("test.png")

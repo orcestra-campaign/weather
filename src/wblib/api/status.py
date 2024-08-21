@@ -7,7 +7,6 @@ from typing import Callable
 import colorama
 import yaml
 
-from wblib.api._utils import _load_variables_yaml
 from wblib.services.get_paths import get_briefing_path
 from wblib.services.get_paths import get_briefing_paths
 from wblib.services.get_paths import get_variables_path
@@ -24,9 +23,9 @@ def check_briefing_status(date: str) -> None:
     status, reason = _check_briefing_folder_exists(date, status, reason)
     status, reason = _check_briefing_subfolders_exists(date, status, reason)
     status, reason = _check_variables_files_exists(date, status, reason)
-    status, reason = _check_external_images_exists(date, status, reason)
+    status, reason = _check_external_inst_images_exists(date, status, reason)
+    status, reason = _check_external_lead_images_exists(date, status, reason)
     status, reason = _check_internal_images_exists(date, status, reason)
-    status, reason = _check_mss_images_exists(date, status, reason)
     reset = colorama.Style.RESET_ALL
     if status == Status.READY_FOR_QUARTO:
         style = colorama.Fore.GREEN
@@ -74,34 +73,37 @@ def _check_variables_files_exists(date, status, reason) -> tuple[Status, str]:
     return status, reason
 
 
-def _check_external_images_exists(date, status, reason) -> tuple[Status, str]:
+def _check_external_inst_images_exists(
+        date, status, reason
+        ) -> tuple[Status, str]:
     if status == Status.INCOMPLETE:
         return status, reason
     variables_path = Path(get_variables_path(date))
     with open(variables_path, "r") as file:
         variables = yaml.safe_load(file)
-    for plot_name, plot_path_str in variables["plots"]["external"].items():
+    for plot_name, plot_path_str in variables["plots"]["external_inst"].items():
         plot_path = Path(plot_path_str)
         if not plot_path.exists():
             status = Status.INCOMPLETE
-            reason = f"Internal plot '{plot_name}' not found."
+            reason = f"External instantaneous plot '{plot_name}' not found."
             break
     return status, reason
 
 
-def _check_mss_images_exists(date, status, reason) -> tuple[Status, str]:
+def _check_external_lead_images_exists(
+        date, status, reason
+        ) -> tuple[Status, str]:
     if status == Status.INCOMPLETE:
         return status, reason
     variables_path = Path(get_variables_path(date))
     with open(variables_path, "r") as file:
         variables = yaml.safe_load(file)
-    for plot_root, model_dict in variables["plots"]["mss_side_view"].items():
-        for model, plot_path_str in model_dict.items():
-            plot_path = Path(plot_path_str)
-            if not plot_path.exists():
-                status = Status.INCOMPLETE
-                reason = f"MSS side view plot '{plot_root}' not found for model '{model}'"
-                break
+    for plot_name, plot_path_str in variables["plots"]["external_lead"].items():
+        plot_path = Path(plot_path_str)
+        if not plot_path.exists():
+            status = Status.INCOMPLETE
+            reason = f"External lead time plot '{plot_name}' not found."
+            break
     return status, reason
 
 
@@ -122,4 +124,4 @@ def _check_internal_images_exists(date, status, reason) -> tuple[Status, str]:
 
 
 if __name__ == "__main__":
-    check_briefing_status("20240101")  # for testing
+    check_briefing_status("20240821")  # for testing

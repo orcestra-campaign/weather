@@ -2,11 +2,12 @@ import pandas as pd
 from orcestra.flightplan import sal, bco, LatLon, IntoCircle, find_ec_lon
 import orcestra.sat
 
-def _flight_HALO_20240821a():
+def _flight_HALO_20240822a():
     flight_time = pd.Timestamp(2024, 8, 22, 12, 0, 0).tz_localize("UTC")
     flight_time_str = flight_time.strftime('%Y-%m-%d')
 
-    track = orcestra.sat.SattrackLoader("EARTHCARE", "2024-08-19", kind="PRE").get_track_for_day(flight_time_str)
+    track = orcestra.sat.SattrackLoader("EARTHCARE", "2024-08-19", kind="PRE"
+                                        ).get_track_for_day(flight_time_str)
     track = track.sel(time=slice(flight_time_str + " 06:00", None))
     ec_lons, ec_lats = track.lon.values, track.lat.values
      
@@ -85,8 +86,3 @@ def _flight_HALO_20240821a():
     path = leg_south + leg_circles + leg_home
      
     return flight_time, path
-
-if __name__ == "__main__":
-   flight_time, flight_track = _flight_HALO_20240821a()
-   print(flight_time)
-   print(flight_track)

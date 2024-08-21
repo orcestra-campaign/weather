@@ -2,7 +2,7 @@ import pandas as pd
 from orcestra.flightplan import sal, bco, LatLon, IntoCircle, find_ec_lon
 import orcestra.sat
 
-def _flight_HALO_20240821a():
+def _flight_HALO_20240822a():
     flight_time = pd.Timestamp(2024, 8, 22, 12, 0, 0).tz_localize("UTC")
     flight_time_str = flight_time.strftime('%Y-%m-%d')
 

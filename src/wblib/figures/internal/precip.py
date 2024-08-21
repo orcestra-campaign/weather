@@ -29,14 +29,14 @@ TP_STEPS = [0, 5, 25, 50, 75, 100]
 TP_COLORMAP = cmo.cm.rain
 DATA_CATALOG_VARIABLE = ["tp", "tcwv"]
 REFDATE_COLORBAR_TP = [
-    "#ff7e26",
-    "#ff580f",
+    "red"
+    #"#ff7e26",
+    #"#ff580f",
 ]  # the ordering of the colors indicate the latest available refdate
 REFDATE_COLORBAR_TCWV = [
     "dodgerblue",
-    "royalblue",
 ]
-REFDATE_LINEWIDTH = [1.0, 1.4]
+REFDATE_LINEWIDTH = [1.4]
 
 def precip(
     briefing_time: pd.Timestamp,
@@ -60,7 +60,8 @@ def precip(
         briefing_time,
         lead_hours,
         current_time,
-        number=2,
+        issue_time,
+        number=1,
         differentiate=True,
         differentiate_unit="D",
     )
@@ -72,7 +73,8 @@ def precip(
         briefing_time,
         lead_hours,
         current_time,
-        number=2,
+        issue_time,
+        number=1,
     )
     # plotting
     sns.set_context("talk")
@@ -123,7 +125,6 @@ def _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax):
         )
         ax.clabel(im, inline=True, fontsize=10)
         issued_times.append(issued_time_)
-    _add_legend(issued_times, loc="lower left")
 
 
 def _draw_current_forecast(precip, fig, ax):
@@ -137,34 +138,15 @@ def _draw_current_forecast(precip, fig, ax):
     fig.colorbar(im, label="mean precip. rate / mm day$^{-1}$", shrink=0.8)
 
 
-def _add_legend(init_times: list, **kwargs):
-    lines = [
-        Line2D(
-            [0],
-            [0],
-            color=REFDATE_COLORBAR_TP[i],
-            linewidth=REFDATE_LINEWIDTH[i],
-            linestyle="-",
-        )
-        for i in range(len(init_times) - 1, -1, -1)
-    ]
-    labels = [
-        f'init: {init_time.strftime("%Y-%m-%d %H:%M")}UTC'
-        for init_time in init_times[::-1]
-    ]
-    plt.legend(lines, labels, **kwargs, fontsize=12)
-
-
 if __name__ == "__main__":
     import intake
 
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 19).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 19, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 17).tz_localize("UTC")
-    test_flight = get_python_flightdata('HALO-20240821a')
-    fig = precip(briefing_time1, "48H", current_time1,
+    briefing_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 21, 8).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    fig = precip(briefing_time1, "36H", current_time1,
                  sattracks_fc_time1, hifs)
     fig.savefig("test2.png")

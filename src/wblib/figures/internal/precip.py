@@ -22,6 +22,7 @@ from wblib.figures.sattrack import plot_sattrack
 from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
 from wblib.flights._define_flights import FLIGHTS
+from wblib.figures.meteor_pos import plot_meteor_latest_position_in_ifs_forecast
 
 TP_THRESHOLD = 50  # mm
 TCWV_THRESHOLD = 48  # mm
@@ -30,8 +31,6 @@ TP_COLORMAP = cmo.cm.rain
 DATA_CATALOG_VARIABLE = ["tp", "tcwv"]
 REFDATE_COLORBAR_TP = [
     "red"
-    #"#ff7e26",
-    #"#ff580f",
 ]  # the ordering of the colors indicate the latest available refdate
 REFDATE_COLORBAR_TCWV = [
     "dodgerblue",
@@ -93,6 +92,8 @@ def precip(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, lead_hours, ax,
                                 color="C1", show_waypoints=False)
+    plot_meteor_latest_position_in_ifs_forecast(
+        briefing_time, lead_hours, ax, color="k", marker="*", zorder=10)
     matplotlib.rc_file_defaults()
     return fig
 

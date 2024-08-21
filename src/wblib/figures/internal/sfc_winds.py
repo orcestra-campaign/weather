@@ -20,7 +20,7 @@ from wblib.figures.sattrack import plot_sattrack
 from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
 from wblib.flights._define_flights import FLIGHTS
-
+from wblib.figures.meteor_pos import plot_meteor_latest_position_in_ifs_forecast
 
 FORECAST_PUBLISH_LAG = "6h"
 SPEED_THRESHOLD = 3  # m/s
@@ -61,6 +61,8 @@ def sfc_winds(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, lead_hours, ax,
                                 color="C1", show_waypoints=False)
+    plot_meteor_latest_position_in_ifs_forecast(
+        briefing_time, lead_hours, ax, color="k", marker="*", zorder=10)
     matplotlib.rc_file_defaults()
     return fig
 

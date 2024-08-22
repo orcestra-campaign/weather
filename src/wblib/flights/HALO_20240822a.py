@@ -1,15 +1,8 @@
 import pandas as pd
-from orcestra.flightplan import sal, bco, LatLon, IntoCircle, find_ec_lon
-import orcestra.sat
+from orcestra.flightplan import sal, bco, LatLon, IntoCircle
 
 def _flight_HALO_20240822a():
     flight_time = pd.Timestamp(2024, 8, 22, 12, 0, 0).tz_localize("UTC")
-    flight_time_str = flight_time.strftime('%Y-%m-%d')
-
-    track = orcestra.sat.SattrackLoader("EARTHCARE", "2024-08-19", kind="PRE"
-                                        ).get_track_for_day(flight_time_str)
-    track = track.sel(time=slice(flight_time_str + " 06:00", None))
-    ec_lons, ec_lats = track.lon.values, track.lat.values
      
     radius = 1.852 * 72e3 # factor of 1.852 is km/nm (definition)
     atr_radius = 1.852 * 38e3 
@@ -35,22 +28,22 @@ def _flight_HALO_20240822a():
     # Setting lat/lon coordinates
 
     # Points where we get on ec track?
-    north_ec = LatLon(lat_north, find_ec_lon(lat_north, ec_lons, ec_lats), "north")
-    south_ec = LatLon(lat_south, find_ec_lon(lat_south, ec_lons, ec_lats), "south")
+    north_ec = LatLon(lat_north, -22.15938483419649, "north")
+    south_ec = LatLon(lat_south, -25.041858611111113, "south")
 
     # Points where to meet atr and earthcare
-    north_ec_atr = LatLon(lat_north_ec, find_ec_lon(lat_north_ec, ec_lons, ec_lats), "north_ec")
-    meet_ec_atr = LatLon(lat_meet_ec, find_ec_lon(lat_meet_ec, ec_lons, ec_lats), "meet_ec")
-    south_ec_atr = LatLon(lat_south_ec, find_ec_lon(lat_south_ec, ec_lons, ec_lats), "south_ec")
+    north_ec_atr = LatLon(lat_north_ec, -22.55787757262052, "north_ec")
+    meet_ec_atr = LatLon(lat_meet_ec, -22.804044257356917, "meet_ec")
+    south_ec_atr = LatLon(lat_south_ec, -23.048144165572634, "south_ec")
 
     # Intersection of ITCZ edges with ec track
-    circle_north = LatLon(lat_edge_north, find_ec_lon(lat_edge_north, ec_lons, ec_lats), "circle_north")
+    circle_north = LatLon(lat_edge_north, -23.28071609789994, "circle_north")
 
-    circle_center = LatLon(lat_edge_center, find_ec_lon(lat_edge_center, ec_lons, ec_lats), "circle_center")
+    circle_center = LatLon(lat_edge_center, -24.007665138535156, "circle_center")
 
-    circle_south = LatLon(lat_edge_south, find_ec_lon(lat_edge_south, ec_lons, ec_lats), "circle_south")
+    circle_south = LatLon(lat_edge_south, -24.667570555555557, "circle_south")
 
-    circle_atr_ec = LatLon(lat_atr_circle_ec, find_ec_lon(lat_atr_circle_ec, ec_lons, ec_lats),'circle_atr_ec')
+    circle_atr_ec = LatLon(lat_atr_circle_ec, -22.419178307573418,'circle_atr_ec')
 
     mindelo = LatLon(lat_mindelo, lon_mindelo, 'mindelo')
 

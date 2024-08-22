@@ -111,5 +111,5 @@ NHC tropical Hovmöller
   - clearly defined convection line at the northern edge, more scattered conv towards southern edge, doldrums in northern circle
   - heavy precipitation in middle of ITCZ (~12-13km) CTH
 - For Sunday’s flight
-  - no planning yet, IWV field merges into one band, dry areas along satellite track clearly defined southern moist margin
-  - little convectionin area of sat track, might be calm
+  - no planning yet, IWV field merges into one band, northern edge not clear, clearly defined southern moist margin
+  - little convection in area of sat track, deep convecton towards the East, might be calm, FC subject to change

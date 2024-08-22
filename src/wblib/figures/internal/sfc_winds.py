@@ -55,6 +55,7 @@ def sfc_winds(
     _windspeed_plot(windspeed_10m, fig, ax)
     _wind_direction_plot(u10m, v10m, ax)
     _windspeed_contour(windspeed_10m, ax)
+    _draw_confluence_contour(v10m, ax)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
     for flight_id in FLIGHTS:
@@ -75,6 +76,16 @@ def _windspeed_contour(windspeed_10m, ax):
         colors="r",
     )
     ax.clabel(im, inline=True, fontsize=12, colors="r", fmt="%d")
+
+def _draw_confluence_contour(v10m, ax):
+    im = egh.healpix_contour(
+        v10m,
+        ax=ax,
+        levels=[0],
+        colors="gray",
+        linewidths = 1.2
+    )
+    ax.clabel(im, inline=True, fontsize=10, colors="gray", fmt="%d")
 
 
 def _windspeed_plot(windspeed_10m, fig, ax):
@@ -131,9 +142,9 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 11).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 11, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 8, 18).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 22, 12).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 17).tz_localize("UTC")
     fig = sfc_winds(briefing_time1, "60H", current_time1,
                     sattracks_fc_time1, hifs)
     fig.savefig("test1.png")

@@ -7,9 +7,7 @@ def plot_meteor_latest_position_in_ifs_forecast(
         briefing_time: pd.Timestamp, lead_hours: str, ax, **kwargs):
     valid_time = get_valid_time(briefing_time, lead_hours)
     if briefing_time.date() == valid_time.date():
-        meteor = get_meteor_track(deduplicate_latlon=True)
-        meteor_latest = meteor.isel(time=-1)
-        ax.scatter(meteor_latest["lon"], meteor_latest["lat"], **kwargs)
+        plot_meteor_latest_position(ax, **kwargs)
 
 
 def plot_meteor_latest_position(ax, **kwargs):

@@ -27,11 +27,11 @@ ICWV_MIN = 45  # mm
 ICWV_COLORMAP = "Blues"
 ICWV_CATALOG_VARIABLE = "tcwv"
 REFDATE_COLORBAR = [
-    "#e5ffe5",
-    "#80ff80",
-    "#00cc00",
-    "#006600",
-    "#001a00"
+    "#ff0000",
+    "#bf0000",
+    "#800000",
+    "#400000",
+    "#000000"
 ] # the ordering of the colors indicate the latest available refdate
 REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 

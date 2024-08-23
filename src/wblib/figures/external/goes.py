@@ -46,8 +46,8 @@ def current_satellite_image_vis(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
+        current_location: str,
         meteor_track: xr.Dataset,
-        *args
         ) -> Figure:
     fig = _get_satellite_image(
         current_time, briefing_time, sattracks_fc_time, meteor_track, "visible"
@@ -59,8 +59,8 @@ def current_satellite_image_ir(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
+        curent_location: str,
         meteor_track: xr.Dataset,
-        *args
         ) -> Figure:
     fig = _get_satellite_image(
         current_time, briefing_time, sattracks_fc_time, meteor_track, "infrared")

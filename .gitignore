@@ -11,3 +11,6 @@
 .jupyter_cache
 *.ipynb
 MPG_Minerva_mpg-green.png
+
+# specific libraries
+/src/wblib/flights/original

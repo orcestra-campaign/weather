@@ -137,6 +137,7 @@ def _draw_icwv_contour(icwv, ax):
 
 if __name__ == "__main__":
     import intake
+    from orcestra.meteor import get_meteor_track
     
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
@@ -144,7 +145,8 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 21, 12).tz_localize("UTC")
     sattracks_fc_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
     fig = cloud_top_height(
-        briefing_time1, "12H", current_time1, sattracks_fc_time1, hifs
-        )
+        briefing_time1, "12H", current_time1, sattracks_fc_time1,
+        meteor_track, hifs)
     fig.savefig("test1.png")

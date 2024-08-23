@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import numpy as np
 import pandas as pd
+import xarray as xr
 
 import matplotlib
 from matplotlib.figure import Figure
@@ -42,6 +43,7 @@ def precip(
     lead_hours: str,
     current_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
+    meteor_track: xr.Dataset,
     hifs: HifsForecasts,
 ) -> Figure:
     # retrieve the forecast data
@@ -93,7 +95,8 @@ def precip(
         plot_python_flighttrack(flight, briefing_time, lead_hours, ax,
                                 color="C1", show_waypoints=False)
     plot_meteor_latest_position_in_ifs_forecast(
-        briefing_time, lead_hours, ax, color="k", marker="*", zorder=10)
+        briefing_time, lead_hours, ax,
+        meteor=meteor_track, color="k", marker="*", zorder=10)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -141,6 +144,7 @@ def _draw_current_forecast(precip, fig, ax):
 
 if __name__ == "__main__":
     import intake
+    from orcestra.meteor import get_meteor_track
 
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
@@ -148,6 +152,7 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 21, 8).tz_localize("UTC")
     sattracks_fc_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
     fig = precip(briefing_time1, "36H", current_time1,
                  sattracks_fc_time1, hifs)
     fig.savefig("test2.png")

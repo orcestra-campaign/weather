@@ -6,6 +6,7 @@ import cartopy.crs as ccrs
 from cartopy.mpl.ticker import LongitudeFormatter, LatitudeFormatter
 import matplotlib.pyplot as plt
 import numpy as np
+import xarray as xr
 
 from wblib.figures.briefing_info import ORCESTRA_DOMAIN
 from wblib.figures.hifs import expected_issue_time
@@ -81,7 +82,8 @@ def ifs_meteogram(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        location: str
+        location: str,
+        meteor_track: xr.Dataset,
         ) -> img.Image:
     url = ANALYSIS_URLS["ifs_meteogram"]
     params = _create_ifs_meteogram_params(location)

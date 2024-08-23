@@ -19,6 +19,7 @@ def yesterdays_goes2go_image(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
+        meteor_track: xr.Dataset,
         *args
         ):
     yesterday = briefing_time - pd.Timedelta("12h")
@@ -32,11 +33,13 @@ def latest_goes2go_image(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
+        meteor_track: xr.Dataset,
         *args
-        ):
+        ) -> Figure:
     goes_data_latest = _get_goes2go_data_latest()
     figure = plot_goes2go_satimage(goes_data_latest, briefing_time,
-                                   sattracks_fc_time, current_time)
+                                   sattracks_fc_time, current_time,
+                                   meteor_track)
     return figure
 
 
@@ -87,6 +90,7 @@ def plot_goes2go_satimage(
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
         meteor_time: pd.Timestamp,
+        meteor_track: xr.Dataset,
         goes_variable: str="TrueColor",
         ) -> Figure:
     sns.set_context("talk")
@@ -109,22 +113,31 @@ def plot_goes2go_satimage(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00H", ax,
                                 color="C1", show_waypoints=False)
-    plot_meteor_position(meteor_time, ax, color="red", marker="*", zorder=10)
+    plot_meteor_position(meteor_time, ax, meteor=meteor_track,
+                         color="red", marker="*", zorder=10)
     matplotlib.rc_file_defaults()
     return fig
 
 
 if __name__ == "__main__":
+    from orcestra.meteor import get_meteor_track
+
     # test get_latest_goes2go_image()
     sattracks_fc_time = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
     briefing_time = pd.Timestamp(2024, 8, 11).tz_localize("UTC")
     current_time = pd.Timestamp(2024, 8, 11, 9, 30).tz_localize("UTC")
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
 
-    latest_goes2go_image(current_time, briefing_time, sattracks_fc_time)
+    fig = latest_goes2go_image(
+        current_time, briefing_time, sattracks_fc_time, meteor_track
+        )
 
     # test get_yesterdays_goes2go_image()
     sattracks_fc_time = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
     briefing_time = pd.Timestamp(2024, 8, 12).tz_localize("UTC")
     current_time = pd.Timestamp(2024, 8, 12, 9, 30).tz_localize("UTC")
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
 
-    yesterdays_goes2go_image(current_time, briefing_time, sattracks_fc_time)
+    fig = yesterdays_goes2go_image(
+        current_time, briefing_time, sattracks_fc_time, meteor_track
+        )

@@ -69,8 +69,7 @@ def iwv_itcz_edges(
         plot_python_flighttrack(flight, briefing_time, lead_hours, ax,
                                 color="C1", show_waypoints=False)
     plot_meteor_latest_position_in_ifs_forecast(
-        briefing_time, lead_hours, ax,
-        meteor=meteor_track, color="k", marker="*", zorder=10)
+        briefing_time, lead_hours, ax, meteor=meteor_track)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -114,4 +113,4 @@ if __name__ == "__main__":
     meteor_track = get_meteor_track(deduplicate_latlon=True)
     fig = iwv_itcz_edges(briefing_time1, "12H", current_time1,
                          sattracks_fc_time1, meteor_track, hifs)
-    fig.savefig("test3.png")
+    fig.savefig("test_icwv.png")

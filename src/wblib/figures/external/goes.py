@@ -117,8 +117,7 @@ def _get_figure(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00", ax,
                                 color="C1", show_waypoints=False)
-    plot_meteor_latest_position(ax, meteor=meteor_track,
-                                color="blue", marker="*", zorder=10)
+    plot_meteor_latest_position(ax, meteor=meteor_track)
     _format_axes(plot_type, query_time_str, ax)
     return fig
 

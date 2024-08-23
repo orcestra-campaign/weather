@@ -30,12 +30,12 @@ SPEED_COLORMAP = "YlGn"
 MESH_GRID_SIZE = 50
 QUIVER_SKIP = 4
 
-
 def sfc_winds(
     briefing_time: pd.Timestamp,
     lead_hours: str,
     current_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
+    meteor_track: xr.Dataset,
     hifs: HifsForecasts,
 ) -> Figure:
     issue_time, u10m = hifs.get_forecast(
@@ -63,7 +63,7 @@ def sfc_winds(
         plot_python_flighttrack(flight, briefing_time, lead_hours, ax,
                                 color="C1", show_waypoints=False)
     plot_meteor_latest_position_in_ifs_forecast(
-        briefing_time, lead_hours, ax, color="k", marker="*", zorder=10)
+        briefing_time, lead_hours, ax, meteor=meteor_track)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -138,13 +138,15 @@ def _wind_direction_plot(u10m, v10m, ax):
 
 if __name__ == "__main__":
     import intake
+    from orcestra.meteor import get_meteor_track
 
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 18).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 22, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 17).tz_localize("UTC")
-    fig = sfc_winds(briefing_time1, "60H", current_time1,
-                    sattracks_fc_time1, hifs)
-    fig.savefig("test1.png")
+    briefing_time1 = pd.Timestamp(2024, 8, 23).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 23, 12).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
+    fig = sfc_winds(briefing_time1, "12H", current_time1,
+                    sattracks_fc_time1, meteor_track, hifs)
+    fig.savefig("test_sfc_winds.png")

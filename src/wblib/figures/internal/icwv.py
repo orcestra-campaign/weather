@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import numpy as np
 import pandas as pd
+import xarray as xr
 
 import matplotlib
 from matplotlib.figure import Figure
@@ -40,6 +41,7 @@ def iwv_itcz_edges(
     lead_hours: str,
     current_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
+    meteor_track: xr.Dataset,
     hifs: HifsForecasts,
 ) -> Figure:
     issue_time, forecast = hifs.get_forecast(
@@ -67,7 +69,7 @@ def iwv_itcz_edges(
         plot_python_flighttrack(flight, briefing_time, lead_hours, ax,
                                 color="C1", show_waypoints=False)
     plot_meteor_latest_position_in_ifs_forecast(
-        briefing_time, lead_hours, ax, color="k", marker="*", zorder=10)
+        briefing_time, lead_hours, ax, meteor=meteor_track)
     matplotlib.rc_file_defaults()
     return fig
 
@@ -100,6 +102,7 @@ def _draw_icwv_current_forecast(forecast, ax):
 
 if __name__ == "__main__":
     import intake
+    from orcestra.meteor import get_meteor_track
     
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
@@ -107,6 +110,7 @@ if __name__ == "__main__":
     briefing_time1 = pd.Timestamp(2024, 8, 24).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 8, 24, 11).tz_localize("UTC")
     sattracks_fc_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
-    fig = iwv_itcz_edges(briefing_time1, "36H", current_time1,
-                         sattracks_fc_time1, hifs)
-    fig.savefig("test2.png")
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
+    fig = iwv_itcz_edges(briefing_time1, "12H", current_time1,
+                         sattracks_fc_time1, meteor_track, hifs)
+    fig.savefig("test_icwv.png")

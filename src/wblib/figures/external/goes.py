@@ -46,10 +46,11 @@ def current_satellite_image_vis(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        *args
+        current_location: str,
+        meteor_track: xr.Dataset,
         ) -> Figure:
     fig = _get_satellite_image(
-        current_time, briefing_time, sattracks_fc_time, "visible"
+        current_time, briefing_time, sattracks_fc_time, meteor_track, "visible"
         )
     return fig
 
@@ -58,10 +59,11 @@ def current_satellite_image_ir(
         current_time: pd.Timestamp,
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
-        *args
+        curent_location: str,
+        meteor_track: xr.Dataset,
         ) -> Figure:
     fig = _get_satellite_image(
-        current_time, briefing_time, sattracks_fc_time, "infrared")
+        current_time, briefing_time, sattracks_fc_time, meteor_track, "infrared")
     return fig
 
 
@@ -69,11 +71,12 @@ def _get_satellite_image(
     current_time: pd.Timestamp,
     briefing_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
-    plot_type: str
-) -> plt.Figure:
+    meteor_track: xr.Dataset,
+    plot_type: str,
+    ) -> plt.Figure:
     query_time_str = _get_query_date_string(current_time)
     goes_image = _get_goes_image_datarray(plot_type, query_time_str)
-    fig = _get_figure(briefing_time, sattracks_fc_time, plot_type,
+    fig = _get_figure(briefing_time, sattracks_fc_time, meteor_track, plot_type,
                       query_time_str, goes_image)
     return fig
 
@@ -81,9 +84,11 @@ def _get_satellite_image(
 def _get_figure(
         briefing_time: pd.Timestamp,
         sattracks_fc_time: pd.Timestamp,
+        meteor_track: xr.Dataset,
         plot_type: str,
         query_time_str: str,
-        goes_image: xr.DataArray) -> Figure:
+        goes_image: xr.DataArray,
+        ) -> Figure:
     lon_min, lon_max, lat_min, lat_max = FIGURE_BOUNDARIES
     y_slice = slice(lat_max, lat_min)
     x_slice = slice(lon_min, lon_max)
@@ -112,7 +117,7 @@ def _get_figure(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00", ax,
                                 color="C1", show_waypoints=False)
-    plot_meteor_latest_position(ax, color="blue", marker="*", zorder=10)
+    plot_meteor_latest_position(ax, meteor=meteor_track)
     _format_axes(plot_type, query_time_str, ax)
     return fig
 
@@ -162,9 +167,12 @@ def _get_query_date_string(current_time):
 
 
 if __name__ == "__main__":
-    sattracks_fc_time = pd.Timestamp(2024, 8, 12).tz_localize("UTC")
-    briefing_time = pd.Timestamp(2024, 8, 13).tz_localize("UTC")
+    from orcestra.meteor import get_meteor_track
+    
+    sattracks_fc_time = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    briefing_time = pd.Timestamp(2024, 8, 24).tz_localize("UTC")
     current_time = pd.Timestamp.now("UTC")
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
     fig = _get_satellite_image(current_time, briefing_time, sattracks_fc_time,
-                               "infrared")
+                               meteor_track, "infrared")
     fig.savefig("test.png")

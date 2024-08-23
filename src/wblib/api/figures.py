@@ -13,6 +13,8 @@ from wblib.services.get_figures import generate_internal_figures
 from wblib.services.get_paths import get_briefing_path
 from wblib.api._logger import logger
 
+from orcestra.meteor import get_meteor_track
+
 
 def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     logger("Generating briefing figures", "INFO")
@@ -25,12 +27,14 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
     briefing_time = pd.Timestamp(date, tz=TIME_ZONE_STR)
     sattracks_fc_date = variables_dict["sattracks_fc_date"]
     sattracks_fc_time = pd.Timestamp(sattracks_fc_date, tz=TIME_ZONE_STR)
+    meteor_track = get_meteor_track(deduplicate_latlon=True)
     logger(f"External instantaneous figure time set to {current_time}", "INFO")
     for product, image in generate_external_inst_figures(
         external_location,
         current_time,
         briefing_time,
         sattracks_fc_time,
+        meteor_track,
         logger,
         ):
         fig_path = variables_dict["plots"]["external_inst"][product]
@@ -72,6 +76,7 @@ def make_briefing_figures(date: str, logger: Callable = logger) -> None:
         briefing_time,
         current_time,
         sattracks_fc_time,
+        meteor_track,
         logger,
         ):
         fig_path = variables_dict["plots"]["internal"][product][lead_time]

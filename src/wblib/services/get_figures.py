@@ -4,6 +4,7 @@ from typing import Callable, Iterator, Union
 from PIL import Image as img
 from matplotlib.figure import Figure
 import pandas as pd
+import xarray as xr
 
 import intake
 
@@ -22,6 +23,7 @@ def generate_external_inst_figures(
     current_time: pd.Timestamp,
     briefing_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
+    meteor_track: xr.Dataset,
     logger: Callable
 ) -> Iterator[tuple[str, Image]]:
     for product, function in EXTERNAL_INST_PLOTS.items():
@@ -29,8 +31,13 @@ def generate_external_inst_figures(
             _warn_function_is_not_defined(product, logger)
             continue
         try:
-            figure = function(current_time, briefing_time, sattracks_fc_time,
-                              current_location)
+            figure = function(
+                current_time,
+                briefing_time,
+                sattracks_fc_time,
+                current_location,
+                meteor_track,
+                )
             yield (product, figure)
         except Exception as error:
             msg = (
@@ -76,6 +83,7 @@ def generate_internal_figures(
     briefing_time: pd.Timestamp,
     current_time: pd.Timestamp,
     sattracks_fc_time: pd.Timestamp,
+    meteor_track: xr.Dataset,
     logger: Callable
 ) -> Iterator[tuple[str, str, Image]]:
     catalog = intake.open_catalog(INTAKE_CATALOG_URL)
@@ -91,6 +99,7 @@ def generate_internal_figures(
                     lead_hours,
                     current_time,
                     sattracks_fc_time,
+                    meteor_track,
                     hifs
                 )
                 figure.tight_layout(pad=1.01)

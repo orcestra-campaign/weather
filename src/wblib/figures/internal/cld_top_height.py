@@ -25,12 +25,19 @@ CATALOG_ICWV_CODE = "tcwv"
 CATALOG_TEMPERATURE_CODE = "t"
 CATALOG_GEOPOT_HEIGHT_CODE = "gh"
 
-ICWV_ITCZ_THRESHOLD = 48  # mm
-ICWV_COLOR = "dimgrey"
+TCWV_THRESHOLD = 48  # mm
 
 CLOUD_TOP_HEIGHT_MIN = 5.
 CLOUD_TOP_HEIGHT_MAX = 18.5
 
+REFDATE_COLORBAR_TCWV = [
+    "#ff0000",
+    "#bf0000",
+    "#800000",
+    "#400000",
+    "#000000"
+] # the ordering of the colors indicate the latest available refdate
+REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 def cloud_top_height(
     briefing_time: pd.Timestamp,
@@ -50,9 +57,14 @@ def cloud_top_height(
     )
     olr = -diff_ttr
     T_bright = _calc_brightness_temperature(olr)
-    _, icwv = hifs.get_forecast(
-        CATALOG_ICWV_CODE, briefing_time, lead_hours, current_time
-        )
+    tcwv_forecasts = hifs.get_previous_forecasts(
+        CATALOG_ICWV_CODE,
+        briefing_time,
+        lead_hours,
+        current_time,
+        issue_time,
+        number=5,
+    )
     _, temperature = hifs.get_forecast(
         CATALOG_TEMPERATURE_CODE, briefing_time, lead_hours, current_time
         )
@@ -71,7 +83,7 @@ def cloud_top_height(
     format_internal_figure_axes(briefing_time, lead_hours, issue_time,
                                 sattracks_fc_time, ax)
     _draw_cloud_top_height(cloud_top_height, fig, ax)
-    _draw_icwv_contour(icwv, ax)
+    _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
     for flight_id in FLIGHTS:
@@ -124,17 +136,19 @@ def _draw_cloud_top_height(cloud_top_height, fig, ax) -> None:
                  extend='both')
 
 
-def _draw_icwv_contour(icwv, ax):
-    hcs = egh.healpix_contour(
-        icwv,
-        ax=ax,
-        levels=[ICWV_ITCZ_THRESHOLD],
-        colors=ICWV_COLOR,
-        linewidths=2,
-        linestyles="dashed",
-    )
-    format_func = lambda level: f"{int(level)} mm"
-    ax.clabel(hcs, hcs.levels, inline=True, fontsize=10, fmt=format_func)
+def _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax):
+    issued_times = []
+    for i, (issued_time_, tcwv_forecasts) in enumerate(tcwv_forecasts):
+        color = REFDATE_COLORBAR_TCWV[i]
+        linewidth = REFDATE_LINEWIDTH[i]
+        im = egh.healpix_contour(
+            tcwv_forecasts,
+            ax=ax,
+            levels=[TCWV_THRESHOLD],
+            colors=color,
+            linewidths=linewidth,
+        )
+        issued_times.append(issued_time_)
 
 if __name__ == "__main__":
     import intake

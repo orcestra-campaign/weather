@@ -30,13 +30,14 @@ TCWV_THRESHOLD = 48  # mm
 TP_STEPS = [0, 5, 25, 50, 75, 100]
 TP_COLORMAP = cmo.cm.rain
 DATA_CATALOG_VARIABLE = ["tp", "tcwv"]
-REFDATE_COLORBAR_TP = [
-    "red"
-]  # the ordering of the colors indicate the latest available refdate
 REFDATE_COLORBAR_TCWV = [
-    "dodgerblue",
-]
-REFDATE_LINEWIDTH = [1.4]
+    "#ff0000",
+    "#bf0000",
+    "#800000",
+    "#400000",
+    "#000000"
+] # the ordering of the colors indicate the latest available refdate
+REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 def precip(
     briefing_time: pd.Timestamp,
@@ -56,26 +57,13 @@ def precip(
         differentiate_unit="D",
     )
     precip = 1000 * precip
-    precip_forecasts = hifs.get_previous_forecasts(
-        DATA_CATALOG_VARIABLE[0],
-        briefing_time,
-        lead_hours,
-        current_time,
-        issue_time,
-        number=1,
-        differentiate=True,
-        differentiate_unit="D",
-    )
-    precip_forecasts = (
-        (issue_time, 1000 * precip) for issue_time, precip in precip_forecasts
-    )
     tcwv_forecasts = hifs.get_previous_forecasts(
         DATA_CATALOG_VARIABLE[1],
         briefing_time,
         lead_hours,
         current_time,
         issue_time,
-        number=1,
+        number=5,
     )
     # plotting
     sns.set_context("talk")
@@ -85,7 +73,6 @@ def precip(
     )
     format_internal_figure_axes(briefing_time, lead_hours, issue_time,
                                 sattracks_fc_time, ax)
-    _draw_tp_contours_for_previous_forecasts(precip_forecasts, ax)
     _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax)
     _draw_current_forecast(precip, fig, ax)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
@@ -100,19 +87,6 @@ def precip(
     return fig
 
 
-def _draw_tp_contours_for_previous_forecasts(precip_forecasts, ax):
-    for i, (_, precip) in enumerate(precip_forecasts):
-        color = REFDATE_COLORBAR_TP[i]
-        linewidth = REFDATE_LINEWIDTH[i]
-        egh.healpix_contour(
-            precip,
-            ax=ax,
-            levels=[TP_THRESHOLD],
-            colors=color,
-            linewidths=linewidth,
-        )
-
-
 def _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax):
     issued_times = []
     for i, (issued_time_, tcwv_forecasts) in enumerate(tcwv_forecasts):
@@ -122,11 +96,9 @@ def _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax):
             tcwv_forecasts,
             ax=ax,
             levels=[TCWV_THRESHOLD],
-            linestyles="--",
             colors=color,
             linewidths=linewidth,
         )
-        ax.clabel(im, inline=True, fontsize=10)
         issued_times.append(issued_time_)
 
 

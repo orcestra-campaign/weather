@@ -36,7 +36,9 @@ def format_internal_figure_axes(
     ax.set_xlabel("Longitude / \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-    annotation = (f"Latest ECMWF IFS forecast initialization: " +
+    annotation = (f"Red lines show the 48mm contour of integrated column water\n" +
+                  f"vapour. The darker the line, the newer the forecast.\n"
+                  f"Latest ECMWF IFS forecast initialization: " +
                   f"{issue_time.strftime('%Y-%m-%d %H:%M %Z')}\n" +
                   f"Satellite tracks forecast issued on: "
                   f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M %Z')}")

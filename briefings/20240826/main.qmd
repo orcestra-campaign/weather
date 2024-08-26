@@ -107,4 +107,9 @@ NHC tropical Hovmöller
 ::::
 
 ## Summary
-Summary of the weather briefing.
+- For tomorrow's flight, 27 August
+    - southern moist margin clearly defined, northern cirlce at the edge to highest IWVP region
+    - entire Cap Verde Area in low wind regime, CTH with widespread >11km in ITCZ, significant precip throughout
+- Lookout
+    - ITCZ becoming very linear throughout the Atlantic with clear defined northern and southern moist margins
+    - new easterl wave coming up

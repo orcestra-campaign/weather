@@ -79,10 +79,11 @@ def _check_external_inst_images_exists(
     if status == Status.INCOMPLETE:
         return status, reason
     variables_path = Path(get_variables_path(date))
+    briefing_path = Path(get_briefing_path(date))
     with open(variables_path, "r") as file:
         variables = yaml.safe_load(file)
     for plot_name, plot_path_str in variables["plots"]["external_inst"].items():
-        plot_path = Path(plot_path_str)
+        plot_path = briefing_path / Path(plot_path_str)
         if not plot_path.exists():
             status = Status.INCOMPLETE
             reason = f"External instantaneous plot '{plot_name}' not found."
@@ -96,14 +97,16 @@ def _check_external_lead_images_exists(
     if status == Status.INCOMPLETE:
         return status, reason
     variables_path = Path(get_variables_path(date))
+    briefing_path = Path(get_briefing_path(date))    
     with open(variables_path, "r") as file:
         variables = yaml.safe_load(file)
-    for plot_name, plot_path_str in variables["plots"]["external_lead"].items():
-        plot_path = Path(plot_path_str)
-        if not plot_path.exists():
-            status = Status.INCOMPLETE
-            reason = f"External lead time plot '{plot_name}' not found."
-            break
+    for plot_root, horizon_dict in variables["plots"]["external_lead"].items():
+        for horizon, plot_path_str in horizon_dict.items():
+            plot_path = briefing_path / Path(plot_path_str)
+            if not plot_path.exists():
+                status = Status.INCOMPLETE
+                reason = f"External lead time plot '{plot_root}' not found for horizon {horizon}."
+                break
     return status, reason
 
 
@@ -111,11 +114,12 @@ def _check_internal_images_exists(date, status, reason) -> tuple[Status, str]:
     if status == Status.INCOMPLETE:
         return status, reason
     variables_path = Path(get_variables_path(date))
+    briefing_path = Path(get_briefing_path(date))
     with open(variables_path, "r") as file:
         variables = yaml.safe_load(file)
     for plot_root, horizon_dict in variables["plots"]["internal"].items():
         for horizon, plot_path_str in horizon_dict.items():
-            plot_path = Path(plot_path_str)
+            plot_path = briefing_path / Path(plot_path_str)
             if not plot_path.exists():
                 status = Status.INCOMPLETE
                 reason = f"Internal plot '{plot_root}' not found for horizon {horizon}."
@@ -124,4 +128,4 @@ def _check_internal_images_exists(date, status, reason) -> tuple[Status, str]:
 
 
 if __name__ == "__main__":
-    check_briefing_status("20240821")  # for testing
+    check_briefing_status("20240826")  # for testing

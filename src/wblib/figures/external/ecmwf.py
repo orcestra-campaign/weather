@@ -170,7 +170,6 @@ def _overlay_ecmwf(
         dpi=dpi,
         subplot_kw={"projection": proj},
     )
-    ax.set_position([0, 0, 1, 1])
     ax.spines["geo"]
     ax.coastlines(color=color, lw=linewidth, resolution="110m")
 
@@ -209,6 +208,7 @@ def _overlay_ecmwf(
 
     # Return matplotlib figure as PIL.Image
     buf = BytesIO()
+    fig.tight_layout()
     fig.savefig(buf)
     buf.seek(0)
 
@@ -216,9 +216,10 @@ def _overlay_ecmwf(
 
 if __name__ == "__main__":
     location = "Sal"
-    briefing_time1 = pd.Timestamp(2024, 8, 19).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 19, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 5).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 8, 26).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 26, 12).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 25).tz_localize("UTC")
     figure2 = ifs_dust(
         briefing_time1, "003H", current_time1, sattracks_fc_time1
         )
+    figure2.save("test.png")

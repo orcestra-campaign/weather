@@ -6,13 +6,6 @@ from orcestra.flightplan import sal, mindelo, LatLon, IntoCircle, find_ec_lon
 
 def _flight_HALO_20240825a():
     flight_time = pd.Timestamp(2024, 8, 25, 12, 0, 0).tz_localize("UTC")
-     
-    # Load ec satellite track for 
-    ec_track = orcestra.sat.SattrackLoader(
-        "EARTHCARE", "2024-08-21", kind="PRE"
-        ).get_track_for_day(f"{flight_time:%Y-%m-%d}")
-    ec_track = ec_track.sel(time=slice(f"{flight_time:%Y-%m-%d} 06:00", None))
-    ec_lons, ec_lats = ec_track.lon.values, ec_track.lat.values
 
     ## Setting lat/lon coordinates
     # Mass flux circle radius (m)
@@ -32,24 +25,19 @@ def _flight_HALO_20240825a():
     lat_c_north = 10.0
 
     # Points where we get on ec track
-    north_ec_in = LatLon(lat_ec_north_in, find_ec_lon(lat_ec_north_in, ec_lons, ec_lats), label = "north_ec_in")
-    north_ec_out = LatLon(lat_ec_north_out, find_ec_lon(lat_ec_north_out, ec_lons, ec_lats), label = "north_ec_out")
-    south_ec = LatLon(lat_ec_south, find_ec_lon(lat_ec_south, ec_lons, ec_lats), label = "south_ec")
+    north_ec_in = LatLon(lat_ec_north_in, -31.061254615622104, label = "north_ec_in")
+    north_ec_out = LatLon(lat_ec_north_out, -30.285316658943465, label = "north_ec_out")
+    south_ec = LatLon(lat_ec_south, -32.85223353390419, label = "south_ec")
 
     # Intersection of ITCZ edges with ec track
-    c_north = LatLon(lat_c_north, find_ec_lon(lat_c_north, ec_lons, ec_lats), label = "c_north")
-    c_south = LatLon(lat_c_south, find_ec_lon(lat_c_south, ec_lons, ec_lats), label = "c_south")
+    c_north = LatLon(lat_c_north, -31.443103009491473, label = "c_north")
+    c_south = LatLon(lat_c_south, -32.57230303170562, label = "c_south")
 
     # Center of middle circle
     c_mid = c_south.towards(c_north).assign(label = "c_mid")
 
     # EarthCARE underpass
     ec_under = c_north.towards(north_ec_out).assign(label = "ec_under")
-
-    def ec_time_at_lat(ec_track, lat):
-        e = np.datetime64("2024-08-01")
-        s = np.timedelta64(1, "ns")
-        return (((ec_track.swap_dims({"time":"lat"}).time - e) / s).interp(lat=lat) * s + e)
 
     # ATR circle
     atr_circ = LatLon(17.433, -23.5, label = "atr")

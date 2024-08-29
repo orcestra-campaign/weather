@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import orcestra.sat
 import orcestra.flightplan as fp
-from orcestra.flightplan import sal, mindelo, LatLon, IntoCircle, find_ec_lon
+from orcestra.flightplan import sal, bco, mindelo, LatLon, IntoCircle, find_ec_lon
 
 def ec_time_at_lat(ec_track, lat):
     e = np.datetime64("2024-08-01")
@@ -18,11 +18,6 @@ def _flight_HALO_20240829a():
 
     band = "east"
     airport = sal if band == "east" else bco
-
-    # Load ec satellite track for 
-    ec_track = orcestra.sat.SattrackLoader("EARTHCARE", "2024-08-26", kind="PRE").get_track_for_day(f"{flight_time:%Y-%m-%d}")
-    ec_track = ec_track.sel(time=slice(f"{flight_time:%Y-%m-%d} 06:00", None))
-    ec_lons, ec_lats = ec_track.lon.values, ec_track.lat.values
 
     # Latitudes where we enter and leave the ec track (visually estimated)
     lat_ec_north = 15.0
@@ -44,23 +39,22 @@ def _flight_HALO_20240829a():
     c_atr_se = LatLon(15.79318333,-24.82891944, label = "c_atr")
 
     # create ec track
-    ec_north = LatLon(lat_ec_north, find_ec_lon(lat_ec_north, ec_lons, ec_lats), label = "ec_north")
-    ec_south = LatLon(lat_ec_south, find_ec_lon(lat_ec_south, ec_lons, ec_lats), label = "ec_south")
+    ec_north = LatLon(lat_ec_north, -25.007422537820315, label = "ec_north")
+    ec_south = LatLon(lat_ec_south, -27.378025794507867, label = "ec_south")
 
     # create circles
-    c_north = LatLon(lat_c_north, find_ec_lon(lat_c_north, ec_lons, ec_lats), label = "c_north")
+    c_north = LatLon(lat_c_north, -25.3952571781414, label = "c_north")
 
-    c_south = LatLon(lat_c_south, find_ec_lon(lat_c_south, ec_lons, ec_lats), label = "c_south")
-    c_south_s = LatLon(lat_c_south_s, find_ec_lon(lat_c_south_s, ec_lons, ec_lats), label = "c_south_s")
-    c_south_n = LatLon(lat_c_south_n, find_ec_lon(lat_c_south_n, ec_lons, ec_lats), label = "c_south_n")
+    c_south = LatLon(lat_c_south, -27.004772115977794, label = "c_south")
+    c_south_s = LatLon(lat_c_south_s, -27.19149888923172, label = "c_south_s")
+    c_south_n = LatLon(lat_c_south_n, -26.817612712125886, label = "c_south_n")
 
-    c_mid = LatLon(lat_c_mid, find_ec_lon(lat_c_mid, ec_lons, ec_lats), label = "c_mid")
-    c_mid_s = LatLon(lat_c_mid_s, find_ec_lon(lat_c_mid_s, ec_lons, ec_lats), label = "c_mid_s")
-    c_mid_n = LatLon(lat_c_mid_n, find_ec_lon(lat_c_mid_n, ec_lons, ec_lats), label = "c_mid_n")
+    c_mid = LatLon(lat_c_mid, -26.25339339709966, label = "c_mid")
+    c_mid_s = LatLon(lat_c_mid_s, -26.441984757790806, label = "c_mid_s")
+    c_mid_n = LatLon(lat_c_mid_n, -26.064100802221535, label = "c_mid_n")
 
     # ec underpass
-    ec_under = LatLon(lat_ec_under, find_ec_lon(lat_ec_under, ec_lons, ec_lats), label = "ec_under")
-    ec_under = ec_under.assign(time=str(ec_time_at_lat(ec_track, ec_under.lat).values)+"Z")
+    ec_under = LatLon(lat_ec_under, -26.91123792039494, label = "ec_under")
 
     # Define flight track
     outbound_legs = [

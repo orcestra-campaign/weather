@@ -8,6 +8,7 @@ from wblib.flights.HALO_20240825a import _flight_HALO_20240825a
 from wblib.flights.HALO_20240827a import _flight_HALO_20240827a
 from wblib.flights.HALO_20240829a import _flight_HALO_20240829a
 from wblib.flights.HALO_20240831a import _flight_HALO_20240831a
+from wblib.flights.HALO_20240903a import _flight_HALO_20240903a
 
 FLIGHTS = {
      "HALO-20240811a": _flight_HALO_20240811a,
@@ -20,4 +21,5 @@ FLIGHTS = {
      "HALO-20240827a": _flight_HALO_20240827a,
      "HALO-20240829a": _flight_HALO_20240829a,
      "HALO-20240831a": _flight_HALO_20240831a,
+     "HALO-20240903a": _flight_HALO_20240903a,
 }

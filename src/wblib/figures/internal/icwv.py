@@ -107,10 +107,10 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 27).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 27, 15).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 26).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 8, 30).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 8, 30, 10).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 8, 29).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
-    fig = iwv_itcz_edges(briefing_time1, "60H", current_time1,
+    fig = iwv_itcz_edges(briefing_time1, "108H", current_time1,
                          sattracks_fc_time1, meteor_track, hifs)
     fig.savefig("test_icwv.png")

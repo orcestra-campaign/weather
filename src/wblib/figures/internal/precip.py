@@ -72,7 +72,7 @@ def precip(
         subplot_kw={"projection": ccrs.PlateCarree()}
     )
     format_internal_figure_axes(briefing_time, lead_hours, issue_time,
-                                sattracks_fc_time, ax)
+                                sattracks_fc_time, "precip", ax)
     _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax)
     _draw_current_forecast(precip, fig, ax)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,

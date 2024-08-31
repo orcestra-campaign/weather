@@ -14,6 +14,7 @@ from wblib.figures.briefing_info import get_valid_time
 FORECAST_PUBLISH_LAG = "9h"
 FORECAST_PUBLISH_FREQ = "12h"
 FORECAST_QUERY_MAX_ATTEMPS = 6  # last 6 initializations
+ALLOWED_FORECAST_TYPES = ["oper", "enfo"]  # operational run, ensemble forecast
 
 
 class HifsForecasts:
@@ -26,13 +27,16 @@ class HifsForecasts:
         briefing_time: pd.Timestamp,
         lead_hours: str,
         current_time: pd.Timestamp,
+        forecast_type: str = "oper",
         differentiate: bool = False,
         differentiate_unit: str = "s",
     ) -> tuple[pd.Timestamp, xr.DataArray]:
+        _validate_forecast_type(forecast_type)
         issue_time, forecast = self._get_forecast(
             variable,
             briefing_time,
             current_time,
+            forecast_type,
             differentiate,
             differentiate_unit,
         )
@@ -49,6 +53,7 @@ class HifsForecasts:
         current_time: pd.Timestamp,
         issue_time_reference: pd.Timestamp,
         number: int = 5,
+        forecast_type: str = "oper",
         differentiate: bool = False,
         differentiate_unit: str = "s",
     ) -> Iterable[tuple[pd.Timestamp, xr.DataArray]]:
@@ -62,6 +67,7 @@ class HifsForecasts:
                 variable,
                 briefing_time,
                 current_time,
+                forecast_type,
                 differentiate,
                 differentiate_unit,
             )
@@ -73,11 +79,12 @@ class HifsForecasts:
         variable,
         briefing_time,
         current_time,
+        forecast_type,
         differentiate,
         differentiate_unit,
     ) -> tuple[pd.Timestamp, xr.DataArray]:
         issue_time, forecast_dataset = _load_forecast_dataset(
-            briefing_time, current_time, self.catalog
+            briefing_time, current_time, forecast_type, self.catalog
         )
         forecast = forecast_dataset[variable]
         if differentiate:
@@ -87,9 +94,17 @@ class HifsForecasts:
         return issue_time, forecast
 
 
+def _validate_forecast_type(forecast_type: str) -> None:
+    """Check that a correct forecast type was provided."""
+    msg = f"Incorrect forecast_type, should be {ALLOWED_FORECAST_TYPES}!"
+    if forecast_type not in ALLOWED_FORECAST_TYPES:
+        raise ValueError(msg)
+    
+
 def _load_forecast_dataset(
     briefing_time: pd.Timestamp,
     current_time: pd.Timestamp,
+    forecast_type: str,
     catalog: intake.Catalog,
 ) -> tuple[pd.Timestamp, xr.Dataset]:
     publish_freq = pd.Timedelta(FORECAST_PUBLISH_FREQ)
@@ -101,6 +116,7 @@ def _load_forecast_dataset(
                 catalog.HIFS(
                     refdate=issue_time.strftime("%Y-%m-%d"),
                     reftime=issue_time.strftime("%H"),
+                    stream=forecast_type,
                 )
                 .to_dask()
                 .pipe(egh.attach_coords)

@@ -141,10 +141,6 @@ def _draw_icwv_ERA5_contour(climatology, ax):
     color = "gray"
     linewidth = 2.0
     ls = '--'
-    #cat = intake.open_catalog("https://tcodata.mpimet.mpg.de/internal.yaml")
-    #hera5 = cat.HERA5.to_dask().pipe(egh.attach_coords)["tcwv"]
-    #augsep_clim = hera5.sel(
-    #    time=hera5['time'].dt.month.isin([8, 9])).mean(dim="time")
     egh.healpix_contour(
         climatology,
         ax=ax,
@@ -173,7 +169,9 @@ def _load_rolling_daily_climatology(var: str="tcwv"):
         hera5["time"] < np.datetime64("2023-01-01"), drop=True
         )
     hera5_running_mean = hera5_subsample.rolling(time=7, center=True).mean()
-    return hera5_running_mean.groupby('time.dayofyear').mean()
+    hera5_running_mean_reduced = hera5_running_mean.sel(
+        time=hera5_running_mean['time'].dt.month.isin([9]))
+    return hera5_running_mean_reduced.groupby('time.dayofyear').mean()
 
 
 if __name__ == "__main__":

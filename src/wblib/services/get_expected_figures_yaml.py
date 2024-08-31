@@ -9,7 +9,6 @@ from wblib.services._define_figures import EXTERNAL_LEAD_PLOTS
 from wblib.services._define_figures import INTERNAL_PLOTS
 from wblib.services._define_figures import PLOTS_LEADTIMES
 
-MSS_PLOTS_SIDE_VIEW = ["relative_humidity", "cloud_cover"]
 ALLOWED_LOCATIONS = ["Barbados", "Sal"]
 
 

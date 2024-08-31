@@ -19,18 +19,13 @@ def _flight_HALO_20240831a():
     band = "east"
     airport = sal if band == "east" else bco
 
-    # Load ec satellite track for 
-    ec_track = orcestra.sat.SattrackLoader("EARTHCARE", "2024-08-28", kind="PRE").get_track_for_day(f"{flight_time:%Y-%m-%d}")
-    ec_track = ec_track.sel(time=slice(f"{flight_time:%Y-%m-%d} 06:00", None))
-    ec_lons, ec_lats = ec_track.lon.values, ec_track.lat.values
-
     # Latitudes where we enter and leave the ec track (visually estimated)
     lat_ec_north_in = sal.lat
     lat_ec_south = 1.0
     lat_ec_shuttle_in = 16.0
     lat_ec_shuttle_out = 14.0
 
-# latitude of circle centers
+    # latitude of circle centers
     lat_c_north = 11.5
 
     lat_c_south = 4.0
@@ -44,38 +39,37 @@ def _flight_HALO_20240831a():
     lat_ec_under = 13.0
 
     lat_c_atr = lat_ec_shuttle_out + atr_radius/111e3
-#c_atr_nw = LatLon(17.433,-23.500, label = "c_atr")
-#c_atr_se = LatLon(16.080,-21.715, label = "c_atr")
+    #c_atr_nw = LatLon(17.433,-23.500, label = "c_atr")
+    #c_atr_se = LatLon(16.080,-21.715, label = "c_atr")
 
     c_atr_nw = LatLon(18.58125000,-24.27616667, label = "c_atr")
     c_atr_se = LatLon(15.79318333,-24.82891944, label = "c_atr")
 
-# create ec track
-    ec_north = LatLon(lat_ec_north_in, find_ec_lon(lat_ec_north_in, ec_lons, ec_lats), label = "ec_north")
-    ec_south = LatLon(lat_ec_south, find_ec_lon(lat_ec_south, ec_lons, ec_lats), label = "ec_south")
+    # create ec track
+    ec_north = LatLon(lat_ec_north_in, -21.935451150760013, label = "ec_north")
+    ec_south = LatLon(lat_ec_south, -24.92566436285097, label = "ec_south")
 
-# create shuttle track
-    ec_shuttle_in = LatLon(lat_ec_shuttle_in, find_ec_lon(lat_ec_shuttle_in, ec_lons, ec_lats), label = "ec_shuttle_in")
-    ec_shuttle_out = LatLon(lat_ec_shuttle_out, find_ec_lon(lat_ec_shuttle_out, ec_lons, ec_lats), label = "ec_shuttle_out")
+    # create shuttle track
+    ec_shuttle_in = LatLon(lat_ec_shuttle_in, -22.080011117974056, label = "ec_shuttle_in")
+    ec_shuttle_out = LatLon(lat_ec_shuttle_out, -22.47012621179376, label = "ec_shuttle_out")
 
-# create circles
-    c_north = LatLon(lat_c_north, find_ec_lon(lat_c_north, ec_lons, ec_lats), label = "c_north")
+    # create circles
+    c_north = LatLon(lat_c_north, -22.951509074074075, label = "c_north")
 
-    c_south = LatLon(lat_c_south, find_ec_lon(lat_c_south, ec_lons, ec_lats), label = "c_south")
-    c_south_s = LatLon(lat_c_south_s, find_ec_lon(lat_c_south_s, ec_lons, ec_lats), label = "c_south_s")
-    c_south_n = LatLon(lat_c_south_n, find_ec_lon(lat_c_south_n, ec_lons, ec_lats), label = "c_south_n")
+    c_south = LatLon(lat_c_south, -24.36637270203578, label = "c_south")
+    c_south_s = LatLon(lat_c_south_s, -24.553014008022217, label = "c_south_s")
+    c_south_n = LatLon(lat_c_south_n, -24.179395649490896, label = "c_south_n")
 
-    c_mid = LatLon(lat_c_mid, find_ec_lon(lat_c_mid, ec_lons, ec_lats), label = "c_mid")
-    c_mid_s = LatLon(lat_c_mid_s, find_ec_lon(lat_c_mid_s, ec_lons, ec_lats), label = "c_mid_s")
-    c_mid_n = LatLon(lat_c_mid_n, find_ec_lon(lat_c_mid_n, ec_lons, ec_lats), label = "c_mid_n")
+    c_mid = LatLon(lat_c_mid, -23.663132088861463, label = "c_mid")
+    c_mid_s = LatLon(lat_c_mid_s, -23.851360444307314, label = "c_mid_s")
+    c_mid_n = LatLon(lat_c_mid_n, -23.474363252082693, label = "c_mid_n")
 
-    c_atr = LatLon(lat_c_atr, find_ec_lon(lat_c_atr, ec_lons, ec_lats), label = "c_atr")
+    c_atr = LatLon(lat_c_atr, -22.34417364969168, label = "c_atr")
 
-# ec underpass
-    ec_under = LatLon(lat_ec_under, find_ec_lon(lat_ec_under, ec_lons, ec_lats), label = "ec_under")
-    ec_under = ec_under.assign(time=str(ec_time_at_lat(ec_track, ec_under.lat).values)+"Z")
+    # ec underpass
+    ec_under = LatLon(lat_ec_under, -22.663505709876546, label = "ec_under")
 
-# Define flight track
+    # Define flight track
     outbound_legs = [
      airport.assign(fl=0),
      ec_north.assign(fl=410),
@@ -106,6 +100,6 @@ def _flight_HALO_20240831a():
           point = point.center
     waypoint_centers.append(point)
 
-    path = fp.expand_path(waypoints, dx=10e3)   
+    path = fp.expand_path(waypoints, dx=10e3)
 
     return flight_time, path

@@ -58,7 +58,7 @@ def iwv_itcz_edges(
         subplot_kw={"projection": ccrs.PlateCarree()}
     )
     format_internal_figure_axes(briefing_time, lead_hours, issue_time,
-                                sattracks_fc_time, ax)
+                                sattracks_fc_time, "iwv_itcz_edges", ax)
     _draw_icwv_contours_for_previous_forecasts(forecasts, ax)
     im = _draw_icwv_current_forecast(forecast, ax)
     fig.colorbar(im, label="IWV / kg m$^{-2}$", shrink=0.8)

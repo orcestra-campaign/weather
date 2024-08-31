@@ -5,9 +5,9 @@ import pandas as pd
 import cartopy.crs as ccrs
 
 ORCESTRA_DOMAIN = -65, -5, -10, 25  # lon_min, lon_max, lat_min, lat_max
-
 INTERNAL_FIGURE_SIZE = (15, 8)
-
+INTERNAL_PLOTS = ["iwv_itcz_edges", "sfc_winds", "precip", "cloud_top_height",
+                  "iwv_itcz_edges_enfo"]
 
 def get_valid_time(
     briefing_time: pd.Timestamp, briefing_lead_hours: str
@@ -19,8 +19,8 @@ def get_valid_time(
 
 
 def format_internal_figure_axes(
-    briefing_time, lead_hours, issue_time, sattracks_fc_time, ax,
-    crs=ccrs.PlateCarree()
+    briefing_time, lead_hours, issue_time, sattracks_fc_time, plot_type, ax,
+    crs=ccrs.PlateCarree(),
 ):
     lon_min, lon_max, lat_min, lat_max = ORCESTRA_DOMAIN
     valid_time = get_valid_time(briefing_time, lead_hours)
@@ -36,15 +36,45 @@ def format_internal_figure_axes(
     ax.set_xlabel("Longitude / \N{DEGREE SIGN}E")
     ax.set_xlim([lon_min, lon_max])
     ax.set_ylim([lat_min, lat_max])
-    annotation = (f"Red lines show the 48mm contour of integrated column water\n" +
-                  f"vapour. The darker the line, the newer the forecast.\n"
-                  f"Latest ECMWF IFS forecast initialization: " +
-                  f"{issue_time.strftime('%Y-%m-%d %H:%M %Z')}\n" +
-                  f"Satellite tracks forecast issued on: "
-                  f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M %Z')}")
+    annotation = _set_annotation(issue_time, sattracks_fc_time, plot_type)
     ax.annotate(
         annotation,
         (-26, -9),
         fontsize=8,
         bbox=dict(facecolor="white", edgecolor="none", alpha=1),
     )
+
+
+def _set_annotation(
+        issue_time: pd.Timestamp,
+        sattracks_fc_time: pd.Timestamp,
+        plot_type: str,
+        ) -> str:
+        _validate_plot_type(plot_type)
+        if plot_type == "sfc_winds":
+            return (f"Red line shows the 48mm contour of integrated column " +
+                    f"water vapour.\nLatest ECMWF IFS forecast initialization: " +
+                    f"{issue_time.strftime('%Y-%m-%d %H:%M %Z')}\n" +
+                    f"Satellite tracks forecast issued on: "
+                    f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M %Z')}")
+             
+        elif plot_type == "iwv_itcz_edges_enfo":
+            return (f"Latest ECMWF IFS forecast initialization: " +
+                    f"{issue_time.strftime('%Y-%m-%d %H:%M %Z')}\n" +
+                    f"Satellite tracks forecast issued on: "
+                    f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M %Z')}")
+             
+        else:
+            return (f"Red lines show the 48mm contour of integrated column water\n" +
+                    f"vapour. The darker the line, the newer the forecast.\n"
+                    f"Latest ECMWF IFS forecast initialization: " +
+                    f"{issue_time.strftime('%Y-%m-%d %H:%M %Z')}\n" +
+                    f"Satellite tracks forecast issued on: "
+                    f"{sattracks_fc_time.strftime('%Y-%m-%d %H:%M %Z')}")
+        
+
+def _validate_plot_type(plot_type: str) -> None:
+    """Check that a correct plot type was provided."""
+    msg = f"Incorrect plot_type, should be {INTERNAL_PLOTS}!"
+    if plot_type not in INTERNAL_PLOTS:
+        raise ValueError(msg)

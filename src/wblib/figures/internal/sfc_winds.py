@@ -51,7 +51,7 @@ def sfc_winds(
         facecolor="white",
     )
     format_internal_figure_axes(briefing_time, lead_hours, issue_time,
-                                sattracks_fc_time, ax)
+                                sattracks_fc_time, "sfc_winds", ax)
     _windspeed_plot(windspeed_10m, fig, ax)
     _wind_direction_plot(u10m, v10m, ax)
     _windspeed_contour(windspeed_10m, ax)

@@ -77,6 +77,15 @@ NHC tropical Hovmöller
 ![]({{< meta plots.internal.precip.108h >}}){width=42%}
 :::
 
+## 
+### Ensemble forecasts of moist margins
+::: {layout-nrow=2}
+![{{< meta valid_dates.012h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.012h >}}){width=42%}
+![{{< meta valid_dates.036h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.036h >}}){width=42%}
+![{{< meta valid_dates.060h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.060h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.084h >}}){width=42%}
+:::
+
 # Saharan dust forecast
 ##
 :::: {.columns}

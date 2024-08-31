@@ -130,15 +130,6 @@ def _draw_icwv_enfo_mean_contour(forecasts, ax):
     )
 
 
-    egh.healpix_contour(
-        enfo_mean,
-        ax=ax,
-        levels=[ICWV_ITCZ_THRESHOLD],
-        colors=color,
-        linewidths=linewidth,
-    )
-
-
 if __name__ == "__main__":
     import intake
     from orcestra.meteor import get_meteor_track

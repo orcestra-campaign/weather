@@ -109,8 +109,8 @@ if __name__ == "__main__":
     hifs = HifsForecasts(incatalog)
     briefing_time1 = pd.Timestamp(2024, 9, 1).tz_localize("UTC")
     current_time1 = pd.Timestamp(2024, 9, 1, 10).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 31).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 9, 1).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
-    fig = iwv_itcz_edges(briefing_time1, "108H", current_time1,
+    fig = iwv_itcz_edges(briefing_time1, "156H", current_time1,
                          sattracks_fc_time1, meteor_track, hifs)
     fig.savefig("test_icwv.png")

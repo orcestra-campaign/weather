@@ -27,7 +27,7 @@ def plot_sattrack(ax: Axes,
     splitted_sattracks = _add_orbit_attribute(splitted_sattracks)
     for sattrack in splitted_sattracks:
         if sattrack.attrs['orbit'] in which_orbit:
-            ax.plot(sattrack.lon, sattrack.lat, ls='-', color='blue', lw=1.5,
+            ax.plot(sattrack.lon, sattrack.lat, ls=':', color='black', lw=1.8,
                     transform = ccrs.PlateCarree())
 
 

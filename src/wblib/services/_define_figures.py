@@ -12,7 +12,7 @@ from wblib.figures.internal.icwv import iwv_itcz_edges
 from wblib.figures.internal.sfc_winds import sfc_winds
 from wblib.figures.internal.precip import precip
 from wblib.figures.internal.cld_top_height import cloud_top_height
-from wblib.figures.internal.icwv_ens import iwv_itcz_edges_enfo
+from wblib.figures.internal.icwv_enfo import iwv_itcz_edges_enfo
 
 EXTERNAL_INST_PLOTS = {
     "nhc_surface_analysis_atlantic": nhc_surface_analysis_atlantic,

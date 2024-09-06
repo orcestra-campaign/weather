@@ -38,7 +38,7 @@ Create the expected variable file in the folder with
 ./wbcli.sh variables [BRIEFING_DATE] [LOCATION] [SATTRACKS_FC_DATE]
 ```
 
-where [LOCATION] must be either Sal or Barbados, and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD", where the most recent satellite forecast data can be retrieved [https://sattracks.orcestra-campaign.org](here).
+where [LOCATION] must be either Sal or Barbados, and [SATTRACKS_FC_DATE] must also have the format "YYYYMMDD", where the most recent satellite forecast data can be retrieved [here](https://sattracks.orcestra-campaign.org).
 
 This will create a 'yaml' file in the briefing folder and link the '_variables.yml' file to it.
 

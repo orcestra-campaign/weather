@@ -21,17 +21,28 @@ ANALYSIS_URLS = {
 }
 
 
-def ifs_dust(
+def ifs_dust(*args, **kwargs) -> img.Image:
+    var="composition_duaod550"
+    return _get_aerosol_aod_forecast(*args, var=var, **kwargs)
+
+
+def ifs_total_aerosol(*args, **kwargs) -> img.Image:
+    var=None
+    return _get_aerosol_aod_forecast(*args, var=var, **kwargs)
+
+
+def _get_aerosol_aod_forecast(
         briefing_time: pd.Timestamp,
         lead_hours: str,
         current_time: pd.Timestamp,
-        sattracks_fc_time: pd.Timestamp, 
+        sattracks_fc_time: pd.Timestamp,
+        var: str,
         add_overlay: bool = True
         ) -> img.Image:
     url = ANALYSIS_URLS["ifs_dust"]
     params = _create_ifs_var_params(
         briefing_time, lead_hours, current_time,
-        var="composition_duaod550", projection='classical_west_tropic',
+        var=var, projection='classical_west_tropic',
         )
     headers = {
         'accept': 'application/json',
@@ -216,10 +227,10 @@ def _overlay_ecmwf(
 
 if __name__ == "__main__":
     location = "Sal"
-    briefing_time1 = pd.Timestamp(2024, 8, 26).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 26, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 25).tz_localize("UTC")
-    figure2 = ifs_dust(
+    briefing_time1 = pd.Timestamp(2024, 9, 7).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 9, 7, 12).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 9, 6).tz_localize("UTC")
+    figure2 = ifs_total_aerosol(
         briefing_time1, "003H", current_time1, sattracks_fc_time1
         )
     figure2.save("test.png")

@@ -14,7 +14,7 @@ from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
 import seaborn as sns
 
-from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
+from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE, get_climatology_path
 from wblib.figures.briefing_info import format_internal_figure_axes
 from wblib.figures.hifs import HifsForecasts, get_valid_time
 from wblib.figures.sattrack import plot_sattrack
@@ -162,29 +162,34 @@ def _get_rolling_daily_climatology(
     climatology = _load_rolling_daily_climatology(var)
     return climatology.sel(dayofyear=valid_time_doy)
 
-def _load_rolling_daily_climatology(var: str="tcwv"):
-    cat = intake.open_catalog("https://tcodata.mpimet.mpg.de/internal.yaml")
-    hera5 = cat.HERA5(time="P1D").to_dask().pipe(egh.attach_coords)[var]
-    hera5_subsample = hera5.where(
-        hera5["time"] < np.datetime64("2023-01-01"), drop=True
-        )
-    hera5_running_mean = hera5_subsample.rolling(time=7, center=True).mean()
-    hera5_running_mean_reduced = hera5_running_mean.sel(
-        time=hera5_running_mean['time'].dt.month.isin([9]))
-    return hera5_running_mean_reduced.groupby('time.dayofyear').mean()
+def _load_rolling_daily_climatology(var: str = "tcwv"):
+    climatology_path = get_climatology_path()
+    climatology = xr.open_dataset(climatology_path)
+    return climatology[var]
 
 
 if __name__ == "__main__":
-    import intake
-    from orcestra.meteor import get_meteor_track
-    
-    CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
-    incatalog = intake.open_catalog(CATALOG_URL)
-    hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 31).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 31, 10).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 31).tz_localize("UTC")
-    meteor_track = get_meteor_track(deduplicate_latlon=True)
-    fig = iwv_itcz_edges_enfo(briefing_time1, "12H", current_time1,
-                              sattracks_fc_time1, meteor_track, hifs)
-    fig.savefig("test_icwv_enfo.png")
+    def main():
+        import intake
+        from orcestra.meteor import get_meteor_track
+        
+        CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
+        incatalog = intake.open_catalog(CATALOG_URL)
+        hifs = HifsForecasts(incatalog)
+        briefing_time1 = pd.Timestamp(2024, 9, 7).tz_localize("UTC")
+        current_time1 = pd.Timestamp(2024, 9, 7, 10).tz_localize("UTC")
+        sattracks_fc_time1 = pd.Timestamp(2024, 9, 6).tz_localize("UTC")
+        meteor_track = get_meteor_track(deduplicate_latlon=True)
+        for lead_time in ["012h"]:#, "036h", "060h", "084h", "108h"]:
+            fig = iwv_itcz_edges_enfo(briefing_time1, "12H", current_time1,
+                                    sattracks_fc_time1, meteor_track, hifs)
+            fig.savefig(f"test_{lead_time}.png")        
+
+        import cProfile, pstats
+        profiler = cProfile.Profile()
+        profiler.enable()
+        main()
+        profiler.disable()
+        stats = pstats.Stats(profiler).sort_stats('ncalls')
+        stats.print_stats()
+        stats.dump_stats("profile.log")

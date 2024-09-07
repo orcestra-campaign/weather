@@ -15,8 +15,6 @@ FORECAST_PUBLISH_LAG = "9h"
 FORECAST_PUBLISH_FREQ = "12h"
 FORECAST_QUERY_MAX_ATTEMPS = 6  # last 6 initializations
 ALLOWED_FORECAST_TYPES = ["oper", "enfo"]  # operational run, ensemble forecast
-
-
 class HifsForecasts:
     def __init__(self, catalog: intake.Catalog):
         self.catalog = catalog
@@ -142,7 +140,7 @@ def _get_dates_of_previous_forecasts(
     issue_time_reference: pd.Timestamp,
     number: int = 5,
 ) -> list[pd.Timestamp]:
-    fc_interval = pd.Timedelta("12H")
+    fc_interval = pd.Timedelta("12h")
     dates = [(issue_time_reference - i * fc_interval)
              for i in range(0, number)]
     dates.reverse()

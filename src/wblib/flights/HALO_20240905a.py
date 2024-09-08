@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import orcestra.sat
 import orcestra.flightplan as fp
-from orcestra.flightplan import sal, bco, LatLon, IntoCircle, find_ec_lon
+from orcestra.flightplan import sal, bco, LatLon, IntoCircle
 
 def ec_time_at_lat(ec_track, lat):
     e = np.datetime64("2024-08-01")
@@ -12,15 +12,7 @@ def ec_time_at_lat(ec_track, lat):
 
 def _flight_HALO_20240905a():
     flight_time = pd.Timestamp(2024, 9, 5, 12, 0, 0).tz_localize("UTC")
-
     radius = 130e3
-
-    # Load ec satellite track for 
-    ec_track = orcestra.sat.SattrackLoader(
-        "EARTHCARE", "2024-09-02", kind="PRE", roi="BARBADOS"
-        ).get_track_for_day(f"{flight_time:%Y-%m-%d}")
-    ec_track = ec_track.sel(time=slice(f"{flight_time:%Y-%m-%d} 06:00", None))
-    ec_lons, ec_lats = ec_track.lon.values, ec_track.lat.values
 
     # Latitudes where we enter, underfly, and leave the ec track (visually estimated)
     lat_ec_north = bco.lat
@@ -28,12 +20,11 @@ def _flight_HALO_20240905a():
     lat_ec_south = 9.0
 
     # create ec track
-    ec_north = LatLon(lat_ec_north, find_ec_lon(lat_ec_north, ec_lons, ec_lats), label = "ec_north")
-    ec_south = LatLon(lat_ec_south, find_ec_lon(lat_ec_south, ec_lons, ec_lats), label = "ec_south")
+    ec_north = LatLon(lat_ec_north, -50.26233977623457, label = "ec_north")
+    ec_south = LatLon(lat_ec_south, -51.04131051819864, label = "ec_south")
 
     # ec underpass
-    ec_under = LatLon(lat_ec_under, find_ec_lon(lat_ec_under, ec_lons, ec_lats), label = "ec_under")
-    ec_under = ec_under.assign(time=str(ec_time_at_lat(ec_track, ec_under.lat).values)+"Z")
+    ec_under = LatLon(lat_ec_under, -50.85166738660907, label = "ec_under")
 
     # create circles
     lat_circ = lat_ec_south
@@ -41,7 +32,7 @@ def _flight_HALO_20240905a():
     c_east = LatLon(lat_circ, -35.0, label = "c_east")
     c_center = LatLon(lat_circ, -40.0, label = "c_center")
     lat_c_west = 12.0
-    c_west = LatLon(lat_c_west, find_ec_lon(lat_c_west, ec_lons, ec_lats), label = "c_west")
+    c_west = LatLon(lat_c_west, -50.46996994754705, label = "c_west")
 
     # extra waypoints
     lat_circ_alt = lat_ec_south - 1.0

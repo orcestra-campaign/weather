@@ -17,16 +17,17 @@ def plot_sattrack(ax: Axes,
                   satellite: str = "EARTHCARE",
                   which_orbit: list = ["ascending"],
                   kind: str = "PRE",
+                  roi: str = "BARBADOS",
                   ):
     valid_time = get_valid_time(briefing_time, lead_hours)
     valid_time = valid_time.tz_localize(None).date()
     sattracks = SattrackLoader(satellite, sattracks_fc_time, kind=kind,
-                               ).get_track_for_day(valid_time)
+                               roi=roi).get_track_for_day(valid_time)
     splitted_sattracks = _split_sattracks(sattracks)
     splitted_sattracks = _add_orbit_attribute(splitted_sattracks)
     for sattrack in splitted_sattracks:
         if sattrack.attrs['orbit'] in which_orbit:
-            ax.plot(sattrack.lon, sattrack.lat, ls='-', color='blue', lw=1.5,
+            ax.plot(sattrack.lon, sattrack.lat, ls=':', color='black', lw=1.8,
                     transform = ccrs.PlateCarree())
 
 

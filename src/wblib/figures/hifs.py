@@ -9,12 +9,15 @@ import intake
 import easygems.healpix as egh
 
 from wblib.figures.briefing_info import get_valid_time
+from wblib.figures.healpy_utils import load_forecast_datarray
 
 
 FORECAST_PUBLISH_LAG = "9h"
 FORECAST_PUBLISH_FREQ = "12h"
 FORECAST_QUERY_MAX_ATTEMPS = 6  # last 6 initializations
 ALLOWED_FORECAST_TYPES = ["oper", "enfo"]  # operational run, ensemble forecast
+
+
 class HifsForecasts:
     def __init__(self, catalog: intake.Catalog):
         self.catalog = catalog
@@ -41,6 +44,7 @@ class HifsForecasts:
         valid_time = get_valid_time(briefing_time, lead_hours)
         valid_time = valid_time.tz_localize(None)
         forecast = forecast.sel(time=valid_time)
+        forecast = load_forecast_datarray(forecast)
         return issue_time, forecast
 
     def get_previous_forecasts(
@@ -70,6 +74,7 @@ class HifsForecasts:
                 differentiate_unit,
             )
             forecast = forecast.sel(time=valid_time)
+            forecast = load_forecast_datarray(forecast)
             yield issue_time, forecast
 
     def _get_forecast(

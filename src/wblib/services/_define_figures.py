@@ -8,6 +8,7 @@ from wblib.figures.external.noaa import nhc_seven_days_outlook
 from wblib.figures.external.noaa import nhc_surface_analysis_atlantic
 from wblib.figures.external.ecmwf import ifs_meteogram
 from wblib.figures.external.ecmwf import ifs_dust
+from wblib.figures.external.ecmwf import ifs_total_aerosol
 from wblib.figures.internal.icwv import iwv_itcz_edges
 from wblib.figures.internal.sfc_winds import sfc_winds
 from wblib.figures.internal.precip import precip
@@ -25,7 +26,7 @@ EXTERNAL_INST_PLOTS = {
 }
 
 EXTERNAL_LEAD_PLOTS = {
-    "dust": ifs_dust,
+    "total_aerosol": ifs_total_aerosol,
 }
 
 INTERNAL_PLOTS = {

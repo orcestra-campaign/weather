@@ -44,7 +44,7 @@ def current_satellite_image_vis(
         meteor_track: xr.Dataset,
         ) -> Figure:
     fig = _get_satellite_image(
-        current_time, briefing_time, sattracks_fc_time, meteor_track, "visible"
+        current_time, briefing_time, meteor_track, "visible"
         )
     return fig
 
@@ -57,27 +57,25 @@ def current_satellite_image_ir(
         meteor_track: xr.Dataset,
         ) -> Figure:
     fig = _get_satellite_image(
-        current_time, briefing_time, sattracks_fc_time, meteor_track, "infrared")
+        current_time, briefing_time, meteor_track, "infrared")
     return fig
 
 
 def _get_satellite_image(
     current_time: pd.Timestamp,
     briefing_time: pd.Timestamp,
-    sattracks_fc_time: pd.Timestamp,
     meteor_track: xr.Dataset,
     plot_type: str,
     ) -> plt.Figure:
     query_time_str = _get_query_date_string(current_time)
     goes_image = _get_goes_image_datarray(plot_type, query_time_str)
-    fig = _get_figure(briefing_time, sattracks_fc_time, meteor_track,
+    fig = _get_figure(briefing_time, meteor_track,
                       query_time_str, goes_image)
     return fig
 
 
 def _get_figure(
         briefing_time: pd.Timestamp,
-        sattracks_fc_time: pd.Timestamp,
         meteor_track: xr.Dataset,
         query_time_str: str,
         goes_image: xr.DataArray,
@@ -104,8 +102,6 @@ def _get_figure(
         extent=extent,
         origin="upper",
     )
-    plot_sattrack(ax, briefing_time, "00H", sattracks_fc_time,
-                  which_orbit="descending")
     for flight_id in FLIGHTS:
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00", ax,

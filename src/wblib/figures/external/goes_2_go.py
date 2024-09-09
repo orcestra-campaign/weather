@@ -3,6 +3,7 @@ import matplotlib
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
+import numpy as np
 import pandas as pd
 import xarray as xr
 import seaborn as sns
@@ -101,10 +102,17 @@ def _plot_goes2go_satimage(
     goes_variable = _create_GOES_variable(goes_object, goes_variable)
     ax.imshow(goes_variable, transform=goes_object.rgb.crs, regrid_shape=3500,
               interpolation='nearest') 
-    ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False,
-                 alpha = 0.25)
-    ax.set_extent(ORCESTRA_DOMAIN)
-    plt.title(f"Valid time: {str(goes_object.t.values)[:19]} UTC", pad=15)
+    ax.gridlines(alpha = 0.25)
+    ax.coastlines(lw=1.0, color="w")
+    ax.set_title(f"Valid time: {str(goes_object.t.values)[:19]} UTC", pad=15)
+    lon_min, lon_max, lat_min, lat_max = ORCESTRA_DOMAIN
+    ax.set_extent([lon_min, lon_max, lat_min, lat_max])
+    ax.set_xticks(np.round(np.linspace(-70, 10, 9), 0), crs=ccrs.PlateCarree())
+    ax.set_yticks(np.round(np.linspace(-20, 20, 5), 0), crs=ccrs.PlateCarree())
+    ax.set_ylabel("Latitude / \N{DEGREE SIGN}N")
+    ax.set_xlabel("Longitude / \N{DEGREE SIGN}E")
+    ax.set_xlim([lon_min, lon_max])
+    ax.set_ylim([lat_min, lat_max])    
     for flight_id in FLIGHTS:
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00H", ax,
@@ -112,7 +120,6 @@ def _plot_goes2go_satimage(
     plot_meteor_position(meteor_time, ax, meteor=meteor_track)
     matplotlib.rc_file_defaults()
     return fig
-
 
 if __name__ == "__main__":
     from orcestra.meteor import get_meteor_track
@@ -123,11 +130,11 @@ if __name__ == "__main__":
     current_time = pd.Timestamp(2024, 9, 9, 14, 00).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
     current_location = "Barbados"
-    #fig = latest_goes2go_image(
-    #    current_time, briefing_time, sattracks_fc_time, current_location, meteor_track
-    #    )
-    #fig.savefig("test1.png")
     fig = yesterdays_goes2go_image(
         current_time, briefing_time, sattracks_fc_time, current_location, meteor_track
         )
+    fig.savefig("test1.png")    
+    fig = latest_goes2go_image(
+       current_time, briefing_time, sattracks_fc_time, current_location, meteor_track
+       )
     fig.savefig("test2.png")

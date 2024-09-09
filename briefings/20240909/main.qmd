@@ -118,7 +118,7 @@ NHC tropical Hovmöller
 ## Summary
 - Today's flight:
   - ITCZ widens east of the flight path. Northern circle placed north and west of edges with strong ICWV gradients.
-  - Middle circle likely to sample the doldrums.
+  - Middle circle may sample the doldrums.
   - Middle and perhaps northern circles prone to strong convective activity. 
 
 - Next flight:

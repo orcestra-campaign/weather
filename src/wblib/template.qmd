@@ -60,12 +60,12 @@ NHC tropical Hovmöller
 :::
 
 ## 
-### {{< meta valid_dates.087h >}}
+### {{< meta valid_dates.084h >}}
 ::: {layout-nrow=2}
-![]({{< meta plots.internal.iwv_itcz_edges.087h >}}){width=42%}
-![]({{< meta plots.internal.sfc_winds.087h >}}){width=42%}
-![]({{< meta plots.internal.cloud_top_height.087h >}}){width=42%}
-![]({{< meta plots.internal.precip.087h >}}){width=42%}
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.084h >}}){width=42%}
+![]({{< meta plots.internal.precip.084h >}}){width=42%}
 :::
 
 ## 
@@ -83,7 +83,7 @@ NHC tropical Hovmöller
 ![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.015h >}}){width=42%}
 ![{{< meta valid_dates.039h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.039h >}}){width=42%}
 ![{{< meta valid_dates.063h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.063h >}}){width=42%}
-![{{< meta valid_dates.087h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.087h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.084h >}}){width=42%}
 :::
 
 # Total aerosol optical depth
@@ -97,7 +97,7 @@ NHC tropical Hovmöller
 
 ![{{< meta valid_dates.063h >}}]({{< meta plots.external_lead.total_aerosol.063h >}}){width=75%}
 
-![{{< meta valid_dates.087h >}}]({{< meta plots.external_lead.total_aerosol.087h >}}){width=75%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.external_lead.total_aerosol.084h >}}){width=75%}
 :::
 :::
 ::: {.column width="7%"}

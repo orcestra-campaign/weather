@@ -87,7 +87,7 @@ NHC tropical Hovmöller
 :::
 
 ## 
-### Ensemble forecasts of moist margins
+### Horizontal surface wind convergence
 ::: {layout-nrow=2}
 ![{{< meta valid_dates.015h >}}]({{< meta plots.internal.sfc_convergence.015h >}}){width=42%}
 ![{{< meta valid_dates.039h >}}]({{< meta plots.internal.sfc_convergence.039h >}}){width=42%}

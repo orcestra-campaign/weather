@@ -9,7 +9,7 @@ import cartopy.crs as ccrs
 ORCESTRA_DOMAIN = -65, -5, -10, 25  # lon_min, lon_max, lat_min, lat_max
 INTERNAL_FIGURE_SIZE = (15, 8)
 INTERNAL_PLOTS = ["iwv_itcz_edges", "sfc_winds", "precip", "cloud_top_height",
-                  "iwv_itcz_edges_enfo"]
+                  "iwv_itcz_edges_enfo", "sfc_convergence"]
 CLIMATOLOGY_FILE = "figures/data/hera5_climatology.nc"
 
 

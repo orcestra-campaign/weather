@@ -22,10 +22,22 @@ from wblib.flights.flighttrack import get_python_flightdata
 from wblib.flights._define_flights import FLIGHTS
 from wblib.figures.meteor_pos import plot_meteor_latest_position_in_ifs_forecast
 
+CATALOG_ICWV_CODE = "tcwv"
 FORECAST_PUBLISH_LAG = "6h"
 CONV_MAX = 5e-5  # m/s
 CONV_MIN = -5e-5  # m/s
 CONV_COLORMAP = "bwr"
+
+REFDATE_COLORBAR_TCWV = [
+    "#ff0000",
+    "#bf0000",
+    "#800000",
+    "#400000",
+    "#000000"
+] # the ordering of the colors indicate the latest available refdate
+REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
+
+TCWV_THRESHOLD = 48  # mm
 
 def sfc_convergence(
     briefing_time: pd.Timestamp,
@@ -47,6 +59,15 @@ def sfc_convergence(
     conv_10m = _compute_conv(u10m.isel(cell = ring_index)
                              , v10m.isel(cell = ring_index), lat.isel(cell = ring_index), nside)
     nest_index = _ring2nest_index(conv_10m, nside)
+
+    tcwv_forecasts = hifs.get_previous_forecasts(
+        CATALOG_ICWV_CODE,
+        briefing_time,
+        lead_hours,
+        current_time,
+        issue_time,
+        number=5,
+    )
     # plotting
     sns.set_context("talk")
     fig, ax = plt.subplots(
@@ -57,6 +78,7 @@ def sfc_convergence(
     format_internal_figure_axes(briefing_time, lead_hours, issue_time,
                                 sattracks_fc_time, "sfc_convergence", ax)
     _windconv_plot(conv_10m[nest_index], fig, ax)
+    _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax)
 
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
@@ -99,6 +121,20 @@ def _windconv_plot(conv_10m, fig, ax):
         nest=False
     )
     fig.colorbar(im, label="10m wind convergence / s$^{-1}$", shrink=0.8)
+
+def _draw_tcwv_contours_for_previous_forecasts(tcwv_forecasts, ax):
+    issued_times = []
+    for i, (issued_time_, tcwv_forecasts) in enumerate(tcwv_forecasts):
+        color = REFDATE_COLORBAR_TCWV[i]
+        linewidth = REFDATE_LINEWIDTH[i]
+        im = egh.healpix_contour(
+            tcwv_forecasts,
+            ax=ax,
+            levels=[TCWV_THRESHOLD],
+            colors=color,
+            linewidths=linewidth,
+        )
+        issued_times.append(issued_time_)
 
 if __name__ == "__main__":
     import intake

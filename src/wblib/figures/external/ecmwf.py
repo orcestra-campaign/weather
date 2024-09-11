@@ -226,11 +226,11 @@ def _overlay_ecmwf(
     return img.open(buf)
 
 if __name__ == "__main__":
-    location = "Sal"
-    briefing_time1 = pd.Timestamp(2024, 9, 7).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 9, 7, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 9, 6).tz_localize("UTC")
-    figure2 = ifs_total_aerosol(
-        briefing_time1, "003H", current_time1, sattracks_fc_time1
+    location = "Barbados"
+    briefing_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 9, 11, 10, 25).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
+    figure = ifs_total_aerosol(
+        briefing_time1, "132H", current_time1, sattracks_fc_time1
         )
-    figure2.save("test.png")
+    figure.save("test_ifs_total_aerosol_132H.png")

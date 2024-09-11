@@ -7,8 +7,10 @@ import pandas as pd
 import xarray as xr
 import intake
 import easygems.healpix as egh
+from functools import lru_cache
 
 from wblib.figures.briefing_info import get_valid_time
+from wblib.figures.healpy_utils import load_forecast_datarray
 
 
 FORECAST_PUBLISH_LAG = "9h"
@@ -32,17 +34,17 @@ class HifsForecasts:
         differentiate_unit: str = "s",
     ) -> tuple[pd.Timestamp, xr.DataArray]:
         _validate_forecast_type(forecast_type)
+        valid_time = get_valid_time(briefing_time, lead_hours)
+        valid_time = valid_time.tz_localize(None)        
         issue_time, forecast = self._get_forecast(
             variable,
             briefing_time,
+            valid_time,
             current_time,
             forecast_type,
             differentiate,
             differentiate_unit,
         )
-        valid_time = get_valid_time(briefing_time, lead_hours)
-        valid_time = valid_time.tz_localize(None)
-        forecast = forecast.sel(time=valid_time)
         return issue_time, forecast
 
     def get_previous_forecasts(
@@ -66,18 +68,21 @@ class HifsForecasts:
             issue_time, forecast = self._get_forecast(
                 variable,
                 briefing_time,
+                valid_time,
                 current_time,
                 forecast_type,
                 differentiate,
                 differentiate_unit,
             )
-            forecast = forecast.sel(time=valid_time)
             yield issue_time, forecast
 
+    
+    @lru_cache
     def _get_forecast(
         self,
         variable,
         briefing_time,
+        valid_time,
         current_time,
         forecast_type,
         differentiate,
@@ -91,6 +96,8 @@ class HifsForecasts:
             forecast = _accumulated_to_instantaneous(
                 issue_time, forecast, differentiate_unit
             )
+        forecast = forecast.sel(time=valid_time)
+        forecast = load_forecast_datarray(forecast)            
         return issue_time, forecast
 
 
@@ -142,7 +149,7 @@ def _get_dates_of_previous_forecasts(
     issue_time_reference: pd.Timestamp,
     number: int = 5,
 ) -> list[pd.Timestamp]:
-    fc_interval = pd.Timedelta("12H")
+    fc_interval = pd.Timedelta("12h")
     dates = [(issue_time_reference - i * fc_interval)
              for i in range(0, number)]
     dates.reverse()

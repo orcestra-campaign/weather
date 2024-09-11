@@ -37,4 +37,4 @@ INTERNAL_PLOTS = {
     "iwv_itcz_edges_enfo": iwv_itcz_edges_enfo,
 }
 
-PLOTS_LEADTIMES = ["015h", "039h", "063h", "087h", "108h"]
+PLOTS_LEADTIMES = ["015h", "039h", "063h", "084h", "108h"]

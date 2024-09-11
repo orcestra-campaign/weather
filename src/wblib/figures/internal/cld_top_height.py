@@ -157,11 +157,11 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 8, 23).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 8, 23, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 8, 21).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 9, 11, 9, 30).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
     fig = cloud_top_height(
-        briefing_time1, "12H", current_time1, sattracks_fc_time1,
+        briefing_time1, "156H", current_time1, sattracks_fc_time1,
         meteor_track, hifs)
-    fig.savefig("test_cld_top_height.png")
+    fig.savefig("test_cld_top_height_156H.png")

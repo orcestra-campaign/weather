@@ -24,6 +24,7 @@ dependencies:
   - xarray
   - zarr
   - pip
+  - s3fs>=2024.6.1  # needed for goes2go
   - pip:
     - easygems
     - orcestra

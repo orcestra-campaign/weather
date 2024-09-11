@@ -1,5 +1,7 @@
 """Functions to work with IFS forecasts in healpix format."""
 
+import wblib
+from importlib import resources
 import numpy as np
 import pandas as pd
 import cartopy.crs as ccrs
@@ -8,6 +10,13 @@ ORCESTRA_DOMAIN = -65, -5, -10, 25  # lon_min, lon_max, lat_min, lat_max
 INTERNAL_FIGURE_SIZE = (15, 8)
 INTERNAL_PLOTS = ["iwv_itcz_edges", "sfc_winds", "precip", "cloud_top_height",
                   "iwv_itcz_edges_enfo"]
+CLIMATOLOGY_FILE = "figures/data/hera5_climatology.nc"
+
+
+def get_climatology_path() -> str:
+    climatology_path = str(resources.files(wblib) / CLIMATOLOGY_FILE)
+    return climatology_path
+
 
 def get_valid_time(
     briefing_time: pd.Timestamp, briefing_lead_hours: str

@@ -105,11 +105,14 @@ NHC tropical Hovmöller
 # Total aerosol optical depth
 ##
 :::: {.columns}
-::: {.column  width="93%"}
+::: {.column width="93%"}
 ::: {layout-nrow=2}
 ![{{< meta valid_dates.015h >}}]({{< meta plots.external_lead.total_aerosol.015h >}}){width=75%}
+
 ![{{< meta valid_dates.039h >}}]({{< meta plots.external_lead.total_aerosol.039h >}}){width=75%}
+
 ![{{< meta valid_dates.063h >}}]({{< meta plots.external_lead.total_aerosol.063h >}}){width=75%}
+
 ![{{< meta valid_dates.084h >}}]({{< meta plots.external_lead.total_aerosol.084h >}}){width=75%}
 :::
 :::

@@ -9,7 +9,6 @@
 
 # quarto build artefacts
 .jupyter_cache
-*.ipynb
 MPG_Minerva_mpg-green.png
 
 # specific libraries

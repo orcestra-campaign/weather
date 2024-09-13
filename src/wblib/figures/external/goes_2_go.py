@@ -117,7 +117,8 @@ def _plot_goes2go_satimage(
         flight = get_python_flightdata(flight_id)
         plot_python_flighttrack(flight, briefing_time, "00H", ax,
                                 color="C1", show_waypoints=False)
-    plot_meteor_position(meteor_time, ax, meteor=meteor_track)
+    plot_meteor_position(meteor_time.tz_localize(None), ax, 
+                         meteor=meteor_track)
     matplotlib.rc_file_defaults()
     return fig
 

@@ -6,6 +6,8 @@
 
 *.pyc
 *.egg-info
+*.ipynb
+!analyses/*.ipynb
 
 # quarto build artefacts
 .jupyter_cache

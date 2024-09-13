@@ -54,3 +54,9 @@ plots:
       063h: fig/internal/IFS_20240913+063h_iwv_itcz_edges_enfo.png
       084h: fig/internal/IFS_20240913+084h_iwv_itcz_edges_enfo.png
       108h: fig/internal/IFS_20240913+108h_iwv_itcz_edges_enfo.png
+    sfc_convergence:
+      015h: fig/internal/IFS_20240913+015h_sfc_convergence.png
+      039h: fig/internal/IFS_20240913+039h_sfc_convergence.png
+      063h: fig/internal/IFS_20240913+063h_sfc_convergence.png
+      084h: fig/internal/IFS_20240913+084h_sfc_convergence.png
+      108h: fig/internal/IFS_20240913+108h_sfc_convergence.png

@@ -116,4 +116,23 @@ NHC tropical Hovmöller
 ::::
 
 ## Summary
-Summary of the weather briefing.
+- Tomorrows's flight:
+  - High likelihood to sample a well-defined ITCZ.
+  - Likely to sample the doldrums on the norther circle.
+  - Northern circle likely to be within the ITCZ. Yet, ITCZ moist margin is still uncertain.
+
+- Monday's flight:
+  - Still high uncertainty of moist margins due to TD Seven.
+  - Souther moist margin better defined in latest forecasts.
+
+
+# Supporting figures
+
+## 
+### Horizontal surface wind convergence
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.sfc_convergence.015h >}}){width=42%}
+![{{< meta valid_dates.039h >}}]({{< meta plots.internal.sfc_convergence.039h >}}){width=42%}
+![{{< meta valid_dates.063h >}}]({{< meta plots.internal.sfc_convergence.063h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.sfc_convergence.084h >}}){width=42%}
+:::

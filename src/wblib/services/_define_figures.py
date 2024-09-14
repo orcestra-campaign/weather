@@ -39,4 +39,4 @@ INTERNAL_PLOTS = {
     "sfc_convergence": sfc_convergence
 }
 
-PLOTS_LEADTIMES = ["015h", "039h", "063h", "084h", "108h"]
+PLOTS_LEADTIMES = ["015h", "039h", "063h", "084h", "108h", "132h"]

@@ -14,6 +14,7 @@ from wblib.figures.internal.sfc_winds import sfc_winds
 from wblib.figures.internal.precip import precip
 from wblib.figures.internal.cld_top_height import cloud_top_height
 from wblib.figures.internal.icwv_enfo import iwv_itcz_edges_enfo
+from wblib.figures.internal.precip_enfo import precip_enfo
 from wblib.figures.internal.sfc_convergence import sfc_convergence
 
 EXTERNAL_INST_PLOTS = {
@@ -36,7 +37,8 @@ INTERNAL_PLOTS = {
     "precip": precip,
     "cloud_top_height": cloud_top_height,
     "iwv_itcz_edges_enfo": iwv_itcz_edges_enfo,
-    "sfc_convergence": sfc_convergence
+    "precip_enfo": precip_enfo,
+    "sfc_convergence": sfc_convergence,
 }
 
 PLOTS_LEADTIMES = ["015h", "039h", "063h", "084h", "108h", "132h"]

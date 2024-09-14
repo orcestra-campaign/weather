@@ -2,11 +2,11 @@ import pandas as pd
 import orcestra.sat
 from orcestra.flightplan import (
     bco,
-    point_on_track,
     LatLon,
     IntoCircle,
     FlightPlan,
 )
+import datetime
 
 
 def _flight_HALO_20240914a():
@@ -15,24 +15,18 @@ def _flight_HALO_20240914a():
     airport = bco
     radius = 72e3 * 1.852
 
-    # Load satellite tracks
-    ec_fcst_time = "2024-09-12"
-    ec_track = (
-        orcestra.sat.SattrackLoader(
-            "EARTHCARE", ec_fcst_time, kind="PRE", roi="BARBADOS"
-        )
-        .get_track_for_day(f"{flight_time:%Y-%m-%d}")
-        .sel(time=slice(f"{flight_time:%Y-%m-%d} 14:00", None))
-    )
-
     # Create elements of track
-    ec_south = point_on_track(ec_track, lat=5.0).assign(label="ec_south")
+    ec_south = LatLon(lat=5.0, lon=-50.81198296296296, label='ec_south',
+                      fl=None, time=None, note=None)
 
     # circle centers
-    c_south = point_on_track(ec_track, lat=6.75).assign(label="c_south")
-    c_mid = point_on_track(ec_track, lat=9.7).assign(label="c_mid")
+    c_south = LatLon(lat=6.75, lon=-50.48396944444445, label='c_south', fl=None,
+                     time=None, note=None)
+    c_mid = LatLon(lat=9.7, lon=-49.92710774930534, label='c_mid', fl=None,
+                   time=None, note=None)
     c_south2 = c_south.towards(c_mid, distance=radius).assign(label="c_south2")
-    c_north = point_on_track(ec_track, lat=12.75).assign(label="c_north")
+    c_north = LatLon(lat=12.75, lon=-49.344415683853036, label='c_north',
+                     fl=None, time=None, note=None)
     # circle in / out (not necessary but nice to have for more waypoints
     cn_out = c_north.towards(c_mid, distance=radius).assign(label="cn_out")
     cm_out = c_mid.towards(c_south, distance=radius).assign(label="cm_out")
@@ -66,9 +60,11 @@ def _flight_HALO_20240914a():
     )
 
     xlat = c_mid.towards(cn_out, fraction=1 / 6).lat
-    ec_under = point_on_track(ec_track, lat=xlat, with_time=True).assign(
-        label="ec_under", note="meet EarthCARE"
-    )
+    ec_under = LatLon(lat=10.010980712117739, lon=-49.868062926338105,
+                      label='ec_under', fl=None,
+                      time=datetime.datetime(2024, 9, 14, 17, 25, 35, 407705,
+                                             tzinfo=datetime.timezone.utc),
+                                             note='meet EarthCARE')
 
     # Additional Waypoints
 

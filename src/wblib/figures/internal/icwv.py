@@ -108,9 +108,9 @@ if __name__ == "__main__":
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
     briefing_time1 = pd.Timestamp(2024, 9, 13).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 9, 13, 22).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 9, 13, 12).tz_localize("UTC")
     sattracks_fc_time1 = pd.Timestamp(2024, 9, 13).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
-    fig = iwv_itcz_edges(briefing_time1, "84H", current_time1,
+    fig = iwv_itcz_edges(briefing_time1, "36H", current_time1,
                          sattracks_fc_time1, meteor_track, hifs)
     fig.savefig("test_icwv_156H.png")

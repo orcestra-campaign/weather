@@ -50,8 +50,12 @@ def _flight_HALO_20240914a():
         label="cw_out"
     )
 
-    dir_opt = LatLon(lat=7, lon=-54).assign(label="wp1")
-    add_wp = dir_opt.towards(c_south, fraction=0.6).assign(label="wp2")
+    dir_opt = LatLon(lon=-54.7366666666667, lat=9.23666666666667).assign(
+        label="wp1"
+    )  # LatLon(lat=7 , lon= -54)
+    add_wp = LatLon(lon=-54, lat=8.6183).assign(
+        label="wp2"
+    )  # dir_opt.towards(c_south, fraction=0.6)
 
     # intersection
     int_ss1, int_ss2 = IntoCircle(c_south, radius, 360).get_intersect(

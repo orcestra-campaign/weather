@@ -12,18 +12,20 @@ import warnings
 import matplotlib
 from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
+from matplotlib.colors import BoundaryNorm
+import cmocean as cmo
 import seaborn as sns
 
 from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
 from wblib.figures.briefing_info import format_internal_figure_axes
-from wblib.figures.hifs import HifsForecasts, get_valid_time
+from wblib.figures.hifs import HifsForecasts
 from wblib.figures.sattrack import plot_sattrack
 from wblib.flights.flighttrack import plot_python_flighttrack
 from wblib.flights.flighttrack import get_python_flightdata
 from wblib.flights._define_flights import FLIGHTS
 from wblib.figures.meteor_pos import plot_meteor_latest_position_in_ifs_forecast
 
-CONTOUR_THRESHOLD = 50  # mm
+CONTOUR_THRESHOLD = 30  # mm
 CATALOG_VARIABLE = "tp"
 
 def precip_enfo(
@@ -45,10 +47,7 @@ def precip_enfo(
     )
     forecast_enfo = 1000 * forecast_enfo
     _validate_issue_times(issue_time_oper, issue_time_enfo)
-    #climatology = _get_rolling_daily_climatology(
-    #    CATALOG_VARIABLE, briefing_time, lead_hours
-    #    )
-    #climatology = 1000 * climatology
+
     # plot
     sns.set_context("talk")
     fig, ax = plt.subplots(
@@ -57,10 +56,12 @@ def precip_enfo(
     )
     format_internal_figure_axes(briefing_time, lead_hours, issue_time_oper,
                                 sattracks_fc_time, "iwv_itcz_edges_enfo", ax)
-    plot1 = _draw_icwv_enfo_contours(forecast_enfo, ax)
+    plot1 = _draw_icwv_enfo_prob(forecast_enfo, ax)
     plot2 = _draw_icwv_enfo_mean_contour(forecast_enfo, ax)
     plot3 = _draw_icwv_oper_contour(forecast_oper, ax)
-    #plot4 = _draw_icwv_ERA5_contour(climatology, ax)
+    fig.colorbar(
+        plot1, label=f"(Probability of 3h-mean precip.\nrate > {CONTOUR_THRESHOLD}mm/day) / %",
+        shrink=0.8)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
     for flight_id in FLIGHTS:
@@ -70,7 +71,7 @@ def precip_enfo(
     plot_meteor_latest_position_in_ifs_forecast(
         briefing_time, lead_hours, ax, meteor=meteor_track)
     
-    handles = [plot1, plot2, plot3]#, plot4]
+    handles = [plot2, plot3]
     plt.legend(handles=handles, fontsize=8, loc="lower left", frameon=False)
     matplotlib.rc_file_defaults()
     return fig
@@ -89,6 +90,33 @@ def _validate_issue_times(
         warnings.warn(msg)
 
 
+def _draw_icwv_enfo_prob(
+        forecast_enfo: xr.Dataset,
+        ax
+        ):
+    TP_STEPS = [0, 5, 10, 20, 50, 100]
+    TP_COLORMAP = cmo.cm.tempo
+
+    probability = _get_ensemble_probabilty(forecast_enfo, CONTOUR_THRESHOLD)
+    im = egh.healpix_show(
+        probability,
+        ax=ax,
+        method="linear",
+        norm=BoundaryNorm(TP_STEPS, ncolors=TP_COLORMAP.N, clip=True),
+        cmap=TP_COLORMAP,
+    )
+    return im
+
+
+def _get_ensemble_probabilty(
+        forecast_enfo: xr.Dataset, threshold: float
+        ) -> xr.Dataset:
+    ensemble_size = forecast_enfo.sizes["member"]
+    probability = (((forecast_enfo > threshold).sum(dim="member")
+                    ) / ensemble_size) * 100
+    return probability
+
+
 def _draw_icwv_oper_contour(forecast, ax):
     color = "#000000"
     linewidth = 2.0
@@ -99,25 +127,8 @@ def _draw_icwv_oper_contour(forecast, ax):
         colors=color,
         linewidths=linewidth,
     )
-    line = Line2D([0], [0], label="Operational forecast", color=color,
+    line = Line2D([0], [0], label=f"Operational forecast, 3-hourly precip rate > {CONTOUR_THRESHOLD}mm/day contour", color=color,
                   linewidth=linewidth)
-    return line
-
-def _draw_icwv_enfo_contours(forecasts, ax):
-    color = "#bf0000"
-    linewidth = 0.8
-    alpha = 0.15
-    for member in forecasts["member"]:
-        egh.healpix_contour(
-            forecasts.sel(member=member),
-            ax=ax,
-            levels=[CONTOUR_THRESHOLD],
-            colors=color,
-            linewidths=linewidth,
-            alpha=alpha,
-        )
-    line = Line2D([0], [0], label="Individual ensemble members", color=color,
-                  linewidth=linewidth, alpha=alpha)
     return line
 
 
@@ -132,46 +143,9 @@ def _draw_icwv_enfo_mean_contour(forecasts, ax):
         colors=color,
         linewidths=linewidth,
     )
-    line = Line2D([0], [0], label="Ensemble mean", color=color,
+    line = Line2D([0], [0], label=f"Ensemble mean, 3-hourly precip rate > {CONTOUR_THRESHOLD}mm/day contour", color=color,
                   linewidth=linewidth)
     return line
-
-
-def _draw_icwv_ERA5_contour(climatology, ax):
-    color = "gray"
-    linewidth = 2.0
-    ls = '--'
-    egh.healpix_contour(
-        climatology,
-        ax=ax,
-        levels=[CONTOUR_THRESHOLD],
-        colors=color,
-        linewidths=linewidth,
-        linestyles=ls,
-    )
-    line = Line2D([0], [0], label="ERA5 2010-2022 7-day running mean",
-                  color=color, linewidth=linewidth)
-    return line
-
-def _get_rolling_daily_climatology(
-        var: str,
-        briefing_time: pd.Timestamp,
-        lead_hours: str):
-    valid_time = get_valid_time(briefing_time, lead_hours)
-    valid_time_doy = valid_time.day_of_year
-    climatology = _load_rolling_daily_climatology(var)
-    return climatology.sel(dayofyear=valid_time_doy)
-
-def _load_rolling_daily_climatology(var: str="tcwv"):
-    cat = intake.open_catalog("https://tcodata.mpimet.mpg.de/internal.yaml")
-    hera5 = cat.HERA5(time="P1D").to_dask().pipe(egh.attach_coords)[var]
-    hera5_subsample = hera5.where(
-        hera5["time"] < np.datetime64("2023-01-01"), drop=True
-        )
-    hera5_running_mean = hera5_subsample.rolling(time=7, center=True).mean()
-    hera5_running_mean_reduced = hera5_running_mean.sel(
-        time=hera5_running_mean['time'].dt.month.isin([9]))
-    return hera5_running_mean_reduced.groupby('time.dayofyear').mean()
 
 
 if __name__ == "__main__":
@@ -181,10 +155,10 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 9, 3).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 9, 3, 12).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 9, 3).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 9, 14).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 9, 14, 15).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 9, 14).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
-    fig = precip_enfo(briefing_time1, "12H", current_time1, sattracks_fc_time1,
+    fig = precip_enfo(briefing_time1, "36H", current_time1, sattracks_fc_time1,
                       meteor_track, hifs)
     fig.savefig("precip_enfo1.png")

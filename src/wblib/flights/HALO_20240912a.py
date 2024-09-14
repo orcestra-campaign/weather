@@ -2,11 +2,11 @@ import pandas as pd
 import orcestra.sat
 from orcestra.flightplan import (
     bco,
-    point_on_track,
     LatLon,
     IntoCircle,
     FlightPlan,
 )
+import datetime
 
 
 def _flight_HALO_20240912a():
@@ -15,35 +15,22 @@ def _flight_HALO_20240912a():
     airport = bco
     radius = 72e3 * 1.852
 
-    # Load satellite tracks
-    ec_fcst_time = "2024-09-08"
-    ec_track = (
-        orcestra.sat.SattrackLoader(
-            "EARTHCARE", ec_fcst_time, kind="PRE", roi="BARBADOS"
-        )
-        .get_track_for_day(f"{flight_time:%Y-%m-%d}")
-        .sel(time=slice(f"{flight_time:%Y-%m-%d} 14:00", None))
-    )
+    c_northeast  = LatLon(lat=12.0, lon=-48.61704672839506, label='c_northeast', fl=None, time=None, note=None)
+    c_southwest  = LatLon(lat=10.5, lon=-52.40370419623573, label='c_southwest', fl=None, time=None, note=None)
+    c_southeast  = LatLon(lat=9.0, lon=-49.18841539648257, label='c_southeast', fl=None, time=None, note=None)
+    c_northwest  = LatLon(lat=13.5, lon=-51.8282961728395, label='c_northwest', fl=None, time=None, note=None)
 
-    # Create elements of track
-    ec_track5 = ec_track.assign(lon=lambda ds: ds.lon + 3.5)
 
-    c_northeast  = point_on_track(ec_track5,lat= 12.00).assign(label = "c_northeast")
-    c_southwest  = point_on_track(ec_track,lat= 10.50).assign(label = "c_southwest")
-    c_southeast  = point_on_track(ec_track5,lat= 9.00).assign(label = "c_southeast")
-    c_northwest  = point_on_track(ec_track,lat= 13.5).assign(label = "c_northwest")
-
-    ec_north = point_on_track(ec_track,lat= 15.00).assign(label = "ec_north") 
-    ec_south = point_on_track(ec_track,lat=  c_southwest.lat - 1.5).assign(label = "ec_south")
-    ec_under = point_on_track(ec_track, lat= 12.00, with_time=True).assign(label = "ec_under", note = "meet EarthCARE")
-    ec_under_north = point_on_track(ec_track, lat= 13.00).assign(label = "ec_under_n", note = "EC align north")
-    ec_under_south = point_on_track(ec_track, lat= 11.00).assign(label = "ec_under_s", note = "EC align south")
+    ec_north = LatLon(lat=15.0, lon=-51.53701707317073, label='ec_north', fl=None, time=None, note=None)
+    ec_south = LatLon(lat=9.0, lon=-52.68841539648257, label='ec_south', fl=None, time=None, note=None)
+    ec_under = LatLon(lat=12.0, lon=-52.11704672839506, label='ec_under', fl=None, time=datetime.datetime(2024, 9, 12, 17, 35, 38, 794753, tzinfo=datetime.timezone.utc), note='meet EarthCARE')
+    ec_under_north = LatLon(lat=13.0, lon=-51.92483071935783, label='ec_under_n', fl=None, time=None, note='EC align north')
+    ec_under_south = LatLon(lat=11.0, lon=-52.30840388888889, label='ec_under_s', fl=None, time=None, note='EC align south')
 
 
     # Define Flight Paths
     waypoints = [
         airport.assign(fl=0),
-        #c_southwest.assign(fl=410),
         IntoCircle(c_southeast.assign(fl=410), radius, 330, enter= 0),
         IntoCircle(c_northeast.assign(fl=430), radius, -360, enter = 180),
         IntoCircle(c_northwest.assign(fl=430), radius, -360, enter = 180),

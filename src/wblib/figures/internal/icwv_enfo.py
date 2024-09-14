@@ -173,11 +173,11 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 9, 7).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 9, 7, 10).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 9, 6).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 9, 11, 9, 50).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
-    for lead_time in ["012h"]:#, "036h", "060h", "084h", "108h"]:
-        fig = iwv_itcz_edges_enfo(briefing_time1, "12H", current_time1,
+    
+    fig = iwv_itcz_edges_enfo(briefing_time1, "156H", current_time1,
                                 sattracks_fc_time1, meteor_track, hifs)
-        fig.savefig(f"test_{lead_time}.png")        
+    fig.savefig(f"test_icwv_ens_156H.png")        

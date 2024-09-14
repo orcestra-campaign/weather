@@ -78,6 +78,15 @@ NHC tropical Hovmöller
 :::
 
 ## 
+### {{< meta valid_dates.132h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.132h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.132h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.132h >}}){width=42%}
+![]({{< meta plots.internal.precip.132h >}}){width=42%}
+:::
+
+## 
 ### Ensemble forecasts of moist margins
 ::: {layout-nrow=2}
 ![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.015h >}}){width=42%}
@@ -86,10 +95,17 @@ NHC tropical Hovmöller
 ![{{< meta valid_dates.084h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.084h >}}){width=42%}
 :::
 
+## 
+### Ensemble forecasts of moist margins
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.108h >}}){width=42%}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.132h >}}){width=42%}
+:::
+
 # Total aerosol optical depth
 ##
 :::: {.columns}
-::: {.column  width="93%"}
+::: {.column width="93%"}
 ::: {layout-nrow=2}
 ![{{< meta valid_dates.015h >}}]({{< meta plots.external_lead.total_aerosol.015h >}}){width=75%}
 
@@ -105,6 +121,7 @@ NHC tropical Hovmöller
 :::
 ::::
 
+
 ##
 :::: {.columns}
 ::: {.column width="30%"}
@@ -117,3 +134,15 @@ NHC tropical Hovmöller
 
 ## Summary
 Summary of the weather briefing.
+
+
+# Supporting figures
+
+## 
+### Horizontal surface wind convergence
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.sfc_convergence.015h >}}){width=42%}
+![{{< meta valid_dates.039h >}}]({{< meta plots.internal.sfc_convergence.039h >}}){width=42%}
+![{{< meta valid_dates.063h >}}]({{< meta plots.internal.sfc_convergence.063h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.sfc_convergence.084h >}}){width=42%}
+:::

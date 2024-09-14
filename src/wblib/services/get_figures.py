@@ -17,6 +17,7 @@ from wblib.services._define_figures import PLOTS_LEADTIMES
 Image = Union[img.Image, Figure]
 
 INTAKE_CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
+MAX_LEAD_TIME_EXTERNAL_LEAD = 120   #[h]
 
 def generate_external_inst_figures(
     current_location: str,
@@ -60,6 +61,8 @@ def generate_external_lead_figures(
             _warn_function_is_not_defined(product, logger)
             continue
         for lead_hours in PLOTS_LEADTIMES:
+            if int(lead_hours[:-1]) > MAX_LEAD_TIME_EXTERNAL_LEAD:
+                continue
             try:
                 figure = function(
                     briefing_time,

@@ -2,6 +2,7 @@
 
 import copy
 from typing import Iterable
+import warnings
 import numpy as np
 import pandas as pd
 import xarray as xr
@@ -65,15 +66,19 @@ class HifsForecasts:
             issue_time_reference, number
         )
         for briefing_time in briefing_times:
-            issue_time, forecast = self._get_forecast(
-                variable,
-                briefing_time,
-                valid_time,
-                current_time,
-                forecast_type,
-                differentiate,
-                differentiate_unit,
-            )
+            try:
+                issue_time, forecast = self._get_forecast(
+                    variable,
+                    briefing_time,
+                    valid_time,
+                    current_time,
+                    forecast_type,
+                    differentiate,
+                    differentiate_unit,
+                )
+            except KeyError:
+                warnings.warn("Skipping previous forecast")
+                continue                
             yield issue_time, forecast
 
     

@@ -17,26 +17,26 @@ from wblib.figures.internal.icwv_ens import iwv_itcz_edges_enfo
 from wblib.figures.internal.sfc_convergence import sfc_convergence
 
 EXTERNAL_INST_PLOTS = {
-    "nhc_surface_analysis_atlantic": nhc_surface_analysis_atlantic,
-    "nhc_seven_days_outlook": nhc_seven_days_outlook,
-    "current_satellite_image_ir": current_satellite_image_ir,
+    # "nhc_surface_analysis_atlantic": nhc_surface_analysis_atlantic,
+    # "nhc_seven_days_outlook": nhc_seven_days_outlook,
+    # "current_satellite_image_ir": current_satellite_image_ir,
     "latest_goes2go_image": latest_goes2go_image,
-    "yesterdays_goes2go_image": yesterdays_goes2go_image,
-    "nhc_hovmoller": nhc_hovmoller,
-    "ifs_meteogram": ifs_meteogram,
+    #"yesterdays_goes2go_image": yesterdays_goes2go_image,
+    # "nhc_hovmoller": nhc_hovmoller,
+    # "ifs_meteogram": ifs_meteogram,
 }
 
 EXTERNAL_LEAD_PLOTS = {
-    "total_aerosol": ifs_total_aerosol,
+    # "total_aerosol": ifs_total_aerosol,
 }
 
 INTERNAL_PLOTS = {
-    "iwv_itcz_edges": iwv_itcz_edges,
-    "sfc_winds": sfc_winds,
-    "precip": precip,
-    "cloud_top_height": cloud_top_height,
-    "iwv_itcz_edges_enfo": iwv_itcz_edges_enfo,
-    "sfc_convergence": sfc_convergence
+    # "iwv_itcz_edges": iwv_itcz_edges,
+    # "sfc_winds": sfc_winds,
+    # "precip": precip,
+    # "cloud_top_height": cloud_top_height,
+    # "iwv_itcz_edges_enfo": iwv_itcz_edges_enfo,
+    # "sfc_convergence": sfc_convergence
 }
 
 PLOTS_LEADTIMES = ["015h", "039h", "063h", "084h", "108h", "132h"]

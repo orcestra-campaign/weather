@@ -133,7 +133,14 @@ NHC tropical Hovmöller
 ::::
 
 ## Summary
-Summary of the weather briefing.
+- For tomorrows's flight:
+    - southern circle a bit south of ITCZ edge (48mm margin)
+    - northern ITCZ edge still uncertain due to tropical storm Gordon
+    - rather fair conditions with moderate convection expected
+- For next flight:
+    - southern ITCZ edge likely quite close to Barbados
+    - northern ITCZ edge still very uncertain due to influence of Gordon
+    - deep, precipitating convection rather likely in northern flight area
 
 
 # Supporting figures

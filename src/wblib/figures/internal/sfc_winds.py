@@ -11,6 +11,7 @@ from matplotlib.figure import Figure
 import seaborn as sns
 import healpy as hp
 import xarray as xr
+import itertools
 
 from wblib.figures.briefing_info import INTERNAL_FIGURE_SIZE
 from wblib.figures.briefing_info import ORCESTRA_DOMAIN
@@ -29,6 +30,16 @@ SPEED_MIN = 0  # m/s
 SPEED_COLORMAP = "YlGn"
 MESH_GRID_SIZE = 50
 QUIVER_SKIP = 4
+NUMBER_FORECASTS = 5
+
+REFDATE_COLORBAR_TCWV = [
+    "#ff0000",
+    "#bf0000",
+    "#800000",
+    "#400000",
+    "#000000"
+] # the ordering of the colors indicate the latest available refdate
+REFDATE_LINEWIDTH = [1, 1.1, 1.2, 1.3, 1.5]
 
 def sfc_winds(
     briefing_time: pd.Timestamp,
@@ -43,6 +54,18 @@ def sfc_winds(
     )
     _, v10m = hifs.get_forecast("10v", briefing_time, lead_hours, current_time)
     windspeed_10m = np.sqrt(u10m**2 + v10m**2)
+
+    u10m_latest_five = hifs.get_previous_forecasts(
+        "10u", briefing_time, lead_hours, current_time, issue_time,
+        number=NUMBER_FORECASTS,
+    )
+    v10m_latest_five = hifs.get_previous_forecasts(
+        "10v", briefing_time, lead_hours, current_time, issue_time,
+        number=NUMBER_FORECASTS,
+    )
+    #for u10, v10 in itertools.zip(u10m_latest_five, v10m_latest_five):
+    windspeed_10m_latest = [np.sqrt(u10[1]**2 + v10[1]**2) for u10, v10 in zip(u10m_latest_five, v10m_latest_five)]
+
     # plotting
     sns.set_context("talk")
     fig, ax = plt.subplots(
@@ -54,7 +77,8 @@ def sfc_winds(
                                 sattracks_fc_time, "sfc_winds", ax)
     _windspeed_plot(windspeed_10m, fig, ax)
     _wind_direction_plot(u10m, v10m, ax)
-    _windspeed_contour(windspeed_10m, ax)
+    #_windspeed_contour(windspeed_10m, ax)
+    _windspeed_contour_for_previous_forecasts(windspeed_10m_latest, ax)
     _draw_confluence_contour(v10m, ax)
     plot_sattrack(ax, briefing_time, lead_hours, sattracks_fc_time,
                   which_orbit="descending")
@@ -76,6 +100,20 @@ def _windspeed_contour(windspeed_10m, ax):
         colors="r",
     )
     ax.clabel(im, inline=True, fontsize=12, colors="r", fmt="%d")
+
+def _windspeed_contour_for_previous_forecasts(windspeed_10m, ax):
+    issued_times = []
+    for i, windspeed_forecast in enumerate(windspeed_10m):
+        color = REFDATE_COLORBAR_TCWV[i]
+        linewidth = REFDATE_LINEWIDTH[i]
+        im = egh.healpix_contour(
+            windspeed_forecast,
+            ax=ax,
+            levels=[SPEED_THRESHOLD],
+            colors=color,
+            linewidths=linewidth,
+        )
+        #issued_times.append(issued_time_)
 
 def _draw_confluence_contour(v10m, ax):
     im = egh.healpix_contour(
@@ -143,10 +181,10 @@ if __name__ == "__main__":
     CATALOG_URL = "https://tcodata.mpimet.mpg.de/internal.yaml"
     incatalog = intake.open_catalog(CATALOG_URL)
     hifs = HifsForecasts(incatalog)
-    briefing_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
-    current_time1 = pd.Timestamp(2024, 9, 11, 9, 50).tz_localize("UTC")
-    sattracks_fc_time1 = pd.Timestamp(2024, 9, 11).tz_localize("UTC")
+    briefing_time1 = pd.Timestamp(2024, 9, 13).tz_localize("UTC")
+    current_time1 = pd.Timestamp(2024, 9, 13, 10, 50).tz_localize("UTC")
+    sattracks_fc_time1 = pd.Timestamp(2024, 9, 13).tz_localize("UTC")
     meteor_track = get_meteor_track(deduplicate_latlon=True)
-    fig = sfc_winds(briefing_time1, "156H", current_time1,
+    fig = sfc_winds(briefing_time1, "108H", current_time1,
                     sattracks_fc_time1, meteor_track, hifs)
-    fig.savefig("test_sfc_winds_156H.png")
+    fig.savefig("test_sfc_winds_108H.png")

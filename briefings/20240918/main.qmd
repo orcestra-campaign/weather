@@ -1,0 +1,119 @@
+---
+title: "PERCUSION Weather briefing"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< meta plots.external_inst.nhc_surface_analysis_atlantic >}})
+
+## NHC tropical weather outlook
+![]({{< meta plots.external_inst.nhc_seven_days_outlook >}})
+
+## 
+:::: {.columns}
+::: {.column width="7%"}
+NHC tropical Hovmöller
+:::
+::: {.column width="93%"}
+![]({{< meta plots.external_inst.nhc_hovmoller >}}){width="60%"}
+:::
+::::
+
+
+# Latest satellite images
+## GOES yesterday's image
+![]({{< meta plots.external_inst.yesterdays_goes2go_image >}})
+
+## GOES latest image
+![]({{< meta plots.external_inst.latest_goes2go_image >}})
+
+## GOES WEST Latest Infrared Image
+![]({{< meta plots.external_inst.current_satellite_image_ir >}})
+
+# ECMWF Forecasts
+
+## 
+### {{< meta valid_dates.015h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.015h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.015h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.015h >}}){width=42%}
+![]({{< meta plots.internal.precip.015h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.039h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.039h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.039h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.039h >}}){width=42%}
+![]({{< meta plots.internal.precip.039h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.063h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.063h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.063h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.063h >}}){width=42%}
+![]({{< meta plots.internal.precip.063h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.084h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.084h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.084h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.084h >}}){width=42%}
+![]({{< meta plots.internal.precip.084h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.108h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.108h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.108h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.108h >}}){width=42%}
+![]({{< meta plots.internal.precip.108h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.132h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.132h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.132h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.132h >}}){width=42%}
+![]({{< meta plots.internal.precip.132h >}}){width=42%}
+:::
+
+##
+:::: {.columns}
+::: {.column width="30%"}
+### Local forecast for {{< meta location >}}
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external_inst.ifs_meteogram >}}){width="61%"}
+:::
+::::
+
+## Summary
+- For tomorrow's flight:
+    - northern moist margin masked by tropical disturbance
+    - no precipitating convection except cluster in northern area, east of EarthCare track
+- For next flight:
+    - southern moist margin still a bit uncertain
+    - northern moist margin masked by tropical disturbance 
+    - mostly fair conditions with little to no precipitation
+    - chance of sampling doldrums
+
+
+# Supporting figures
+
+## 
+### Horizontal surface wind convergence
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.sfc_convergence.015h >}}){width=42%}
+![{{< meta valid_dates.039h >}}]({{< meta plots.internal.sfc_convergence.039h >}}){width=42%}
+![{{< meta valid_dates.063h >}}]({{< meta plots.internal.sfc_convergence.063h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.sfc_convergence.084h >}}){width=42%}
+:::

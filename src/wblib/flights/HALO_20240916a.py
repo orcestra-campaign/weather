@@ -1,41 +1,26 @@
 import pandas as pd
-import orcestra.sat
 from orcestra.flightplan import (
     bco,
-    point_on_track,
     LatLon,
     IntoCircle,
     FlightPlan,
 )
+import datetime
 
 
 def _flight_HALO_20240916a():
-    lon_min, lon_max, lat_min, lat_max = -65, -20, 0, 20
-
     flight_time = pd.Timestamp(2024, 9, 16, 12, 0, 0).tz_localize("UTC")
 
     airport = bco
     radius = 72e3 * 1.852
 
-    # Load satellite tracks
-    ec_fcst_time = "2024-09-15"
-    ec_track = (
-        orcestra.sat.SattrackLoader(
-            "EARTHCARE", ec_fcst_time, kind="PRE", roi="BARBADOS"
-        )
-        .get_track_for_day(f"{flight_time:%Y-%m-%d}")
-        .sel(time=slice(f"{flight_time:%Y-%m-%d} 14:00", None))
-    )
-
-    c_north = point_on_track(ec_track, lat=11.5).assign(label="c_north")
+    c_north = LatLon(lat=11.5, lon=-46.927411728395064, label='c_north', fl=None, time=None, note=None)
     c_south = LatLon(lat=7, lon=-50).assign(label="c_south")
-    c_mid = point_on_track(ec_track, lat=8.7).assign(label="c_mid")
+    c_mid = LatLon(lat=8.7, lon=-47.45979058641976, label='c_mid', fl=None, time=None, note=None)
 
-    ec_north = point_on_track(ec_track, lat=9).assign(label="ec_north")
-    ec_south = point_on_track(ec_track, lat=3.0).assign(label="ec_south")
-    ec_under = point_on_track(ec_track, lat=5.5, with_time=True).assign(
-        label="ec_under", note="meet EarthCARE"
-    )
+    ec_north = LatLon(lat=9, lon=-47.40303132716049, label='ec_north', fl=None, time=None, note=None)
+    ec_south = LatLon(lat=3.0, lon=-48.52921481024375, label='ec_south', fl=None, time=None, note=None)
+    ec_under = LatLon(lat=5.5, lon=-48.06194174637457, label='ec_under', fl=None, time=datetime.datetime(2024, 9, 16, 17, 16, 3, 963900, tzinfo=datetime.timezone.utc), note='meet EarthCARE')
 
     pace_north = LatLon(lat=8, lon=-50.3673333333333, label="pace_north",
                         fl=None, time=None, note=None)
@@ -46,8 +31,7 @@ def _flight_HALO_20240916a():
 
     c_south_entry = LatLon(lat=8.1, lon=-50.3885, label="c_south_entry",
                         fl=None, time=None, note=None)
-    c_north_home = point_on_track(ec_track, lat=c_north.lat - 1.25).assign(
-        label="c_north_home")
+    c_north_home = LatLon(lat=10.25, lon=-47.165854320987656, label='c_north_home', fl=None, time=None, note=None)
 
     c_wait4EC = LatLon(lat=3.0, lon=-49.3103333333333, label="c_wait4EC", fl=None, time=None, note=None)
 

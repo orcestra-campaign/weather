@@ -93,8 +93,6 @@ class HifsForecasts:
         differentiate,
         differentiate_unit,
     ) -> tuple[pd.Timestamp, xr.DataArray]:
-        if variable == "tcwv" and forecast_type == "enfo":
-            variable = "avg_tcwv"
         issue_time, forecast_dataset = _load_forecast_dataset(
             briefing_time, current_time, forecast_type, self.catalog
         )

@@ -118,7 +118,7 @@ def _windconv_plot(conv_10m, fig, ax):
         vmin=CONV_MIN,
         vmax=CONV_MAX,
         ax=ax,
-        nest=False
+        nest=True
     )
     fig.colorbar(im, label="10m wind convergence / s$^{-1}$", shrink=0.8)
 

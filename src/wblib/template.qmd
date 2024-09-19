@@ -146,3 +146,21 @@ Summary of the weather briefing.
 ![{{< meta valid_dates.063h >}}]({{< meta plots.internal.sfc_convergence.063h >}}){width=42%}
 ![{{< meta valid_dates.084h >}}]({{< meta plots.internal.sfc_convergence.084h >}}){width=42%}
 :::
+
+## 
+### Probabilistic precipitation forecast
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.precip_enfo.015h >}}){width=42%}
+![{{< meta valid_dates.039h >}}]({{< meta plots.internal.precip_enfo.039h >}}){width=42%}
+![{{< meta valid_dates.063h >}}]({{< meta plots.internal.precip_enfo.063h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.precip_enfo.084h >}}){width=42%}
+:::
+
+## 
+### Horizontal sfc. wind conv. & Prob. precip. forecast
+::: {layout-nrow=2}
+![{{< meta valid_dates.108h >}}]({{< meta plots.internal.sfc_convergence.108h >}}){width=42%}
+![{{< meta valid_dates.132h >}}]({{< meta plots.internal.sfc_convergence.132h >}}){width=42%}
+![{{< meta valid_dates.108h >}}]({{< meta plots.internal.precip_enfo.108h >}}){width=42%}
+![{{< meta valid_dates.132h >}}]({{< meta plots.internal.precip_enfo.132h >}}){width=42%}
+:::

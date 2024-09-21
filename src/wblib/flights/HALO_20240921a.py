@@ -1,46 +1,38 @@
 import pandas as pd
-import orcestra.sat
 from orcestra.flightplan import (
-    bco,
-    point_on_track,
+    tbpb,
     LatLon,
     IntoCircle,
     FlightPlan,
 )
-from orcestra.flightplan import tbpb
+import datetime
 
 
 def _flight_HALO_20240921a():
-    lon_min, lon_max, lat_min, lat_max = -65, -20, 0, 20
-
     flight_time = pd.Timestamp(2024, 9, 21, 11, 25, 0).tz_localize("UTC")
 
     airport = tbpb
     radius = 72e3 * 1.852
-    sat_fcst_date = "2024-09-18"  # date to get satelite forecast(s) from
-    ec_time_slice = slice(
-        f"{flight_time:%Y-%m-%d} 17:30", f"{flight_time:%Y-%m-%d} 17:40"
-    )
-    
-    ec_track = (
-        orcestra.sat.SattrackLoader(
-            "EARTHCARE", sat_fcst_date, kind="PRE", roi="BARBADOS"
-        )
-        .get_track_for_day(f"{flight_time:%Y-%m-%d}")
-        .sel(time=ec_time_slice)
-    )
 
     # Create points for flight path
-    ec_circ = point_on_track(ec_track, lat=10.00).assign(label="ec_circ")
-    ec_under = point_on_track(ec_track, lat=11.00, with_time=True).assign(
-        label="ec_under", note="meet EarthCARE"
-    )
-    ec_south = point_on_track(ec_track, lat=ec_circ.lat - 1.2).assign(
-        label="ec_south"
-    )
-    ec_north = point_on_track(ec_track, lat=airport.lat).assign(
-        label="ec_north"
-    )
+    ec_circ = LatLon(
+        lat=10.0, lon=-51.993406666666665, label='ec_circ', fl=None, time=None,
+        note=None
+        )
+    ec_under = LatLon(
+        lat=11.0, lon=-51.80293317901234, label='ec_under', fl=None,
+        time=datetime.datetime(
+            2024, 9, 21, 17, 33, 39, 149691, tzinfo=datetime.timezone.utc),
+        note='meet EarthCARE'
+        )
+    ec_south = LatLon(
+        lat=8.8, lon=-52.220948703703705, label='ec_south', fl=None, time=None,
+        note=None
+        )
+    ec_north = LatLon(
+        lat=13.074722, lon=-51.404937365853655, label='ec_north', fl=None,
+        time=None, note=None
+        )
 
     meteor = LatLon(11.7, -56).assign(label="meteor")
     west = meteor.towards(ec_circ, fraction=2.0).assign(

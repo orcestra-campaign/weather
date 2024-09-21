@@ -102,6 +102,25 @@ NHC tropical Hovmöller
 ![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.132h >}}){width=42%}
 :::
 
+# Total aerosol optical depth
+##
+:::: {.columns}
+::: {.column width="93%"}
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.external_lead.total_aerosol.015h >}}){width=75%}
+
+![{{< meta valid_dates.039h >}}]({{< meta plots.external_lead.total_aerosol.039h >}}){width=75%}
+
+![{{< meta valid_dates.063h >}}]({{< meta plots.external_lead.total_aerosol.063h >}}){width=75%}
+
+![{{< meta valid_dates.084h >}}]({{< meta plots.external_lead.total_aerosol.084h >}}){width=75%}
+:::
+:::
+::: {.column width="7%"}
+![](dust_colorbar.png){width=100%}
+:::
+::::
+
 
 ##
 :::: {.columns}
@@ -114,8 +133,16 @@ NHC tropical Hovmöller
 ::::
 
 ## Summary
-Summary of the weather briefing.
+- Today's flight (PI Raphaela):
+  - No significant deep convection expected
 
+- Monday's flight (PI Theresa):
+  - Certainly within the ITCZ moist margins, but outside the doldrums
+  - Strong deep convection expected
+
+- Tuesday's flight (PI Anna):
+  - Same conditions as during Theresa's flight
+  - Some chance to sample the same convective system as Theresa's flight
 
 # Supporting figures
 

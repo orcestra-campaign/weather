@@ -133,8 +133,13 @@ NHC tropical Hovmöller
 ::::
 
 ## Summary
-Summary of the weather briefing.
-
+- Today's flight:
+  - Inside the moist margins along a pronounced line of deep convection
+  - Chance to sample localized doldrums
+- Tomorrow's flight:
+  - Certainly inside the moist margins
+  - Possibility of sampling organized line-like convection
+- Later throughout the weak: Growing uncertainty due to tropical depression/storm AL96
 
 # Supporting figures
 

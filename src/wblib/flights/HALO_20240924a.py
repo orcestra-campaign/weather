@@ -22,26 +22,26 @@ def _flight_HALO_20240924a():
     c_west = c_west_in.towards(c_east_out, distance = radius).assign(label = "c_west")
     c_east = c_west.towards(c_east_out, distance = 2*radius+radius).assign(label = "c_east")
 
-    ec_north = LatLon(lat=16.5, lon=-58.09336235330451, label='ec_north', fl=None, time=None, note=None)
-    ec_south = LatLon(lat=11.5, lon=-59.063401667181225, label='ec_south', fl=None, time=None, note=None)
-    ec_under = LatLon(lat=14.0, lon=-58.58195379864113, label='ec_under', fl=None, time=datetime.datetime(2024, 9, 24, 18, 2, 14, 780111, tzinfo=datetime.timezone.utc), note='meet EarthCARE')
+    ec_north = LatLon(lat=14.0, lon=-58.59031000617665, label='ec_north', fl=None, time=None, note=None)
+    ec_south = LatLon(lat=10.0, lon=-59.35789308641975, label='ec_south', fl=None, time=None, note=None)
+    ec_under = LatLon(lat=12.0, lon=-58.976008305032416, label='ec_under', fl=None, time=datetime.datetime(2024, 9, 24, 18, 2, 47, 514356, tzinfo=datetime.timezone.utc), note='meet EarthCARE')
 
-    c_pirouette = (c_west.towards(c_east_out, distance = radius)).towards(ec_north, fraction = 0.5).assign(label = "c_pirouette")
-
+    ferry = ec_out = ec_under.assign(time=None, note=None)
+    
     # Define Flight Paths
     waypoints = [
         airport.assign(fl=0),
+        ferry.assign(fl=390),
         c_west_in.assign(fl = 410),
-        IntoCircle(c_west.assign(fl=410), radius, -360),
-        IntoCircle(c_east.assign(fl=430), radius, -360), 
-        IntoCircle(c_east.assign(fl=430), radius, -360), 
-        IntoCircle(c_west.assign(fl=450), radius, -360), 
-        IntoCircle(c_pirouette.assign(fl=450), radius*0.3, -360),
-        ec_north.assign(fl=450),  
-        ec_under.assign(fl=450),
-        ec_south.assign(fl=450),
+        IntoCircle(c_west.assign(fl=410), radius, -360), 
+        ec_south.assign(fl=430),
+        ec_under.assign(fl=430),
+        ec_north.assign(fl=430),  
+        ec_out.assign(fl=450),
         c_west_in.assign(fl = 450),
-        IntoCircle(c_west.assign(fl=450), radius, -360), 
+        IntoCircle(c_west.assign(fl=450), radius, -360),
+        IntoCircle(c_west.assign(fl=450), radius, -360),
+        ferry.assign(fl=450, time=None),
         airport.assign(fl=0),
         ]
 

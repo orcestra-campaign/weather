@@ -18,12 +18,11 @@ def _flight_HALO_20240926a():
     speed_halo = 240  # m/s
 
     # Load satellite track
-    sat_fcst_date = "2024-09-23"
+    sat_fcst_date = "2024-09-24"
     ec_track = orcestra.sat.SattrackLoader(
         "EARTHCARE", sat_fcst_date, kind="PRE", roi="BARBADOS"
     ).get_track_for_day(f"{flight_time:%Y-%m-%d}")
     ec_track = ec_track.sel(time=slice(f"{flight_time:%Y-%m-%d} 07:00", None))
-    ec_lons, ec_lats = ec_track.lon.values, ec_track.lat.values
 
     # Circles
     lat_south = 10.5
@@ -32,13 +31,15 @@ def _flight_HALO_20240926a():
     lat_north = 16.5
     mid_north = point_on_track(ec_track, lat_north).assign(fl=450, label="c_north")
 
-    mid_mid = mid_south.towards(mid_north, 0.5).assign(label="c_mid", fl=400)
+    mid_mid = mid_south.towards(mid_north, 0.5).assign(label="c_mid", fl=410)
 
-    lat_east = 12
-    lon_east = mid_mid.lon + 2.3 + ((5 * 60 * speed_halo) / 110e3)
-    mid_east = LatLon(lat_east, lon_east, fl=430, label="c_east")
+    lat_neast = 14
+    lon_neast = mid_mid.lon + 3.5
+    mid_neast = LatLon(lat_neast, lon_neast, fl=430, label="c_northeast")
 
-    mid_west = mid_east.towards(mid_mid, 2).assign(label="c_west", fl=450)
+    lat_seast = 11
+    lon_seast = mid_mid.lon + 2.3 + ((5 * 60 * speed_halo) / 110e3)
+    mid_seast = LatLon(lat_seast, lon_seast, fl=450, label="c_southeast")
 
     # Ec points
     ec_south = point_on_track(ec_track, lat=mid_south.lat - 1.2).assign(
@@ -54,14 +55,14 @@ def _flight_HALO_20240926a():
     # Define Flight Paths
     waypoints = [
         tbpb,
-        IntoCircle(mid_mid, radius=radius, enter=180, angle=-360),
-        IntoCircle(mid_east, radius=radius, enter=-90, angle=-360),
+        IntoCircle(mid_mid, radius=radius, enter=-90, angle=-360),
+        IntoCircle(mid_neast, radius=radius, enter=-90, angle=-360),
+        IntoCircle(mid_seast, radius=radius, enter=180, angle=-360),
         IntoCircle(mid_south, radius=radius, enter=0, angle=420),
         ec_south,
         ec_under,
         ec_north,
         IntoCircle(mid_north, radius=radius, angle=-420),
-        IntoCircle(mid_west, radius=radius, enter=0, angle=360),
         tbpb,
     ]
 

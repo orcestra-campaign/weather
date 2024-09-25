@@ -27,6 +27,9 @@ NHC tropical Hovmöller
 ## GOES latest image
 ![]({{< meta plots.external_inst.latest_goes2go_image >}})
 
+## GOES WEST Latest Infrared Image
+![]({{< meta plots.external_inst.current_satellite_image_ir >}})
+
 # ECMWF Forecasts
 
 ## 
@@ -98,6 +101,25 @@ NHC tropical Hovmöller
 ![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.108h >}}){width=42%}
 ![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.132h >}}){width=42%}
 :::
+
+# Total aerosol optical depth
+##
+:::: {.columns}
+::: {.column width="93%"}
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.external_lead.total_aerosol.015h >}}){width=75%}
+
+![{{< meta valid_dates.039h >}}]({{< meta plots.external_lead.total_aerosol.039h >}}){width=75%}
+
+![{{< meta valid_dates.063h >}}]({{< meta plots.external_lead.total_aerosol.063h >}}){width=75%}
+
+![{{< meta valid_dates.084h >}}]({{< meta plots.external_lead.total_aerosol.084h >}}){width=75%}
+:::
+:::
+::: {.column width="7%"}
+![](dust_colorbar.png){width=100%}
+:::
+::::
 
 
 ##

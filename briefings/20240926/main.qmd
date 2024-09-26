@@ -133,7 +133,15 @@ NHC tropical Hovmöller
 ::::
 
 ## Summary
-Summary of the weather briefing.
+- Todays's flight:
+  - Circles likely to sample across the moist margins. East-most circle will be outside the moist margin.
+  - Deep convection expected mostly west of the flight path close to Barbados. West-most circles might encounter deep convection.
+
+- Saturday's flight:
+  - Eastern circles likely inside moist margins. Western circles migth be outside moist margins.
+  - All circles likely to sample the doldrums.
+  - No large areas of deep convection expected along the flight track.
+  - Possible tropical cyclone development to the north of the track.
 
 
 # Supporting figures

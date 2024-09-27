@@ -1,0 +1,136 @@
+---
+title: "PERCUSION Weather briefing"
+---
+
+# Current synoptic situation
+## NHC surface analysis
+![]({{< meta plots.external_inst.nhc_surface_analysis_atlantic >}})
+
+## NHC tropical weather outlook
+![]({{< meta plots.external_inst.nhc_seven_days_outlook >}})
+
+## 
+:::: {.columns}
+::: {.column width="7%"}
+NHC tropical Hovmöller
+:::
+::: {.column width="93%"}
+![]({{< meta plots.external_inst.nhc_hovmoller >}}){width="60%"}
+:::
+::::
+
+
+# Latest satellite images
+
+## GOES latest image
+![]({{< meta plots.external_inst.latest_goes2go_image >}})
+
+## GOES WEST Latest Infrared Image
+![]({{< meta plots.external_inst.current_satellite_image_ir >}})
+
+# ECMWF Forecasts
+
+## 
+### {{< meta valid_dates.015h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.015h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.015h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.015h >}}){width=42%}
+![]({{< meta plots.internal.precip.015h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.039h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.039h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.039h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.039h >}}){width=42%}
+![]({{< meta plots.internal.precip.039h >}}){width=42%}
+:::
+
+## 
+### {{< meta valid_dates.063h >}}
+::: {layout-nrow=2}
+![]({{< meta plots.internal.iwv_itcz_edges.063h >}}){width=42%}
+![]({{< meta plots.internal.sfc_winds.063h >}}){width=42%}
+![]({{< meta plots.internal.cloud_top_height.063h >}}){width=42%}
+![]({{< meta plots.internal.precip.063h >}}){width=42%}
+:::
+
+
+## 
+### Ensemble forecasts of moist margins
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.015h >}}){width=42%}
+![{{< meta valid_dates.039h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.039h >}}){width=42%}
+![{{< meta valid_dates.063h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.063h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.iwv_itcz_edges_enfo.084h >}}){width=42%}
+:::
+
+
+# Total aerosol optical depth
+##
+:::: {.columns}
+::: {.column width="93%"}
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.external_lead.total_aerosol.015h >}}){width=75%}
+
+![{{< meta valid_dates.039h >}}]({{< meta plots.external_lead.total_aerosol.039h >}}){width=75%}
+
+![{{< meta valid_dates.063h >}}]({{< meta plots.external_lead.total_aerosol.063h >}}){width=75%}
+
+![{{< meta valid_dates.084h >}}]({{< meta plots.external_lead.total_aerosol.084h >}}){width=75%}
+:::
+:::
+::: {.column width="7%"}
+![](dust_colorbar.png){width=100%}
+:::
+::::
+
+
+##
+:::: {.columns}
+::: {.column width="30%"}
+### Local forecast for {{< meta location >}}
+:::
+::: {.column width="70%"}
+![]({{< meta plots.external_inst.ifs_meteogram >}}){width="61%"}
+:::
+::::
+
+## Summary
+- for tomorrow's flight:
+    - deep convection only expected to occur in eastmost circle
+    - good chance of sampling doldrums
+- for return flight:
+    - tropical disturbance in flight area near Barbados
+
+
+# Supporting figures
+
+## 
+### Horizontal surface wind convergence
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.sfc_convergence.015h >}}){width=42%}
+![{{< meta valid_dates.039h >}}]({{< meta plots.internal.sfc_convergence.039h >}}){width=42%}
+![{{< meta valid_dates.063h >}}]({{< meta plots.internal.sfc_convergence.063h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.sfc_convergence.084h >}}){width=42%}
+:::
+
+## 
+### Probabilistic precipitation forecast
+::: {layout-nrow=2}
+![{{< meta valid_dates.015h >}}]({{< meta plots.internal.precip_enfo.015h >}}){width=42%}
+![{{< meta valid_dates.039h >}}]({{< meta plots.internal.precip_enfo.039h >}}){width=42%}
+![{{< meta valid_dates.063h >}}]({{< meta plots.internal.precip_enfo.063h >}}){width=42%}
+![{{< meta valid_dates.084h >}}]({{< meta plots.internal.precip_enfo.084h >}}){width=42%}
+:::
+
+## 
+### Horizontal sfc. wind conv. & Prob. precip. forecast
+::: {layout-nrow=2}
+![{{< meta valid_dates.108h >}}]({{< meta plots.internal.sfc_convergence.108h >}}){width=42%}
+![{{< meta valid_dates.132h >}}]({{< meta plots.internal.sfc_convergence.132h >}}){width=42%}
+![{{< meta valid_dates.108h >}}]({{< meta plots.internal.precip_enfo.108h >}}){width=42%}
+![{{< meta valid_dates.132h >}}]({{< meta plots.internal.precip_enfo.132h >}}){width=42%}
+:::
